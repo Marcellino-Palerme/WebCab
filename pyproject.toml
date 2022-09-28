@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "web-cab"
+version = "0.1.0"
+description = "web service to manage barcode in images"
+authors = ["Marcellino Palerme <marcellino.palerme@inrae.fr>"]
+license = "CeCILL_V2.1"
+readme = "README.md"
+packages = [{include = "web_cab"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+streamlit = "^1.13.0"
+
+[tool.poetry.group.dev]
+optional = true
+[tool.poetry.group.dev.dependencies]
+spyder = "^5.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
