@@ -16,6 +16,8 @@ This app :
 import streamlit as st
 import os
 from PIL import Image
+from streamlit_javascript import st_javascript
+import sqlite3
 
 # Define title of page and menu
 st.set_page_config(
@@ -30,13 +32,48 @@ st.set_page_config(
     }
 )
 
-# Define where save Uploaded image
-path_temp = '/mnt/stockage/temp'
+# Verify broswer is compatible
+# Get info on browser client
+info_brow = str(st_javascript("""navigator.userAgent"""))
 
-st.subheader('Upload image')
+conn = sqlite3.connect(os.path.join(os.getcwd(),'web_cab','ma_base.db'))
+cursor = conn.cursor()
 
-# Upload button
-up_file = st.file_uploader('votre image', ['png', 'jpg'], False)
+brow_comp = True
+if 'Edg' in info_brow:
+    cursor.execute("""SELECT version FROM browser WHERE name='Edge'""")
+    min_version = cursor.fetchone()[0]
+    if int(info_brow.split('Edg/')[1].split('.')[0]) < min_version:
+        brow_comp = False
+elif 'Firefox' in info_brow:
+    cursor.execute("""SELECT version FROM browser WHERE name='Firefox'""")
+    min_version = cursor.fetchone()[0]
+    if int(info_brow.split('Firefox/')[1].split('.')[0]) < min_version:
+        brow_comp = False
+elif 'Chrome' in info_brow:
+    cursor.execute("""SELECT version FROM browser WHERE name='Chrome'""")
+    min_version = cursor.fetchone()[0]
+    if int(info_brow.split(sep='Chrome/')[1].split(sep='.')[0]) < min_version:
+        brow_comp = False
+elif 'Safari' in info_brow:
+    cursor.execute("""SELECT version FROM browser WHERE name='Safari'""")
+    min_version = cursor.fetchone()[0]
+    if int(info_brow.split('Safari/')[1].split('.')[0]) < min_version:
+        brow_comp = False
+else:
+    brow_comp = False
+
+if not brow_comp :
+    st.write('Update your Broswer (Firefox, Chrome, Edge, Safari)')
+    up_file = None
+else:
+    # Define where save Uploaded image
+    path_temp = '/mnt/stockage/temp'
+
+    st.subheader('Upload image')
+
+    # Upload button
+    up_file = st.file_uploader('votre image', ['png', 'jpg'], False)
 # State to know if we loaded a image
 b_up_file = up_file is not None
 if b_up_file:

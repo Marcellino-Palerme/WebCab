@@ -10,6 +10,9 @@ packages = [{include = "web_cab"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 streamlit = "^1.13.0"
+streamlit-javascript = "^0.1.5"
+beautifulsoup4 = "^4.11.1"
+selenium = "^4.5.0"
 
 [tool.poetry.group.dev]
 optional = true
