@@ -13,6 +13,7 @@ import requests
 from bs4 import BeautifulSoup as BfS
 import re
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -124,7 +125,9 @@ INSERT INTO browser(name, version) VALUES(?, ?)""", ("Edge", version))
 conn.commit()
 
 ### Safari
-driver = webdriver.Firefox()
+op_fire = Options()
+op_fire.add_argument('--headless')
+driver = webdriver.Firefox(options=op_fire)
 driver.get(ADDR_SAFARI)
 version = WebDriverWait(driver, timeout=3).until(lambda d: d.find_element(By.CLASS_NAME,"highlight"))
 version = version.text
