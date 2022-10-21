@@ -18,6 +18,7 @@ import os
 from PIL import Image
 from streamlit_javascript import st_javascript
 import sqlite3
+import re
 
 # Define title of page and menu
 st.set_page_config(
@@ -77,8 +78,8 @@ else:
 # State to know if we loaded a image
 b_up_file = up_file is not None
 if b_up_file:
-    # Get name of image
-    im_name = up_file.name
+    # Get name of image without special caracters
+    im_name = re.sub('[^\.a-zA-Z0-9]', '_', up_file.name)
     # Save last image name
     st.session_state.update({'im_name':im_name})
     # show name image
