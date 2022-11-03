@@ -202,7 +202,7 @@ class MyAuthen():
 
         """
 
-        forgot_password_form = st.form('Forgot password')
+        forgot_password_form = st.form('Forgot_Password')
 
 
         forgot_password_form.subheader(_('title_forgot_pwd'))
@@ -238,6 +238,73 @@ class MyAuthen():
         forgot_password_form.form_submit_button(_('bt_forgot_pwd_submit'),
                                                 on_click=inside)
 
+    def _get_login(self, i_email):
+        """
+        get login of user cause email
+
+        Parameters
+        ----------
+        i_email : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        str
+           login of user
+
+        """
+        login_email_sql = """SELECT login, email FROM my_user
+                             WHERE email ~* %(start_email)s"""
+        start_email = '^' + i_email[0]
+        self.cursor.execute(login_email_sql, {'start_email':start_email})
+        l_login_email_pwd = self.cursor.fetchall()
+        # Check if email exist
+        for user in l_login_email_pwd:
+            if user[1] == i_email:
+                return user[0]
+        return None
+
+
+    def forgot_login(self):
+        """
+        Send login of user.
+
+        """
+
+        forgot_password_form = st.form('Forgot_Login')
+
+
+        forgot_password_form.subheader(_('title_forgot_login'))
+        forgot_password_form.text_input(_('forgot_login_email'),
+                                        key='v_forgot_login')
+
+        st.session_state['state_forgot_login'] = 3
+
+        def inside():
+            v_email = st.session_state.v_forgot_login
+            # Thx https://stackoverflow.com/a/5063991
+            regex_no_empty = r'[^$^\ ]'
+            if not re.match(regex_no_empty, v_email) is None :
+                v_login = self._get_login(v_email)
+                if not v_login is None:
+
+                    st.session_state['state_forgot_login'] = 0
+
+                    # Send login by email
+                    send_email(dst=v_email, sub=_('msg_email_sub_login'),
+                               msg=_('msg_email_header_login') + v_login +
+                                   _('msg_email_end'))
+
+                else:
+                    st.session_state['state_forgot_login'] = 1
+            else:
+                st.session_state['state_forgot_login'] = 2
+
+            del st.session_state.v_forgot_login
+
+
+        forgot_password_form.form_submit_button(_('bt_forgot_login_submit'),
+                                                on_click=inside)
 
     def logout(self):
         """
@@ -290,41 +357,6 @@ def show(function):
 
     return vide
 
-def forgot_login():
-    """
-    send login of user
-
-    Returns
-    -------
-    None.
-
-    """
-    # Verify if email exist
-    forgot_status, email = st.session_state.authr.forgot_login(
-                           _('title_forgot_login'))
-
-    if forgot_status :
-        # Get login of user
-        get_login_sql = '''SELECT login
-                           FROM my_user
-                           WHERE email=''' + email + ';'
-        l_login = st.session_state.cursor.execute(get_login_sql)
-        l_login = l_login.fetchone()
-
-        # Send login user
-        send_email(dst=email, sub=_('msg_email_sub_login'),
-                   msg=_('msg_email_header_login') + l_login[0] + \
-                         _('msg_email_end'))
-
-
-    elif forgot_status is False :
-        pass
-
-    elif forgot_status is None :
-        pass
-
-    st.stop()
-
 def not_logged(function):
     """
     Decorator
@@ -361,8 +393,8 @@ def forgot():
             st.session_state.authr.forgot_pwd()
 
     with a_col[1]:
-        st.button(_('bt_forgot_login'), help=_('bt_forgot_login_help'), on_click=
-                  forgot_login)
+        if st.button(_('bt_forgot_login'), help=_('bt_forgot_login_help')):
+             st.session_state.authr.forgot_login()
 
 
 def login(function):
@@ -410,8 +442,17 @@ def login(function):
         elif st.session_state.state_forgot_pwd == 2:
             st.info(_('msg_forgot_pwd_miss'))
         elif st.session_state.state_forgot_pwd == 0:
-            st.info(_('msg_forgot_pwd_ok'))
+            st.success(_('msg_forgot_pwd_ok'))
         del st.session_state.state_forgot_pwd
+
+    if 'state_forgot_login' in st.session_state:
+        if st.session_state.state_forgot_login == 1 :
+            st.error(_('msg_forgot_login_fail'))
+        elif st.session_state.state_forgot_login == 2:
+            st.info(_('msg_forgot_login_miss'))
+        elif st.session_state.state_forgot_login == 0:
+            st.success(_('msg_forgot_login_ok'))
+        del st.session_state.state_forgot_login
 
     v_return = vide
     if st.session_state.auth_status is True :
