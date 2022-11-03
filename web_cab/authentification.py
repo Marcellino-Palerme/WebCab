@@ -13,6 +13,7 @@ import streamlit as st
 from web_cab.email import send_email
 import bcrypt
 import numpy as np
+from streamlit_javascript import st_javascript as stj
 
 
 gt.bindtextdomain('web_cab', '/path/to/my/language/directory')
@@ -28,13 +29,13 @@ class MyAuthen():
         self.cursor = cursor
 
 
-    def _get_email(self, username):
+    def _get_email(self, i_login):
         """
         Get email of user
 
         Parameters
         ----------
-        username : str
+        login : str
             login of user.
 
         Returns
@@ -42,8 +43,8 @@ class MyAuthen():
         email: str.
 
         """
-        email_sql = "SELECT email FROM my_user WHERE login = %(username)s"
-        self.cursor.execute(email_sql, {'username':username})
+        email_sql = "SELECT email FROM my_user WHERE login = %(login)s"
+        self.cursor.execute(email_sql, {'login':i_login})
         email = self.cursor.fetchone()
         if email is None:
             return False
@@ -51,30 +52,30 @@ class MyAuthen():
         return email[0]
 
 
-    def _get_pwd(self, username):
+    def _get_pwd(self, i_login):
         """
         Get pwd of user
 
         Parameters
         ----------
-        username : str
-            username of user.
+        login : str
+            login of user.
 
         Returns
         -------
         password: str.
 
         """
-        if self._valid_username(username):
+        if self._valid_login(i_login):
             # Get  pwd
-            pwd_sql = """SELECT pwd FROM my_user WHERE login = %(username)s"""
+            pwd_sql = """SELECT pwd FROM my_user WHERE login = %(login)s"""
 
-            self.cursor.execute(pwd_sql, {'username':username})
+            self.cursor.execute(pwd_sql, {'login':i_login})
             return self.cursor.fetchone()[0]
 
         return ""
 
-    def _valid_pwd(self, username, pwd):
+    def _valid_pwd(self, i_login, pwd):
         """
 
 
@@ -85,7 +86,7 @@ class MyAuthen():
 
         """
         return bcrypt.checkpw(pwd.encode(),
-                              self._get_pwd(username).encode())
+                              self._get_pwd(i_login).encode())
 
     def login(self) -> tuple:
         """
@@ -102,37 +103,37 @@ class MyAuthen():
             The status of authentication, None: no credentials entered,
             True: correct credentials, False: incorrect credentials,
         str
-            Username of the authenticated user.
+            login of the authenticated user.
         """
         st.session_state['miss'] = False
-        if ('authentication_status' not in st.session_state or
-            st.session_state.authentication_status is not True):
-            st.session_state['authentication_status'] = False
+        if ('auth_status' not in st.session_state or
+            st.session_state.auth_status is not True):
+            st.session_state['auth_status'] = False
             login_form = st.form('Login')
 
             login_form.subheader(_('title_form_login'))
-            login_form.text_input(_('form_login_username'), key='username')
+            login_form.text_input(_('form_login_login'), key='login')
             pwd = login_form.text_input(_('form_login_pwd'), type='password')
 
             if login_form.form_submit_button('Login'):
                 ### Verify input not empty
                 # Thx https://stackoverflow.com/a/5063991
                 regex_no_empty = r'[^$^\ ]'
-                if(re.match(regex_no_empty, st.session_state.username) is None or
+                if(re.match(regex_no_empty, st.session_state.login) is None or
                    re.match(regex_no_empty, pwd) is None):
                     st.session_state.miss = True
                 else:
-                    if self._valid_pwd(st.session_state.username, pwd):
-                        st.session_state['authentication_status'] = True
+                    if self._valid_pwd(st.session_state.login, pwd):
+                        st.session_state['auth_status'] = True
 
 
-    def _update_pwd(self, username, pwd):
+    def _update_pwd(self, i_login, pwd):
         """
 
 
         Parameters
         ----------
-        username : TYPE
+        login : TYPE
             DESCRIPTION.
         pwd : TYPE
             DESCRIPTION.
@@ -146,19 +147,19 @@ class MyAuthen():
 
         # query for modification
         up_pwd_sql ="UPDATE my_user SET status='temp', pwd=%(hsh_pwd)s \
-                     WHERE login=%(username)s;"
+                     WHERE login=%(login)s;"
         # Query database
         self.cursor.execute(up_pwd_sql,
-                            {'hsh_pwd':hsh_pwd, 'username':username})
+                            {'hsh_pwd':hsh_pwd, 'login':i_login})
 
 
-    def _gen_pwd(self, username):
+    def _gen_pwd(self, i_login):
         """
 
 
         Parameters
         ----------
-        username : TYPE
+        login : TYPE
             DESCRIPTION.
 
         Returns
@@ -175,17 +176,17 @@ class MyAuthen():
                                 dtype="int32").view(type_pwd)[0]
 
         # save Hashed password
-        self._update_pwd(username, pwd)
+        self._update_pwd(i_login, pwd)
 
         return pwd
 
-    def _valid_username(self, username):
+    def _valid_login(self, i_login):
         """
 
 
         Parameters
         ----------
-        username : TYPE
+        login : TYPE
             DESCRIPTION.
 
         Returns
@@ -194,12 +195,12 @@ class MyAuthen():
 
         """
         login_sql = "SELECT login FROM my_user WHERE login ~* %(start_login)s"
-        start_login = '^' + username[0]
+        start_login = '^' + i_login[0]
         self.cursor.execute(login_sql, {'start_login':start_login})
         l_login_pwd = self.cursor.fetchall()
-        # Check if username exist
+        # Check if login exist
         for user in l_login_pwd:
-            if user[0] == username:
+            if user[0] == i_login:
                 # return login
                 return True
 
@@ -216,7 +217,7 @@ class MyAuthen():
         Returns
         -------
         str
-            Username associated with forgotten password.
+            login associated with forgotten password.
         str
             Email associated with forgotten password.
         str
@@ -227,23 +228,23 @@ class MyAuthen():
 
 
         forgot_password_form.subheader(form_name)
-        forgot_password_form.text_input(_('Username'),
+        forgot_password_form.text_input(_('login'),
                                         key='v_forgot_pwd').lower()
 
         st.session_state['state_forgot_pwd'] = 3
         v_return = (None, None, None)
         def inside():
-            username = st.session_state.v_forgot_pwd
+            v_login = st.session_state.v_forgot_pwd
             # Thx https://stackoverflow.com/a/5063991
             regex_no_empty = r'[^$^\ ]'
-            if not re.match(regex_no_empty, username) is None :
-                if self._valid_username(username):
+            if not re.match(regex_no_empty, v_login) is None :
+                if self._valid_login(v_login):
                     st.session_state['state_forgot_pwd'] = 0
                     ### Modify user password
-                    pwd = self._gen_pwd(username)
+                    pwd = self._gen_pwd(v_login)
 
                     # Send temporary paswword by email
-                    email = self._get_email(username)
+                    email = self._get_email(v_login)
                     send_email(dst=email, sub=_('msg_email_sub_pwd'),
                                msg=_('msg_email_header_pwd') + pwd +
                                    _('msg_email_end'))
@@ -259,6 +260,23 @@ class MyAuthen():
         forgot_password_form.form_submit_button(_('Submit'), on_click=inside)
 
         return v_return
+
+    def logout(self):
+        """
+        provide a button on sidebar to logout
+
+        Returns
+        -------
+        None.
+
+        """
+        def inside():
+            del st.session_state.auth_status
+            stj('location.href = location.hostname;')
+
+        st.sidebar.button(_('bt_logout'), help=_('bt_logout_help'),
+                          on_click=inside)
+
 
 
 
@@ -288,8 +306,8 @@ def show(function):
     None.
 
     """
-    if 'authentication_status' in st.session_state :
-        if st.session_state.authentication_status:
+    if 'auth_status' in st.session_state :
+        if st.session_state.auth_status:
             return function
 
     return vide
@@ -304,7 +322,7 @@ def forgot_login():
 
     """
     # Verify if email exist
-    forgot_status, email = st.session_state.authr.forgot_username(
+    forgot_status, email = st.session_state.authr.forgot_login(
                            _('title_forgot_login'))
 
     if forgot_status :
@@ -368,13 +386,19 @@ def forgot():
         st.button(_('bt_forgot_login'), help=_('bt_forgot_login_help'), on_click=
                   forgot_login)
 
-def init_login():
-    """
 
+def login(function):
+    """
+    Decorator to manage the sign in
+
+    Parameters
+    ----------
+    function : TYPE
+        DESCRIPTION.
 
     Returns
     -------
-    None.
+    function
 
     """
     # Get configurations
@@ -395,28 +419,10 @@ def init_login():
     # Save obj in session
     st.session_state['authr'] = authr
 
-
-def login(function):
-    """
-    Decorator to manage the sign in
-
-    Parameters
-    ----------
-    function : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    function
-
-    """
-    init_login()
-    authr = st.session_state['authr']
-
     # Show widget login
     authr.login()
 
-    if st.session_state.authentication_status is not True:
+    if st.session_state.auth_status is not True:
         # Add buttons for forgot password or login
         forgot()
 
@@ -430,12 +436,12 @@ def login(function):
         del st.session_state.state_forgot_pwd
 
     v_return = vide
-    if st.session_state.authentication_status is True :
+    if st.session_state.auth_status is True :
         # add acces profile and logout on sidebar
-        #authr.logout(_('bt_logout'), 'sidebar')
+        authr.logout()
         v_return = function
     elif st.session_state.miss is True :
         st.info(_('msg_login_miss'))
-    elif st.session_state.authentication_status is False :
+    elif st.session_state.auth_status is False :
         st.error(_('msg_login_fail'))
     return v_return
