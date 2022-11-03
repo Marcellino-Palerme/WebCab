@@ -88,34 +88,22 @@ class MyAuthen():
         return bcrypt.checkpw(pwd.encode(),
                               self._get_pwd(i_login).encode())
 
-    def login(self) -> tuple:
+    def login(self):
         """
         Creates a login widget.
-        Parameters
-        ----------
-        form_name: str
-            The rendered name of the login form.
-        Returns
-        -------
-        str
-            Name of the authenticated user.
-        int
-            The status of authentication, None: no credentials entered,
-            True: correct credentials, False: incorrect credentials,
-        str
-            login of the authenticated user.
+
         """
         st.session_state['miss'] = False
         if ('auth_status' not in st.session_state or
             st.session_state.auth_status is not True):
-            st.session_state['auth_status'] = False
+            st.session_state['auth_status'] = None
             login_form = st.form('Login')
 
             login_form.subheader(_('title_form_login'))
             login_form.text_input(_('form_login_login'), key='login')
             pwd = login_form.text_input(_('form_login_pwd'), type='password')
 
-            if login_form.form_submit_button('Login'):
+            if login_form.form_submit_button(_('bt_login_submit')):
                 ### Verify input not empty
                 # Thx https://stackoverflow.com/a/5063991
                 regex_no_empty = r'[^$^\ ]'
@@ -125,6 +113,8 @@ class MyAuthen():
                 else:
                     if self._valid_pwd(st.session_state.login, pwd):
                         st.session_state['auth_status'] = True
+                    else:
+                        st.session_state['auth_status'] = False
 
 
     def _update_pwd(self, i_login, pwd):
@@ -206,33 +196,21 @@ class MyAuthen():
 
         return False
 
-    def forgot_pwd(self, form_name: str) -> tuple:
+    def forgot_pwd(self):
         """
         Creates a forgot password widget.
-        Parameters
-        ----------
-        form_name: str
-            The rendered name of the forgot password form.
 
-        Returns
-        -------
-        str
-            login associated with forgotten password.
-        str
-            Email associated with forgotten password.
-        str
-            New plain text password that should be transferred to user securely.
         """
 
         forgot_password_form = st.form('Forgot password')
 
 
-        forgot_password_form.subheader(form_name)
-        forgot_password_form.text_input(_('login'),
-                                        key='v_forgot_pwd').lower()
+        forgot_password_form.subheader(_('title_forgot_pwd'))
+        forgot_password_form.text_input(_('forgot_pwd_login'),
+                                        key='v_forgot_pwd')
 
         st.session_state['state_forgot_pwd'] = 3
-        v_return = (None, None, None)
+
         def inside():
             v_login = st.session_state.v_forgot_pwd
             # Thx https://stackoverflow.com/a/5063991
@@ -257,9 +235,9 @@ class MyAuthen():
             del st.session_state.v_forgot_pwd
 
 
-        forgot_password_form.form_submit_button(_('Submit'), on_click=inside)
+        forgot_password_form.form_submit_button(_('bt_forgot_pwd_submit'),
+                                                on_click=inside)
 
-        return v_return
 
     def logout(self):
         """
@@ -380,7 +358,7 @@ def forgot():
     a_col = st.columns(5)
     with a_col[0]:
         if st.button(_('bt_forgot_pwd'), help=_('bt_forgot_pwd_help')):
-            st.session_state.authr.forgot_pwd(_('title_forgot_pwd'))
+            st.session_state.authr.forgot_pwd()
 
     with a_col[1]:
         st.button(_('bt_forgot_login'), help=_('bt_forgot_login_help'), on_click=
