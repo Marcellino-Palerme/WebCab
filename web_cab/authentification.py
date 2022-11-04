@@ -7,18 +7,76 @@ Created on Thu Oct 27 11:22:18 2022
 """
 import json
 import re
-import gettext as gt
+from web_cab.translate import _
 import psycopg2 as pc2
 import streamlit as st
 from web_cab.email import send_email
 import bcrypt
 import numpy as np
-from streamlit_javascript import st_javascript as stj
+import csv
+import os
+
+def keyword_inside(sentence):
+    """
+    check if there are a keyword in sentence
+
+    Parameters
+    ----------
+    sentence : str
+        analysed sentence.
+
+    Returns
+    -------
+    bool
+        True: there is a keyword in sentence.
+
+    """
+    # get path of .csv with keywords of postgresql
+    path_keyword = os.path.join(os.path.dirname(__file__), 'extras',
+                                'keywords.csv')
+
+    f_key = open(path_keyword, 'r')
+    # get all keywords
+    reader = csv.reader(f_key)
+
+    for key in reader:
+        # Check if a keyword is in sentence
+        if key[0].upper() in sentence.upper():
+            f_key.close()
+            return True
+
+    return False
 
 
-gt.bindtextdomain('web_cab', '/path/to/my/language/directory')
-gt.textdomain('web_cab')
-_ = gt.gettext
+
+def valid_email(i_login, email, col):
+    """
+    Check if format of email name is correct
+
+    Parameters
+    ----------
+    col : st.columns
+        Column where write error message.
+
+    Returns
+    -------
+    bool.
+    """
+    authr = st.session_state.authr
+    # Thx https://www.autoregex.xyz/
+    regex = r'[a-zA-Z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,4}'
+    if re.match(regex, email) is None:
+        col.markdown('<span style="color: red;" class="enclosing"><i>' +
+                      _('msg_change_email_wrong') + '</i></span>', True)
+
+        return False
+    elif email == authr.get_email(i_login):
+        col.markdown('<span style="color: blue;" class="enclosing"><i>' +
+                      _('msg_change_email_same') + '</i></span>', True)
+
+        return False
+    return True
+
 
 class MyAuthen():
     """
@@ -29,7 +87,7 @@ class MyAuthen():
         self.cursor = cursor
 
 
-    def _get_email(self, i_login):
+    def get_email(self, i_login):
         """
         Get email of user
 
@@ -43,11 +101,14 @@ class MyAuthen():
         email: str.
 
         """
+
+        if not self._valid_login(i_login):
+            return ''
         email_sql = "SELECT email FROM my_user WHERE login = %(login)s"
         self.cursor.execute(email_sql, {'login':i_login})
         email = self.cursor.fetchone()
         if email is None:
-            return False
+            return ''
 
         return email[0]
 
@@ -88,6 +149,33 @@ class MyAuthen():
         return bcrypt.checkpw(pwd.encode(),
                               self._get_pwd(i_login).encode())
 
+    def _is_admin(self, i_login):
+        """
+        Indicate if user is a administrateur
+
+        Parameters
+        ----------
+        i_login : str
+            Login of user
+
+        Returns
+        -------
+        Bool
+            True : user is a administrateur
+
+        """
+        if(self._valid_login(i_login)):
+            admin_sql = """SELECT (CASE WHEN status = 'super'  OR
+                                             status = 'temp_super'
+                                        THEN 1 ELSE 0 END) AS admin
+                           FROM my_user WHERE login = %(login)s;"""
+            self.cursor.execute(admin_sql, {'login': i_login})
+
+            if self.cursor.fetchone()[0] == 1:
+                return True
+
+        return False
+
     def login(self):
         """
         Creates a login widget.
@@ -97,27 +185,39 @@ class MyAuthen():
         if ('auth_status' not in st.session_state or
             st.session_state.auth_status is not True):
             st.session_state['auth_status'] = None
-            login_form = st.form('Login')
+            st.session_state['login'] = None
+            st.session_state['super'] = False
+
+            # Thx https://discuss.streamlit.io/t/delete-remove-from-app-screen
+            #-streamlit-form-st-form-after-feeling/25041/2
+            placeholder = st.empty()
+
+            login_form = placeholder.form('Login')
 
             login_form.subheader(_('title_form_login'))
-            login_form.text_input(_('form_login_login'), key='login')
+            login_form.text_input(_('form_login_login'), key='in_login')
             pwd = login_form.text_input(_('form_login_pwd'), type='password')
 
             if login_form.form_submit_button(_('bt_login_submit')):
                 ### Verify input not empty
                 # Thx https://stackoverflow.com/a/5063991
                 regex_no_empty = r'[^$^\ ]'
-                if(re.match(regex_no_empty, st.session_state.login) is None or
+                if(re.match(regex_no_empty, st.session_state.in_login) is None
+                   or
                    re.match(regex_no_empty, pwd) is None):
                     st.session_state.miss = True
                 else:
-                    if self._valid_pwd(st.session_state.login, pwd):
-                        st.session_state['auth_status'] = True
+                    if self._valid_pwd(st.session_state.in_login, pwd):
+                        st.session_state.auth_status = True
+                        st.session_state.super = \
+                                      self._is_admin(st.session_state.in_login)
+                        st.session_state.login = st.session_state.in_login
+                        placeholder.empty()
                     else:
-                        st.session_state['auth_status'] = False
+                        st.session_state.auth_status = False
 
 
-    def _update_pwd(self, i_login, pwd):
+    def _update_pwd(self, i_login, pwd, status='temp'):
         """
 
 
@@ -136,11 +236,12 @@ class MyAuthen():
         hsh_pwd = bcrypt.hashpw(pwd.encode(), bcrypt.gensalt()).decode()
 
         # query for modification
-        up_pwd_sql ="UPDATE my_user SET status='temp', pwd=%(hsh_pwd)s \
+        up_pwd_sql ="UPDATE my_user SET status=%(status)s, pwd=%(hsh_pwd)s \
                      WHERE login=%(login)s;"
         # Query database
         self.cursor.execute(up_pwd_sql,
-                            {'hsh_pwd':hsh_pwd, 'login':i_login})
+                            {'status':status, 'hsh_pwd':hsh_pwd,
+                             'login':i_login})
 
 
     def _gen_pwd(self, i_login):
@@ -181,7 +282,7 @@ class MyAuthen():
 
         Returns
         -------
-        None.
+        bool.
 
         """
         login_sql = "SELECT login FROM my_user WHERE login ~* %(start_login)s"
@@ -222,7 +323,7 @@ class MyAuthen():
                     pwd = self._gen_pwd(v_login)
 
                     # Send temporary paswword by email
-                    email = self._get_email(v_login)
+                    email = self.get_email(v_login)
                     send_email(dst=email, sub=_('msg_email_sub_pwd'),
                                msg=_('msg_email_header_pwd') + pwd +
                                    _('msg_email_end'))
@@ -317,12 +418,83 @@ class MyAuthen():
         """
         def inside():
             del st.session_state.auth_status
-            stj('location.href = location.hostname;')
+            del st.session_state.login
 
         st.sidebar.button(_('bt_logout'), help=_('bt_logout_help'),
                           on_click=inside)
 
+    def update_email(self, i_login, email, where_msg):
+        """
 
+
+        Parameters
+        ----------
+        i_login : TYPE
+            DESCRIPTION.
+        email : TYPE
+            DESCRIPTION.
+        where_msg : TYPE, optional
+            DESCRIPTION. The default is None.
+
+        Returns
+        -------
+        None.
+
+        """
+        if(valid_email(i_login, email, where_msg) and
+           self._valid_login(i_login)):
+            up_email_sql = '''UPDATE my_user
+                              SET email=%(email)s
+                              WHERE login=%(login)s'''
+
+            self.cursor.execute(up_email_sql, {'email':email, 'login':i_login})
+
+            where_msg.success(_('msg_update_email'))
+
+    def update_pwd(self, where_display):
+        """
+
+
+        Returns
+        -------
+        None.
+
+        """
+        login_form = where_display.form('up_pwd')
+
+        login_form.subheader(_('title_form_up_pwd'))
+        login_form.text_input(_('form_pwd_current'), type='password',
+                              key= 'current_pwd')
+        login_form.text_input(_('form_pwd_new'), type='password',
+                              key='new_pw_0')
+        login_form.text_input(_('form_pwd_conf'), type='password',
+                              key=' new_pw_1')
+
+        def inside():
+            current_pwd = st.session_state.current_pwd
+            new_pwd = [st.session_state.new_pw_0, st.session_state.new_pw_0]
+            ### Verify input not empty
+            # Thx https://stackoverflow.com/a/5063991
+            regex_no_empty = r'[^$^\ ]'
+            where_display.write(current_pwd)
+            where_display.write(new_pwd)
+            where_display.write(keyword_inside(new_pwd[1]))
+            # Check if current pwd is correct, new pwd is same twice,
+            # new pwd not empty and no keyword of sql in pwd
+            if (self._valid_pwd(st.session_state.login, current_pwd) and
+                new_pwd[0] == new_pwd[1] and
+                not re.match(regex_no_empty, new_pwd[1]) is None and
+                not keyword_inside(new_pwd[1])):
+
+                self._update_pwd(st.session_state.login, new_pwd[0], '')
+
+                where_display.success(_('msg_up_pwd_ok'))
+
+            else:
+                where_display.error(_('msg_up_pwd_fail'))
+
+
+        login_form.form_submit_button(_('bt_login_submit'), on_click=inside)
 
 
 def vide():
@@ -334,28 +506,6 @@ def vide():
     None.
 
     """
-
-
-def show(function):
-    """
-    Decorator
-    Show page or not, depend of login
-
-    Parameters
-    ----------
-    function : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None.
-
-    """
-    if 'auth_status' in st.session_state :
-        if st.session_state.auth_status:
-            return function
-
-    return vide
 
 def not_logged(function):
     """
