@@ -80,8 +80,7 @@ def page():
     ### Tab to show and modify other profiles administrateur part
     if st.session_state.super is True:
         st.session_state.authr.create_user(l_tabs[1])
-
-        l_tabs[2].write('delete')
+        st.session_state.authr.delete_user(l_tabs[2])
 
 if callable(page) :
     page()

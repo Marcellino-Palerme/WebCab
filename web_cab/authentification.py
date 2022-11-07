@@ -640,6 +640,57 @@ class MyAuthen():
         create_form.form_submit_button(_('bt_create_user_submit'),
                                        on_click=inside)
 
+    def delete_user(self, where_display):
+        """
+        delete a user
+
+        Returns
+        -------
+        None.
+
+        """
+        # Remove login of admin
+        l_users = self._get_users()
+        del l_users[l_users.index(st.session_state.login)]
+
+        # Select all user except the user
+        sbx_user= where_display.selectbox(_('cbx_delete_user'), l_users)
+        where_display.text(_('label_login') + ' : ' + sbx_user)
+        where_display.text(_('label_email') + ' : ' + self.get_email(sbx_user))
+
+
+        if(where_display.button(_('bt_del_user_submit'))):
+            conf_form = where_display.form('conf_delete')
+            # confirm delete by write email of deleted user
+            conf_form.text_input(_('label_confirm_del_user'), key='email_conf')
+
+            def inside():
+                """
+                process to delete a user
+
+                Returns
+                -------
+                None.
+
+                """
+                if st.session_state.email_conf == self.get_email(sbx_user):
+
+                    # Define query to delete user
+                    del_user_sql = """ DELETE FROM my_user
+                                       WHERE login=%(login)s
+                                       AND email=%(email)s;
+                                   """
+                    # Query database
+                    self.cursor.execute(del_user_sql,{'login':sbx_user,
+                                                      'email':st.session_state.email_conf})
+
+                    where_display.success(_('msg_del_user_ok'))
+                else:
+                    where_display.info(_('msg_del_user_mail_diff'))
+
+            conf_form.form_submit_button(_('bt_confirm_del_user'),
+                                         on_click=inside)
+
 
 def vide():
     """
