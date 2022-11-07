@@ -7,15 +7,9 @@ Created on Fri Oct 28 10:02:15 2022
 
 This page to see and manage the user profile
 """
-import gettext as gt
+from web_cab.translate import _
 import streamlit as st
 from web_cab.authentification import login
-from streamlit_authenticator.exceptions import CredentialsError, ResetError
-
-gt.bindtextdomain('web_cab', '/path/to/my/language/directory')
-gt.textdomain('web_cab')
-_ = gt.gettext
-
 
 def cancel_label():
     """
@@ -78,8 +72,8 @@ def page():
                   on_click=cancel_label)
 
 
-    l_tabs[0].button(_('bt_reset_pwd'), help=_('bt_reset_pwd'),
-                     on_click= st.session_state.authr.update_pwd,
+    l_tabs[0].button(_('bt_change_pwd'), help=_('bt_change_pwd_help'),
+                     on_click= st.session_state.authr.change_pwd,
                      args=(l_tabs[0],))
 
     ### Tab to show and modify other profiles administrateur part

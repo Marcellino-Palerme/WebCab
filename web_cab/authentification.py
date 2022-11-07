@@ -451,9 +451,12 @@ class MyAuthen():
 
             where_msg.success(_('msg_update_email'))
 
-    def update_pwd(self, where_display):
+    def change_pwd(self, where_display):
         """
+        provide form to modify pwd
 
+        where_display : streamlit object
+            where write message.
 
         Returns
         -------
@@ -466,32 +469,45 @@ class MyAuthen():
         login_form.text_input(_('form_pwd_current'), type='password',
                               key= 'current_pwd')
         login_form.text_input(_('form_pwd_new'), type='password',
-                              key='new_pw_0')
+                              key='new_pwd_0')
         login_form.text_input(_('form_pwd_conf'), type='password',
-                              key=' new_pw_1')
+                              key='new_pwd_1')
 
         def inside():
-            current_pwd = st.session_state.current_pwd
-            new_pwd = [st.session_state.new_pw_0, st.session_state.new_pw_0]
-            ### Verify input not empty
-            # Thx https://stackoverflow.com/a/5063991
-            regex_no_empty = r'[^$^\ ]'
-            where_display.write(current_pwd)
-            where_display.write(new_pwd)
-            where_display.write(keyword_inside(new_pwd[1]))
-            # Check if current pwd is correct, new pwd is same twice,
-            # new pwd not empty and no keyword of sql in pwd
-            if (self._valid_pwd(st.session_state.login, current_pwd) and
-                new_pwd[0] == new_pwd[1] and
-                not re.match(regex_no_empty, new_pwd[1]) is None and
-                not keyword_inside(new_pwd[1])):
 
-                self._update_pwd(st.session_state.login, new_pwd[0], '')
+            if ('current_pwd' in st.session_state and
+                'new_pwd_0' in st.session_state and
+                'new_pwd_1' in st.session_state):
 
-                where_display.success(_('msg_up_pwd_ok'))
+                current_pwd = st.session_state.current_pwd
+                new_pwd = [st.session_state.new_pwd_0, st.session_state.new_pwd_1]
+                ### Verify input not empty
+                # Thx https://stackoverflow.com/a/5063991
+                regex_no_empty = r'[^$^\ ]'
 
+                # Check if current pwd is correct, new pwd is same twice,
+                # new pwd not empty and no keyword of sql in pwd
+                if (self._valid_pwd(st.session_state.login, current_pwd) and
+                    new_pwd[0] == new_pwd[1] and
+                    not re.match(regex_no_empty, new_pwd[1]) is None and
+                    not keyword_inside(new_pwd[1])):
+
+                    # change pwd of user
+                    self._update_pwd(st.session_state.login, new_pwd[0], '')
+
+                    where_display.success(_('msg_up_pwd_ok'))
+
+                else:
+                    where_display.error(_('msg_up_pwd_fail'))
             else:
-                where_display.error(_('msg_up_pwd_fail'))
+                where_display.info(_('msg_up_pwd_miss'))
+            # Delete of session all pwd
+            if 'current_pwd' in st.session_state:
+                del st.session_state.current_pwd
+            if 'new_pwd_0' in st.session_state:
+               del st.session_state.new_pwd_0
+            if 'new_pwd_1' in st.session_state:
+               del st.session_state.new_pwd_1
 
 
         login_form.form_submit_button(_('bt_login_submit'), on_click=inside)
