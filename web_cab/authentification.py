@@ -217,7 +217,7 @@ class MyAuthen():
                         st.session_state.auth_status = False
 
 
-    def _update_pwd(self, i_login, pwd, status='temp'):
+    def _update_pwd(self, i_login, pwd, status):
         """
 
 
@@ -266,8 +266,14 @@ class MyAuthen():
         pwd = np.random.randint(low=32, high=126, size=size_pwd,
                                 dtype="int32").view(type_pwd)[0]
 
+        # Indicate pwd is temporary and next connection of user. It'll have to
+        # change pwd
+        v_status = 'temp'
+        if self._is_admin(i_login) is True:
+            v_status = 'temp_super'
+
         # save Hashed password
-        self._update_pwd(i_login, pwd)
+        self._update_pwd(i_login, pwd, v_status)
 
         return pwd
 
@@ -492,8 +498,14 @@ class MyAuthen():
                     not re.match(regex_no_empty, new_pwd[1]) is None and
                     not keyword_inside(new_pwd[1])):
 
+                    # Keep status administrateur or not
+                    v_super = ''
+                    if st.session_state.super is True:
+                        v_super = 'super'
+
                     # change pwd of user
-                    self._update_pwd(st.session_state.login, new_pwd[0], '')
+                    self._update_pwd(st.session_state.login, new_pwd[0],
+                                     v_super)
 
                     where_display.success(_('msg_up_pwd_ok'))
 
@@ -511,6 +523,7 @@ class MyAuthen():
 
 
         login_form.form_submit_button(_('bt_login_submit'), on_click=inside)
+
 
 
 def vide():
