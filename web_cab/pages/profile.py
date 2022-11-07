@@ -41,7 +41,8 @@ def page():
     l_tabs=[None]
 
     if st.session_state.super is True:
-        l_tabs = st.tabs([_('tab_user'), _('tab_admin')])
+        l_tabs = st.tabs([_('tab_user'), _('tab_admin_create'),
+                          _('tab_admin_delete')])
     else:
         l_tabs[0] = st
 
@@ -78,7 +79,9 @@ def page():
 
     ### Tab to show and modify other profiles administrateur part
     if st.session_state.super is True:
-        l_tabs[1].write('admin')
+        st.session_state.authr.create_user(l_tabs[1])
+
+        l_tabs[2].write('delete')
 
 if callable(page) :
     page()

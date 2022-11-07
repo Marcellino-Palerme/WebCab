@@ -16,6 +16,23 @@ import numpy as np
 import csv
 import os
 
+def gen_word():
+    """
+    generated a word
+
+    Returns
+    -------
+    str.
+
+    """
+    # Define size of password
+    size_pwd = np.random.randint(12, 31)
+    type_pwd = np.dtype((str, size_pwd))
+
+    # Generate a password (32 in Ascii is Space and 126 is ~)
+    return np.random.randint(low=32, high=126, size=size_pwd,
+                             dtype="int32").view(type_pwd)[0]
+
 def keyword_inside(sentence):
     """
     check if there are a keyword in sentence
@@ -236,8 +253,9 @@ class MyAuthen():
         hsh_pwd = bcrypt.hashpw(pwd.encode(), bcrypt.gensalt()).decode()
 
         # query for modification
-        up_pwd_sql ="UPDATE my_user SET status=%(status)s, pwd=%(hsh_pwd)s \
-                     WHERE login=%(login)s;"
+        up_pwd_sql ="""UPDATE my_user SET status=%(status)s, pwd=%(hsh_pwd)s
+                       WHERE login=%(login)s;
+                    """
         # Query database
         self.cursor.execute(up_pwd_sql,
                             {'status':status, 'hsh_pwd':hsh_pwd,
@@ -258,13 +276,8 @@ class MyAuthen():
         None.
 
         """
-        # Define size of password
-        size_pwd = np.random.randint(12, 31)
-        type_pwd = np.dtype((str, size_pwd))
-
-        # Generate a password (32 in Ascii is Space and 126 is ~)
-        pwd = np.random.randint(low=32, high=126, size=size_pwd,
-                                dtype="int32").view(type_pwd)[0]
+        # Generate a word
+        pwd = gen_word()
 
         # Indicate pwd is temporary and next connection of user. It'll have to
         # change pwd
@@ -480,7 +493,14 @@ class MyAuthen():
                               key='new_pwd_1')
 
         def inside():
+            """
+            process of change pwd
 
+            Returns
+            -------
+            None.
+
+            """
             if ('current_pwd' in st.session_state and
                 'new_pwd_0' in st.session_state and
                 'new_pwd_1' in st.session_state):
@@ -524,6 +544,101 @@ class MyAuthen():
 
         login_form.form_submit_button(_('bt_login_submit'), on_click=inside)
 
+    def _get_users(self):
+        """
+        give list of all user
+
+        Returns
+        -------
+        list of str.
+
+        """
+        # Define query
+        users_sql = "SELECT login FROM my_user;"
+
+        # Query database
+        self.cursor.execute(users_sql)
+
+        # Give the list
+        return [user[0] for user in self.cursor.fetchall()]
+
+
+    def create_user(self, where_display):
+        """
+        Create a user
+
+        Parameters
+        ----------
+        where_display : TYPE
+            DESCRIPTION.
+
+        Returns
+        -------
+        None.
+
+        """
+        create_form = where_display.form('create_user')
+
+        create_form.subheader(_('title_form_create_user'))
+
+        create_form.text_input(_('form_create_user_login'), key='cu_login')
+        create_form.text_input(_('form_create_user_email'), key='cu_email')
+        create_form.checkbox(_('form_create_user_admin'), key='cu_super')
+
+        def inside():
+            """
+            process of create user
+
+            Returns
+            -------
+            None.
+
+            """
+            ### Verify input not empty
+            # Thx https://stackoverflow.com/a/5063991
+            regex_no_empty = r'[^$^\ ]'
+
+            if('cu_email' in st.session_state and
+               'cu_login' in st.session_state and
+               'cu_super' in st.session_state and
+               not re.match(regex_no_empty, st.session_state.cu_login)
+                    is None and
+               not re.match(regex_no_empty, st.session_state.cu_email)
+                    is None):
+                # Check if login doesn't exist yet
+                print(self._get_users())
+                if st.session_state.cu_login in self._get_users():
+                    where_display.info(_('msg_create_user_exist'))
+                else:
+                    if(valid_email(st.session_state.cu_login,
+                                   st.session_state.cu_email,
+                                   where_display)):
+                        # Define query to create use
+                        cu_sql = """ INSERT INTO my_user
+                                     VALUES (%(login)s, %(email)s, %(fake)s,
+                                             %(status)s);
+                                 """
+                        # Create user in database
+                        self.cursor.execute(cu_sql,
+                        {'login':st.session_state.cu_login,
+                         'email':st.session_state.cu_email,
+                         'fake':gen_word(),
+                         'status':'super' if st.session_state.cu_super else ''}
+                                           )
+
+                        # send email to new user
+                        send_email(st.session_state.cu_email,
+                                   _('msg_email_sub_create_user'),
+                                   _('msg_email_header_create_user') +
+                                   st.session_state.cu_login +
+                                   _('msg_email_end'))
+
+                        where_display.success(_('msg_create_user_ok'))
+            else:
+                where_display.info(_('msg_create_user_miss'))
+
+        create_form.form_submit_button(_('bt_create_user_submit'),
+                                       on_click=inside)
 
 
 def vide():
