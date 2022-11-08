@@ -16,12 +16,14 @@ This app :
 import streamlit as st
 import os
 from PIL import Image
-from streamlit_javascript import st_javascript
-import sqlite3
 import re
 from web_cab.authentification import login
-#hashed_passwords = star.Hasher(['123', '456']).generate()
-#st.write(hashed_passwords)
+from web_cab.translate import _
+import uuid
+from zipfile import ZipFile as zf
+from web_cab.browser import browser_ok
+
+
 # Define title of page and menu
 st.set_page_config(
     page_title="Test streamlit",
@@ -36,52 +38,20 @@ st.set_page_config(
 )
 
 @login
+@browser_ok
 def run():
-    # Verify broswer is compatible
-    # Get info on browser client
-    info_brow = str(st_javascript("""navigator.userAgent"""))
-    st.write(str(st_javascript("""confirm('cookie?')""")))
-    conn = sqlite3.connect(os.path.join(os.getcwd(),'web_cab','ma_base.db'))
-    cursor = conn.cursor()
 
-    brow_comp = True
-    if 'Edg' in info_brow:
-        cursor.execute("""SELECT version FROM browser WHERE name='Edge'""")
-        min_version = cursor.fetchone()[0]
-        if int(info_brow.split('Edg/')[1].split('.')[0]) < min_version:
-            brow_comp = False
-    elif 'Firefox' in info_brow:
-        cursor.execute("""SELECT version FROM browser WHERE name='Firefox'""")
-        min_version = cursor.fetchone()[0]
-        if int(info_brow.split('Firefox/')[1].split('.')[0]) < min_version:
-            brow_comp = False
-    elif 'Chrome' in info_brow:
-        cursor.execute("""SELECT version FROM browser WHERE name='Chrome'""")
-        min_version = cursor.fetchone()[0]
-        if int(info_brow.split(sep='Chrome/')[1].split(sep='.')[0]) < min_version:
-            brow_comp = False
-    elif 'Safari' in info_brow:
-        cursor.execute("""SELECT version FROM browser WHERE name='Safari'""")
-        min_version = cursor.fetchone()[0]
-        if int(info_brow.split('Safari/')[1].split('.')[0]) < min_version:
-            brow_comp = False
-    else:
-        brow_comp = False
+    # Define where save Uploaded image
+    path_temp = os.path.join(os.path.dirname(__file__), 'temp')
+    os.makedirs(path_temp, exist_ok=True)
 
-    if not brow_comp :
-        st.write('Update your Broswer (Firefox, Chrome, Edge, Safari)')
-        up_file = None
-    else:
-        # Define where save Uploaded image
-        path_temp = '/mnt/stockage/temp'
+    st.subheader('Upload image')
 
-        st.subheader('Upload image')
+    up_form = st.form('upload_form')
+    # Upload button to zip
+    up_file = up_form.file_uploader('votre image', ['zip'], False)
 
-        # Upload button
-        up_file = st.file_uploader('votre image', ['png', 'jpg'], False)
-    # State to know if we loaded a image
-    b_up_file = up_file is not None
-    if b_up_file:
+    if up_form.form_submit_button(_('bt_upload_submit')):
         # Get name of image without special caracters
         im_name = re.sub('[^\.a-zA-Z0-9]', '_', up_file.name)
         # Save last image name
@@ -90,48 +60,51 @@ def run():
         st.write(im_name)
         # show image
         raw_data = up_file.getvalue()
-        st.image(raw_data, width=200)
+        # st.image(raw_data, width=200)
 
-        # save image
+        # save zip
         with open(os.path.join(path_temp, im_name),'wb') as out_f:
             out_f.write(raw_data)
 
-        # Add button to convert image and converted image
-        if st.button('En gris') or 'show' in list(st.session_state.keys()):
-            # Read image
-            my_image = Image.open(os.path.join(path_temp, im_name))
-            # Convert to grey
-            my_image = my_image.convert('L')
-            # Show gray image
-            st.image(my_image, width=200)
-            # Variable to keep the ploting of image after download it
-            st.session_state.update({'show':True})
-            # save grayscale image
-            with open(os.path.join(path_temp, 'gray_' + im_name), 'wb') as out_f:
-                my_image.save(out_f)
+        ### Extract zip
+        # Create one directory
+        dir_extract = os.path.join(path_temp, str(uuid.uuid4()))
+        os.makedirs(dir_extract)
+        os.makedirs(dir_extract + '_temp')
 
-            # Button to download grayscale image
-            with open(os.path.join(path_temp, 'gray_' + im_name), 'rb') as in_f:
-                st.download_button('Télécharger l\'image en niveau de gris',
-                                   data=in_f, file_name='gray_'+ im_name,
-                                   mime=up_file.type,
-                                   help="cliquer pour récupérer l'image ci-dessus")
-    # To hide gray button, grayscale image and download button
-    # when delete or change image
-    if 'show' in list(st.session_state.keys()) and not b_up_file:
-        # Change state to don't plot converted image
-        del st.session_state.show
-        # Delete converted image
-        os.remove(os.path.join(path_temp, 'gray_' + st.session_state.im_name))
+        # Open Zip
+        with zf(os.path.join(path_temp, im_name),'r') as zip_f:
+            # Extract zip
+            zip_f.extractall(path=dir_extract)
 
-    # Delete image saved
-    if 'im_name' in list(st.session_state.keys()) and not b_up_file:
-        os.remove(os.path.join(path_temp, st.session_state.im_name))
-        # Delete just to clear my session
-        del st.session_state.im_name
+        st.session_state['dir_extract'] = dir_extract
 
+    if 'dir_extract' in st.session_state:
+        dir_extract = st.session_state.dir_extract
+        if st.button('En gris'):
+            for im_unzip in os.listdir(dir_extract):
+                im_file = re.sub('[^\.a-zA-Z0-9]', '_', im_unzip)
+                os.renames(os.path.join(dir_extract, im_unzip),
+                           os.path.join(dir_extract, im_file))
+                st.write(im_file)
+                # Read image
+                my_image = Image.open(os.path.join(dir_extract, im_file))
+                # Convert to grey
+                my_image = my_image.convert('L')
+                # Show gray image
+                st.image(my_image, width=200)
+                # Variable to keep the ploting of image after download it
+                st.session_state.update({'show':True})
+                # save grayscale image
+                with open(os.path.join(dir_extract + '_temp', 'gray_' + im_file), 'wb') as out_f:
+                    my_image.save(out_f)
 
-    st.write((st.session_state.to_dict()))
+                #Button to download grayscale image
+                with open(os.path.join(dir_extract + '_temp', 'gray_' + im_file), 'rb') as in_f:
+                    st.download_button('Télécharger l\'image en niveau de gris',
+                                        data=in_f, file_name='gray_'+ im_file,
+                                        mime='image/' + os.path.splitext(im_file)[-1][1:],
+                                        help="cliquer pour récupérer l'image ci-dessus")
 
 
 run()

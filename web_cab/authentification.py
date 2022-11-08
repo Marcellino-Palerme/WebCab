@@ -193,12 +193,37 @@ class MyAuthen():
 
         return False
 
+    def _temporary(self, i_login):
+        """
+        Indicate if pwd of user is temporary
+
+        Returns
+        -------
+        bool.
+            True : pwd temporary
+
+        """
+        if(self._valid_login(i_login)):
+            temp_pwd_sql = """SELECT (CASE WHEN status = 'temp'  OR
+                                             status = 'temp_super'
+                                        THEN 1 ELSE 0 END) AS admin
+                              FROM my_user WHERE login = %(login)s;
+                          """
+            self.cursor.execute(temp_pwd_sql, {'login': i_login})
+
+            if self.cursor.fetchone()[0] == 1:
+                return True
+
+        return False
+
+
     def login(self):
         """
         Creates a login widget.
 
         """
         st.session_state['miss'] = False
+        st.session_state['temp_pwd'] = False
         if ('auth_status' not in st.session_state or
             st.session_state.auth_status is not True):
             st.session_state['auth_status'] = None
@@ -229,6 +254,8 @@ class MyAuthen():
                         st.session_state.super = \
                                       self._is_admin(st.session_state.in_login)
                         st.session_state.login = st.session_state.in_login
+                        st.session_state.temp_pwd = \
+                                     self._temporary(st.session_state.in_login)
                         placeholder.empty()
                     else:
                         st.session_state.auth_status = False
@@ -756,6 +783,10 @@ def login(function):
     function
 
     """
+    if (not'browser' in st.session_state or
+        st.session_state['browser'] is False):
+        return vide
+
     # Get configurations
     with open('./web_cab/conf/conf.json', 'r', encoding='utf-8') as f_conf:
         d_conf = json.load(f_conf)
@@ -803,7 +834,11 @@ def login(function):
     if st.session_state.auth_status is True :
         # add acces profile and logout on sidebar
         authr.logout()
-        v_return = function
+        if st.session_state.temp_pwd is True:
+            authr.change_pwd(st)
+        else:
+            del st.session_state.temp_pwd
+            v_return = function
     elif st.session_state.miss is True :
         st.info(_('msg_login_miss'))
     elif st.session_state.auth_status is False :
