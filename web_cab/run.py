@@ -13,15 +13,18 @@ This app :
     - Show it
     - Download grayscale image
 """
+import sys
+sys.path.append(__file__)
 import streamlit as st
 import os
 from PIL import Image
 import re
-from web_cab.authentification import login
-from web_cab.translate import _
+from authentification import login
+from translate import _
 import uuid
 from zipfile import ZipFile as zf
-from web_cab.browser import browser_ok
+from browser import browser_ok
+import background as bgd
 
 
 # Define title of page and menu
@@ -68,16 +71,28 @@ def run():
 
         ### Extract zip
         # Create one directory
-        dir_extract = os.path.join(path_temp, str(uuid.uuid4()))
+        my_uuid = str(uuid.uuid4())
+        dir_extract = os.path.join(path_temp, my_uuid)
         os.makedirs(dir_extract)
         os.makedirs(dir_extract + '_temp')
 
         # Open Zip
         with zf(os.path.join(path_temp, im_name),'r') as zip_f:
             # Extract zip
-            zip_f.extractall(path=dir_extract)
+            for index, name_file in enumerate(zip_f.namelist()):
+                os.makedirs(os.path.join(dir_extract, str(index)))
+                os.makedirs(os.path.join(dir_extract + '_temp', str(index)))
+                zip_f.extract(name_file, path=dir_extract)
+
+        # Define query add inpus
+        add_in_sql = """ INSERT INTO inputs
+                         VALUES (%(uuid)s, 1, 10, %(total)s, 0);
+                     """
+        st.session_state['cursor'].execute(add_in_sql, {'uuid':my_uuid,
+                                                        'total':index})
 
         st.session_state['dir_extract'] = dir_extract
+        bgd.launcher()
 
     if 'dir_extract' in st.session_state:
         dir_extract = st.session_state.dir_extract

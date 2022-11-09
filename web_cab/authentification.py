@@ -5,16 +5,17 @@ Created on Thu Oct 27 11:22:18 2022
 
 @author: mpalerme
 """
-import json
+import sys
+sys.path.append(__file__)
 import re
-from web_cab.translate import _
-import psycopg2 as pc2
+from translate import _
 import streamlit as st
-from web_cab.email import send_email
+from my_email import send_email
 import bcrypt
 import numpy as np
 import csv
 import os
+import connect as ct
 
 def gen_word():
     """
@@ -787,15 +788,8 @@ def login(function):
         st.session_state['browser'] is False):
         return vide
 
-    # Get configurations
-    with open('./web_cab/conf/conf.json', 'r', encoding='utf-8') as f_conf:
-        d_conf = json.load(f_conf)
-
-    ### Get all user information
     # Connect to database
-    conn = pc2.connect(**d_conf['db'])
-    conn.autocommit = True
-    cursor = conn.cursor()
+    cursor = ct.connect_dbb()
     st.session_state['cursor'] = cursor
 
     ### Manage sign in

@@ -13,6 +13,8 @@ streamlit = "^1.13.0"
 streamlit-javascript = "^0.1.5"
 beautifulsoup4 = "^4.11.1"
 selenium = "^4.5.0"
+psycopg2-binary = "^2.9.5"
+python-crontab = "^2.6.0"
 
 [tool.poetry.group.dev]
 optional = true
