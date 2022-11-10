@@ -14,10 +14,13 @@ import time
 import sys
 import connect as ct
 import os
+import psutil
+from connect import connect_dbb
 
 
 MAX_TIME_PROCESS = 10
 DELAY_BETWEEN_PROCESS = 1
+SIZE_PROCESS = 10 * 1024 * 1024  # 10MB
 
 
 def background(uuid):
@@ -34,9 +37,40 @@ def background(uuid):
     None.
 
     """
-    with open(os.path.join(os.path.dirname(__file__), 'avoit.txt'), "a") as t_f:
-        print(time.asctime( time.localtime(time.time()) ), file=t_f)
-        print(str(uuid), file=t_f)
+    # Verify stay CPU and RAM to process
+    if (psutil.cpu_percent(1) < 90 and
+        psutil.virtual_memory().available > SIZE_PROCESS):
+        ### Stop CRON
+        # Get cron table
+        cron = CronTab(user=True)
+        # Find used cron
+        for job in cron:
+            if uuid == job.comment:
+                # Stop the cron
+                cron.remove(job)
+                cron.write()
+                break
+
+        # Connect of database
+        cursor = connect_dbb()
+
+        ### Get status of uuid
+        uuid_sql = """ SELECT total_file, state FROM inputs WHERE uuid=%(uuid)s;
+                   """
+        # Query ddatabase
+        cursor.execute(uuid_sql, {'uuid':uuid})
+
+        info_uuid = cursor.fetchone()
+
+        for index in range(info_uuid[1], info_uuid[0]):
+            cab_bin = os.path.join(os.path.dirname(sys.executable), 'cab')
+            path_in = os.path.join(os.path.dirname(__file__), 'temp', uuid,
+                                   str(index))
+            path_out = os.path.join(os.path.dirname(__file__), 'temp',
+                                    uuid + '_temp', str(index))
+            options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 1 -c'
+            os.system(cab_bin + options)
+
 
 
 def launcher():
@@ -64,7 +98,8 @@ def launcher():
     for uuid in cursor.fetchall():
         # Check if new input
         if not uuid[0] in l_cron:
-            job = cron.new(command=sys.executable + ' ' + __file__ + ' ' + uuid[0])
+            job = cron.new(command=sys.executable + ' ' + __file__ + ' ' + uuid[0],
+                           comment=uuid[0])
             job.minute.every(MAX_TIME_PROCESS)
             cron.write()
             time.sleep(DELAY_BETWEEN_PROCESS)

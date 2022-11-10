@@ -9,6 +9,7 @@ Provide function to connect to database
 """
 import json
 import psycopg2 as pc2
+import os
 
 def connect_dbb():
     """
@@ -19,8 +20,10 @@ def connect_dbb():
     None.
 
     """
+
     # Get configurations
-    with open('./web_cab/conf/conf.json', 'r', encoding='utf-8') as f_conf:
+    with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
+              'r', encoding='utf-8') as f_conf:
         d_conf = json.load(f_conf)
 
     ### Get all user information

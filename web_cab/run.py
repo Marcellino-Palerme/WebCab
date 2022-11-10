@@ -82,14 +82,19 @@ def run():
             for index, name_file in enumerate(zip_f.namelist()):
                 os.makedirs(os.path.join(dir_extract, str(index)))
                 os.makedirs(os.path.join(dir_extract + '_temp', str(index)))
-                zip_f.extract(name_file, path=dir_extract)
+                zip_f.extract(name_file,
+                              path=os.path.join(dir_extract, str(index)))
+                rn_name_file = re.sub('[^\.a-zA-Z0-9]', '_', name_file)
+                # rename extract file
+                os.rename(os.path.join(dir_extract, str(index), name_file),
+                          os.path.join(dir_extract, str(index), rn_name_file))
 
         # Define query add inpus
         add_in_sql = """ INSERT INTO inputs
                          VALUES (%(uuid)s, 1, 10, %(total)s, 0);
                      """
         st.session_state['cursor'].execute(add_in_sql, {'uuid':my_uuid,
-                                                        'total':index})
+                                                        'total':index + 1})
 
         st.session_state['dir_extract'] = dir_extract
         bgd.launcher()
