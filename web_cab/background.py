@@ -16,6 +16,8 @@ import connect as ct
 import os
 import psutil
 from connect import connect_dbb
+import re
+from zipfile import ZipFile as zf
 
 
 MAX_TIME_PROCESS = 10
@@ -23,14 +25,48 @@ DELAY_BETWEEN_PROCESS = 1
 SIZE_PROCESS = 10 * 1024 * 1024  # 10MB
 
 
-def background(uuid):
+def unzip(uuid):
     """
-
+    unzip
 
     Parameters
     ----------
-    uuid : TYPE
-        DESCRIPTION.
+    uuid : str
+        name of directory with zip.
+
+    Returns
+    -------
+    None.
+
+    """
+    path_temp = os.path.join(os.path.dirname(__file__), 'temp')
+
+    dir_extract = os.path.join(path_temp, uuid)
+
+    zip_name = os.listdir(dir_extract)[0]
+
+    # Open Zip
+    with zf(os.path.join(dir_extract, zip_name),'r') as zip_f:
+        # Extract zip
+        for index, name_file in enumerate(zip_f.namelist()):
+            os.makedirs(os.path.join(dir_extract, str(index)))
+            os.makedirs(os.path.join(dir_extract + '_temp', str(index)))
+            zip_f.extract(name_file,
+                          path=os.path.join(dir_extract, str(index)))
+            rn_name_file = re.sub('[^\.a-zA-Z0-9]', '_', name_file)
+            # rename extract file
+            os.rename(os.path.join(dir_extract, str(index), name_file),
+                      os.path.join(dir_extract, str(index), rn_name_file))
+
+
+def background(uuid):
+    """
+    processing image with cab
+
+    Parameters
+    ----------
+    uuid : str
+        name of directory with zip.
 
     Returns
     -------
@@ -62,6 +98,14 @@ def background(uuid):
 
         info_uuid = cursor.fetchone()
 
+        # Unzip  if first time we process zip
+        if info_uuid[1]==0:
+            unzip(uuid)
+
+        # Query to update database when processed image
+        pi_sql = """UPDATE inputs SET state=%(state)s, update=CURRENT_TIMESTAMP
+                    WHERE uuid=%(uuid)s;"""
+
         for index in range(info_uuid[1], info_uuid[0]):
             cab_bin = os.path.join(os.path.dirname(sys.executable), 'cab')
             path_in = os.path.join(os.path.dirname(__file__), 'temp', uuid,
@@ -70,6 +114,7 @@ def background(uuid):
                                     uuid + '_temp', str(index))
             options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 1 -c'
             os.system(cab_bin + options)
+            cursor.execute(pi_sql, {'state':index + 1, 'uuid':uuid})
 
 
 

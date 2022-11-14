@@ -65,10 +65,6 @@ def run():
         raw_data = up_file.getvalue()
         # st.image(raw_data, width=200)
 
-        # save zip
-        with open(os.path.join(path_temp, im_name),'wb') as out_f:
-            out_f.write(raw_data)
-
         ### Extract zip
         # Create one directory
         my_uuid = str(uuid.uuid4())
@@ -76,25 +72,21 @@ def run():
         os.makedirs(dir_extract)
         os.makedirs(dir_extract + '_temp')
 
+        # save zip
+        with open(os.path.join(dir_extract, im_name),'wb') as out_f:
+            out_f.write(raw_data)
+
         # Open Zip
-        with zf(os.path.join(path_temp, im_name),'r') as zip_f:
-            # Extract zip
-            for index, name_file in enumerate(zip_f.namelist()):
-                os.makedirs(os.path.join(dir_extract, str(index)))
-                os.makedirs(os.path.join(dir_extract + '_temp', str(index)))
-                zip_f.extract(name_file,
-                              path=os.path.join(dir_extract, str(index)))
-                rn_name_file = re.sub('[^\.a-zA-Z0-9]', '_', name_file)
-                # rename extract file
-                os.rename(os.path.join(dir_extract, str(index), name_file),
-                          os.path.join(dir_extract, str(index), rn_name_file))
+        with zf(os.path.join(dir_extract, im_name),'r') as zip_f:
+            # nb files in zip
+            nb_files = len(zip_f.namelist())
 
         # Define query add inpus
         add_in_sql = """ INSERT INTO inputs
                          VALUES (%(uuid)s, 1, 10, %(total)s, 0);
                      """
         st.session_state['cursor'].execute(add_in_sql, {'uuid':my_uuid,
-                                                        'total':index + 1})
+                                                        'total':nb_files})
 
         st.session_state['dir_extract'] = dir_extract
         bgd.launcher()
