@@ -16,11 +16,11 @@ import connect as ct
 import os
 import psutil
 from connect import connect_dbb
-import re
 from zipfile import ZipFile as zf
+import runpy
 
 
-MAX_TIME_PROCESS = 10
+MAX_TIME_PROCESS = 1
 DELAY_BETWEEN_PROCESS = 1
 SIZE_PROCESS = 10 * 1024 * 1024  # 10MB
 
@@ -41,22 +41,22 @@ def unzip(uuid):
     """
     path_temp = os.path.join(os.path.dirname(__file__), 'temp')
 
-    dir_extract = os.path.join(path_temp, uuid)
+    # Define path of directory contain zip
+    dir_zip = os.path.join(path_temp, uuid)
+    # Define path where extract zip
+    dir_extract = os.path.join(path_temp, uuid, 'extract')
 
-    zip_name = os.listdir(dir_extract)[0]
+    # Take name of zip
+    zip_name = os.listdir(dir_zip)[0]
+
+    # create extract directory
+    os.makedirs(dir_extract)
 
     # Open Zip
-    with zf(os.path.join(dir_extract, zip_name),'r') as zip_f:
+    with zf(os.path.join(dir_zip, zip_name),'r') as zip_f:
         # Extract zip
-        for index, name_file in enumerate(zip_f.namelist()):
-            os.makedirs(os.path.join(dir_extract, str(index)))
-            os.makedirs(os.path.join(dir_extract + '_temp', str(index)))
-            zip_f.extract(name_file,
-                          path=os.path.join(dir_extract, str(index)))
-            rn_name_file = re.sub('[^\.a-zA-Z0-9]', '_', name_file)
-            # rename extract file
-            os.rename(os.path.join(dir_extract, str(index), name_file),
-                      os.path.join(dir_extract, str(index), rn_name_file))
+        zip_f.extractall(path=dir_extract)
+
 
 
 def background(uuid):
@@ -90,31 +90,34 @@ def background(uuid):
         # Connect of database
         cursor = connect_dbb()
 
-        ### Get status of uuid
-        uuid_sql = """ SELECT total_file, state FROM inputs WHERE uuid=%(uuid)s;
-                   """
-        # Query ddatabase
-        cursor.execute(uuid_sql, {'uuid':uuid})
-
-        info_uuid = cursor.fetchone()
-
-        # Unzip  if first time we process zip
-        if info_uuid[1]==0:
-            unzip(uuid)
-
         # Query to update database when processed image
         pi_sql = """UPDATE inputs SET state=%(state)s, update=CURRENT_TIMESTAMP
                     WHERE uuid=%(uuid)s;"""
 
-        for index in range(info_uuid[1], info_uuid[0]):
-            cab_bin = os.path.join(os.path.dirname(sys.executable), 'cab')
-            path_in = os.path.join(os.path.dirname(__file__), 'temp', uuid,
-                                   str(index))
-            path_out = os.path.join(os.path.dirname(__file__), 'temp',
-                                    uuid + '_temp', str(index))
-            options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 1 -c'
-            os.system(cab_bin + options)
-            cursor.execute(pi_sql, {'state':index + 1, 'uuid':uuid})
+        ### Run Cab
+        # Get binary of cab
+        cab_bin = os.path.join(os.path.dirname(sys.executable), 'cab')
+        # Define path of directory with input images
+        path_in = os.path.join(os.path.dirname(__file__), 'temp', uuid,
+                               'extract')
+        # Define path where save result of cab
+        path_out = os.path.join(os.path.dirname(__file__), 'temp',
+                                uuid + '_temp')
+        # Define option of cab
+        options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 1 -c'
+        # launch cab
+        os.system(cab_bin + options)
+
+        ### TODO update status of cab
+        cursor.execute(pi_sql, {'state':100, 'uuid':uuid})
+
+        ### Zip result
+        # Define option for command lin zipfile
+        sys.argv[1] = '-c ' + os.path.join(os.path.dirname(__file__), 'temp', uuid) + '.zip ' + path_out
+        sys.argv[1:] = sys.argv[1].split()
+        # Run function zip of zipfile
+        runpy.run_module('zipfile', run_name="__main__")
+
 
 
 
@@ -131,9 +134,11 @@ def launcher():
     cron = CronTab(user=True)
     l_cron = [job.comment for job in cron]
 
-    ### Take all UUID in database
+    ### Take all UUID in database not ruuning or in error
     # Defne query
-    uuid_sql = """ SELECT uuid FROM inputs; """
+    uuid_sql = """ SELECT uuid FROM inputs
+                   WHERE state!=100 OR
+                         update < CURRENT_TIMESTAMP - interval '1 hour'; """
     # Connect to database
     cursor = ct.connect_dbb()
     # Query dbb

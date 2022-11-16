@@ -25,6 +25,7 @@ import uuid
 from zipfile import ZipFile as zf
 from browser import browser_ok
 import background as bgd
+from threading import Thread
 
 
 # Define title of page and menu
@@ -89,7 +90,9 @@ def run():
                                                         'total':nb_files})
 
         st.session_state['dir_extract'] = dir_extract
-        bgd.launcher()
+        thd_bgd = Thread(target=bgd.launcher)
+        thd_bgd.start()
+
 
     if 'dir_extract' in st.session_state:
         dir_extract = st.session_state.dir_extract
