@@ -17,12 +17,10 @@ import sys
 sys.path.append(__file__)
 import streamlit as st
 import os
-from PIL import Image
 import re
 from authentification import login
 from translate import _
 import uuid
-from zipfile import ZipFile as zf
 from browser import browser_ok
 import background as bgd
 from threading import Thread
@@ -77,49 +75,20 @@ def run():
         with open(os.path.join(dir_extract, im_name),'wb') as out_f:
             out_f.write(raw_data)
 
-        # Open Zip
-        with zf(os.path.join(dir_extract, im_name),'r') as zip_f:
-            # nb files in zip
-            nb_files = len(zip_f.namelist())
-
         # Define query add inpus
         add_in_sql = """ INSERT INTO inputs
-                         VALUES (%(uuid)s, 1, 10, %(total)s, 0);
+                         VALUES (%(uuid)s, %(login)s, %(size)s, 0,
+                                 CURRENT_TIMESTAMP);
                      """
+
         st.session_state['cursor'].execute(add_in_sql, {'uuid':my_uuid,
-                                                        'total':nb_files})
+                                                        'login':st.session_state.login,
+                                                        'size':sys.getsizeof(raw_data)})
 
         st.session_state['dir_extract'] = dir_extract
         thd_bgd = Thread(target=bgd.launcher)
         thd_bgd.start()
 
-
-    if 'dir_extract' in st.session_state:
-        dir_extract = st.session_state.dir_extract
-        if st.button('En gris'):
-            for im_unzip in os.listdir(dir_extract):
-                im_file = re.sub('[^\.a-zA-Z0-9]', '_', im_unzip)
-                os.renames(os.path.join(dir_extract, im_unzip),
-                           os.path.join(dir_extract, im_file))
-                st.write(im_file)
-                # Read image
-                my_image = Image.open(os.path.join(dir_extract, im_file))
-                # Convert to grey
-                my_image = my_image.convert('L')
-                # Show gray image
-                st.image(my_image, width=200)
-                # Variable to keep the ploting of image after download it
-                st.session_state.update({'show':True})
-                # save grayscale image
-                with open(os.path.join(dir_extract + '_temp', 'gray_' + im_file), 'wb') as out_f:
-                    my_image.save(out_f)
-
-                #Button to download grayscale image
-                with open(os.path.join(dir_extract + '_temp', 'gray_' + im_file), 'rb') as in_f:
-                    st.download_button('Télécharger l\'image en niveau de gris',
-                                        data=in_f, file_name='gray_'+ im_file,
-                                        mime='image/' + os.path.splitext(im_file)[-1][1:],
-                                        help="cliquer pour récupérer l'image ci-dessus")
 
 
 run()

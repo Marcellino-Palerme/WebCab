@@ -7,17 +7,18 @@ Created on Wed Nov  9 10:52:18 2022
 
 
 """
-import sys
-sys.path.append(__file__)
-from crontab import CronTab
-import time
-import sys
-import connect as ct
-import os
-import psutil
-from connect import connect_dbb
 from zipfile import ZipFile as zf
 import runpy
+import time
+import os
+import sys
+from crontab import CronTab
+import psutil
+
+sys.path.append(__file__)
+from connect import connect_dbb
+from my_email import send_email
+from translate import _
 
 
 MAX_TIME_PROCESS = 1
@@ -87,6 +88,9 @@ def background(uuid):
                 cron.write()
                 break
 
+        # unzip
+        unzip(uuid)
+
         # Connect of database
         cursor = connect_dbb()
 
@@ -113,10 +117,24 @@ def background(uuid):
 
         ### Zip result
         # Define option for command lin zipfile
-        sys.argv[1] = '-c ' + os.path.join(os.path.dirname(__file__), 'temp', uuid) + '.zip ' + path_out
+        sys.argv[1] = '-c ' + os.path.join(os.path.dirname(__file__), 'temp',
+                                           uuid) + '.zip ' + path_out
         sys.argv[1:] = sys.argv[1].split()
         # Run function zip of zipfile
         runpy.run_module('zipfile', run_name="__main__")
+        ### Notify by user of end process
+        ## Get email of owner
+        # Define query
+        email_sql = """ SELECT email FROM my_user
+                        WHERE login=(SELECT login FROM inputs
+                                     WHERE uuid=%(uuid)s);
+                    """
+        # Query database
+        cursor.execute(email_sql, {'uuid':uuid})
+
+        send_email(dst=cursor.fetchone()[0],sub=_('msg_email_sub_end_cab'),
+                   msg=_('msg_email_header_end_cab') + uuid +
+                       _('msg_email_end'))
 
 
 
@@ -140,7 +158,7 @@ def launcher():
                    WHERE state!=100 OR
                          update < CURRENT_TIMESTAMP - interval '1 hour'; """
     # Connect to database
-    cursor = ct.connect_dbb()
+    cursor = connect_dbb()
     # Query dbb
     cursor.execute(uuid_sql)
 
@@ -148,7 +166,8 @@ def launcher():
     for uuid in cursor.fetchall():
         # Check if new input
         if not uuid[0] in l_cron:
-            job = cron.new(command=sys.executable + ' ' + __file__ + ' ' + uuid[0],
+            job = cron.new(command=sys.executable + ' ' + __file__ +\
+                                   ' ' + uuid[0],
                            comment=uuid[0])
             job.minute.every(MAX_TIME_PROCESS)
             cron.write()
