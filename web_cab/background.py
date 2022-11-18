@@ -107,8 +107,9 @@ def background(uuid):
         # Define path where save result of cab
         path_out = os.path.join(os.path.dirname(__file__), 'temp',
                                 uuid + '_temp')
+        ### TODO adapt option
         # Define option of cab
-        options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 1 -c'
+        options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 2 -c'
         # launch cab
         os.system(cab_bin + options)
 

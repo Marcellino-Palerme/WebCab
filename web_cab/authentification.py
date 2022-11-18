@@ -59,7 +59,8 @@ def keyword_inside(sentence):
 
     for key in reader:
         # Check if a keyword is in sentence
-        if key[0].upper() in sentence.upper():
+        if ((key[0] + ' ').upper() in sentence.upper() or
+            (' ' + key[0]).upper() in sentence.upper()):
             f_key.close()
             return True
 
@@ -558,6 +559,7 @@ class MyAuthen():
                     where_display.success(_('msg_up_pwd_ok'))
 
                 else:
+                    print('why')
                     where_display.error(_('msg_up_pwd_fail'))
             else:
                 where_display.info(_('msg_up_pwd_miss'))
