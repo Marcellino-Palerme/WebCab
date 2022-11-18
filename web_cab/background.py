@@ -15,7 +15,7 @@ import sys
 from crontab import CronTab
 import psutil
 
-sys.path.append(__file__)
+sys.path.append(os.path.dirname(__file__))
 from connect import connect_dbb
 from my_email import send_email
 from translate import _

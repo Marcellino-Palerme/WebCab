@@ -7,9 +7,12 @@ Created on Fri Oct 28 10:02:15 2022
 
 This page to see and manage the user profile
 """
-from web_cab.translate import _
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from translate import _
 import streamlit as st
-from web_cab.authentification import login
+from authentification import login
 
 def cancel_label():
     """

@@ -13,10 +13,10 @@ This app :
     - Show it
     - Download grayscale image
 """
-import sys
-sys.path.append(__file__)
-import streamlit as st
 import os
+import sys
+sys.path.append(os.path.dirname(__file__))
+import streamlit as st
 import re
 from authentification import login
 from translate import _
@@ -88,6 +88,8 @@ def run():
         st.session_state['dir_extract'] = dir_extract
         thd_bgd = Thread(target=bgd.launcher)
         thd_bgd.start()
+
+        st.info(_('Id of your process: ') + my_uuid)
 
 
 

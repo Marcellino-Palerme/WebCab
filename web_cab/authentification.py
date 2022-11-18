@@ -5,8 +5,9 @@ Created on Thu Oct 27 11:22:18 2022
 
 @author: mpalerme
 """
+import os
 import sys
-sys.path.append(__file__)
+sys.path.append(os.path.dirname(__file__))
 import re
 from translate import _
 import streamlit as st
@@ -14,7 +15,6 @@ from my_email import send_email
 import bcrypt
 import numpy as np
 import csv
-import os
 import connect as ct
 
 def gen_word():
