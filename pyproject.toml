@@ -21,7 +21,7 @@ cab = {path = "../cab"}
 [tool.poetry.group.dev]
 optional = true
 [tool.poetry.group.dev.dependencies]
-spyder = "^5.3.3"
+spyder = "^5.4.0"
 
 [build-system]
 requires = ["poetry-core"]

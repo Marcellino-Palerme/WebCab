@@ -50,8 +50,28 @@ def run():
     st.subheader('Upload image')
 
     up_form = st.form('upload_form')
+
+    # Title of input part
+    up_form.header(_('Input part'))
     # Upload button to zip
-    up_file = up_form.file_uploader('votre image', ['zip'], False)
+    up_file = up_form.file_uploader(_('Achive with images'), ['zip'], False)
+    # Number of code barre maximum by images
+    up_form.number_input(_('Max barcode by image'), min_value=1, value=1,
+                         step=1, format='%d')
+    # Upload button to validation file
+    up_csv = up_form.file_uploader(_('Validation file'), ['csv'], False)
+
+    # Title of output part
+    up_form.header(_('Output part'))
+    # Select a output csv file
+    out_csv = up_form.checkbox(_('link image-barcode file'))
+    ### Select format of rename image
+
+    lt_format = (_('Not used'), _('Only barcode'),
+                 _("Image's name _ barecode"), _("Barecode _ Image'name"))
+
+    f_rn = up_form.radio("Format of image's name", lt_format)
+    ### TODO Add all option for cab
 
     if up_form.form_submit_button(_('bt_upload_submit')):
         # Get name of image without special caracters
@@ -76,9 +96,10 @@ def run():
             out_f.write(raw_data)
 
         # Define query add inpus
-        add_in_sql = """ INSERT INTO inputs
+        add_in_sql = """ INSERT INTO inputs (uuid, login, size, state, upload,
+                                             options)
                          VALUES (%(uuid)s, %(login)s, %(size)s, 0,
-                                 CURRENT_TIMESTAMP);
+                                 CURRENT_TIMESTAMP,'coucou');
                      """
 
         st.session_state['cursor'].execute(add_in_sql, {'uuid':my_uuid,

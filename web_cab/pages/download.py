@@ -53,6 +53,8 @@ def page():
     path_temp = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     path_temp = os.path.join(path_temp,'temp')
 
+    ### TODO check if there are process
+
     for uuid in st.session_state.cursor.fetchall():
 
         if 0<uuid[1]<100:
