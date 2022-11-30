@@ -48,7 +48,7 @@ def unzip(uuid):
     dir_extract = os.path.join(path_temp, uuid, 'extract')
 
     # Take name of zip
-    zip_name = os.listdir(dir_zip)[0]
+    zip_name = list(filter(lambda l_f: 'zip' in l_f, os.listdir(dir_zip)))[0]
 
     # create extract directory
     os.makedirs(dir_extract)
