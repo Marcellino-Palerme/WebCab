@@ -39,6 +39,7 @@ st.set_page_config(
     }
 )
 
+
 @login
 @browser_ok
 def run():
@@ -47,33 +48,59 @@ def run():
     path_temp = os.path.join(os.path.dirname(__file__), 'temp')
     os.makedirs(path_temp, exist_ok=True)
 
-    st.subheader('Upload image')
+    # Define formulaire space
+    my_form_temp = st.empty()
+    my_form = my_form_temp.container()
 
-    up_form = st.form('upload_form')
-
+    my_form.header(_('Upload_image'))
     # Title of input part
-    up_form.header(_('Input part'))
+    in_part = my_form.expander( '**' + _('Input_part') + '**', True)
     # Upload button to zip
-    up_file = up_form.file_uploader(_('Achive with images'), ['zip'], False)
+    up_file = in_part.file_uploader(_('Archive_with_images'), ['zip'], False)
     # Number of code barre maximum by images
-    up_form.number_input(_('Max barcode by image'), min_value=1, value=1,
-                         step=1, format='%d')
-    # Upload button to validation file
-    up_csv = up_form.file_uploader(_('Validation file'), ['csv'], False)
+    max_bar = in_part.number_input(_('Max_barcode_by_image'), min_value=1,
+                                   value=1, step=1, format='%d')
+
+
+    ### Choice depends of number of barcode by image
+    choice_valid_file = [_('chk_used_valid_file'),
+                         _('chk_not_used_valid_file')]
+    if max_bar>1 :
+        # If there are several barcode we need a validation file but you can
+        # force to not used
+        # Message to indicate it is better use validation file
+        in_part.markdown('<span style="color: red;" class="enclosing"><i>' +
+                         _('msg_use_validation_file') + '</i></span>', True)
+        # Choice use or not validation file
+        bt_valid_file = in_part.radio(_('radio_valid_file'), choice_valid_file,
+                                      horizontal=True,
+                                      label_visibility='hidden')
+    else:
+        # Part we validation file is optional
+        bt_valid_file = in_part.checkbox(_('chk_used_valid_file'))
+
+    # Provide part to upload validation if ask
+    if (bt_valid_file is True) or (bt_valid_file == choice_valid_file[0]):
+        # Upload button to validation file
+        up_csv = in_part.file_uploader(_('Validation_file'), ['csv'], False)
 
     # Title of output part
-    up_form.header(_('Output part'))
+    out_part = my_form.expander('**' +_('Output_part') + '**', True)
     # Select a output csv file
-    out_csv = up_form.checkbox(_('link image-barcode file'))
+    out_csv = out_part.checkbox(_('link_image_barcode_file'), value=True)
+
     ### Select format of rename image
+    cols = out_part.columns([1,3])
+    bt_out_format = cols[0].checkbox(_('Rename_image'))
+    if bt_out_format:
+        lt_format = (_('only_barcode'), _("Image_name_barecode"),
+                     _("barecode_image_name"))
 
-    lt_format = (_('Not used'), _('Only barcode'),
-                 _("Image's name _ barecode"), _("Barecode _ Image'name"))
+        cols[1].write('')
+        f_rn = cols[1].radio(_("format_image_name"), lt_format)
 
-    f_rn = up_form.radio("Format of image's name", lt_format)
-    ### TODO Add all option for cab
-
-    if up_form.form_submit_button(_('bt_upload_submit')):
+    ### Process formular
+    if my_form.button(_('bt_upload_submit')):
         # Get name of image without special caracters
         im_name = re.sub('[^\.a-zA-Z0-9]', '_', up_file.name)
         # Save last image name
@@ -82,7 +109,6 @@ def run():
         st.write(im_name)
         # show image
         raw_data = up_file.getvalue()
-        # st.image(raw_data, width=200)
 
         ### Extract zip
         # Create one directory
@@ -95,23 +121,54 @@ def run():
         with open(os.path.join(dir_extract, im_name),'wb') as out_f:
             out_f.write(raw_data)
 
+        ### Define option for cab
+        options = '-n ' + str(max_bar)
+
+        if (bt_valid_file is True) or (bt_valid_file == choice_valid_file[0]):
+            # save validation file
+            with open(os.path.join(dir_extract, up_csv.name),'wb') as out_val:
+                out_val.write(up_csv.getvalue())
+            # add to option using validation file
+            options = options + ' -v ' + os.path.join(dir_extract, up_csv.name)
+
+        # Add to options output in csv
+        if out_csv:
+            options = options + ' -c'
+
+        # Add to option rename image
+        if bt_out_format:
+            if f_rn == lt_format[0]:
+                options = options + ' -b'
+            if f_rn == lt_format[1]:
+                options = options + ' -s'
+            if f_rn == lt_format[2]:
+                options = options + ' -p'
+
         # Define query add inpus
         add_in_sql = """ INSERT INTO inputs (uuid, login, size, state, upload,
                                              options)
                          VALUES (%(uuid)s, %(login)s, %(size)s, 0,
-                                 CURRENT_TIMESTAMP,'coucou');
+                                 CURRENT_TIMESTAMP,%(options)s);
                      """
 
-        st.session_state['cursor'].execute(add_in_sql, {'uuid':my_uuid,
-                                                        'login':st.session_state.login,
-                                                        'size':sys.getsizeof(raw_data)})
+        st.session_state['cursor'].execute(add_in_sql,
+                                           {'uuid':my_uuid,
+                                            'login':st.session_state.login,
+                                            'size':sys.getsizeof(raw_data),
+                                            'options':options})
 
-        st.session_state['dir_extract'] = dir_extract
+        # Run in background cab
         thd_bgd = Thread(target=bgd.launcher)
         thd_bgd.start()
 
+        # Explain result
         st.info(_('Id of your process: ') + my_uuid)
+        st.write(_('msg_success_upload'))
+
+        my_form_temp.empty()
+
+        st.stop()
 
 
-
-run()
+if callable(run) :
+    run()
