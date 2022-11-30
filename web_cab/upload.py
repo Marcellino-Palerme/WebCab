@@ -131,6 +131,10 @@ def run():
             # add to option using validation file
             options = options + ' -v ' + os.path.join(dir_extract, up_csv.name)
 
+        if bt_valid_file == choice_valid_file[1]:
+            # Force not used validation file
+            options = options + ' -f'
+
         # Add to options output in csv
         if out_csv:
             options = options + ' -c'
