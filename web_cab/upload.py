@@ -68,9 +68,6 @@ def run():
     if max_bar>1 :
         # If there are several barcode we need a validation file but you can
         # force to not used
-        # Message to indicate it is better use validation file
-        in_part.markdown('<span style="color: red;" class="enclosing"><i>' +
-                         _('msg_use_validation_file') + '</i></span>', True)
         # Choice use or not validation file
         bt_valid_file = in_part.radio(_('radio_valid_file'), choice_valid_file,
                                       horizontal=True,
@@ -99,8 +96,29 @@ def run():
         cols[1].write('')
         f_rn = cols[1].radio(_("format_image_name"), lt_format)
 
+    ### Protect : Can't submit if mandatory field complete
+    bool_act_submit = True
+    msg_mand = ''
+    # Verify we have zip file
+    if up_file is None :
+        msg_mand = _('msg_up_miss_zip')
+        bool_act_submit = False
+    # Verify validation file case
+    elif ((bt_valid_file == True or bt_valid_file == choice_valid_file[0]) and
+          (up_csv is None)):
+        msg_mand = _('msg_up_miss_valid_file')
+        bool_act_submit = False
+    # Verify a output is define
+    elif (bt_out_format or out_csv) is False:
+        msg_mand = _('msg_up_miss_output')
+        bool_act_submit = False
+
     ### Process formular
-    if my_form.button(_('bt_upload_submit')):
+    cols = my_form.columns([2,3])
+    cols[1].markdown('<span style="color: orange;" class="enclosing"><i>' +
+                      msg_mand + '</i></span>', True)
+
+    if cols[0].button(_('bt_upload_submit'), disabled=not bool_act_submit):
         # Get name of image without special caracters
         im_name = re.sub('[^\.a-zA-Z0-9]', '_', up_file.name)
         # Save last image name
