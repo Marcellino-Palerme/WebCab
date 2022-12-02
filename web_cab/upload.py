@@ -28,14 +28,14 @@ from threading import Thread
 
 # Define title of page and menu
 st.set_page_config(
-    page_title="Test streamlit",
-    page_icon="random",
+    page_title=_('Title_up'),
+    page_icon="📥",
     layout="wide",
     initial_sidebar_state="auto",
     menu_items={
-        'Get Help': 'https://lesjoiesducode.fr/quand-on-na-pas-fourni-de-doc-aux-utilisateurs',
-        'Report a bug': "https://forgemia.inra.fr/demecologie/web-cab/-/issues",
-        'About': "first streamlit app"
+        'Get Help': _('http://URL_up_help'),
+        'Report a bug': _('http://URL_up_bug'),
+        'About': _('txt_about')
     }
 )
 
@@ -52,14 +52,19 @@ def run():
     my_form_temp = st.empty()
     my_form = my_form_temp.container()
 
-    my_form.header(_('Upload_image'))
+    cols = my_form.columns(4)
+    cols[0].header(_('Upload_image'))
+    if cols[1].button('?'):
+        st.sidebar.markdown(_('txt_up_global_help'))
     # Title of input part
     in_part = my_form.expander( '**' + _('Input_part') + '**', True)
     # Upload button to zip
-    up_file = in_part.file_uploader(_('Archive_with_images'), ['zip'], False)
+    up_file = in_part.file_uploader(_('Archive_with_images'), ['zip'], False,
+                                    help=_('msg_up_help_zip'))
     # Number of code barre maximum by images
     max_bar = in_part.number_input(_('Max_barcode_by_image'), min_value=1,
-                                   value=1, step=1, format='%d')
+                                   value=1, step=1, format='%d',
+                                   help=_('msg_up_help_max_bar'))
 
 
     ### Choice depends of number of barcode by image
@@ -71,30 +76,36 @@ def run():
         # Choice use or not validation file
         bt_valid_file = in_part.radio(_('radio_valid_file'), choice_valid_file,
                                       horizontal=True,
-                                      label_visibility='hidden')
+                                      label_visibility='collapsed')
+        in_part.markdown(_('msg_up_help_radio_valid_file'))
     else:
         # Part we validation file is optional
-        bt_valid_file = in_part.checkbox(_('chk_used_valid_file'))
+        bt_valid_file = in_part.checkbox(_('chk_used_valid_file'),
+                                         help=_('msg_up_help_chk_valid_file'))
 
     # Provide part to upload validation if ask
     if (bt_valid_file is True) or (bt_valid_file == choice_valid_file[0]):
         # Upload button to validation file
-        up_csv = in_part.file_uploader(_('Validation_file'), ['csv'], False)
+        up_csv = in_part.file_uploader(_('Validation_file'), ['csv'], False,
+                                       help=_('msg_up_help_valid_file'))
 
     # Title of output part
     out_part = my_form.expander('**' +_('Output_part') + '**', True)
     # Select a output csv file
-    out_csv = out_part.checkbox(_('link_image_barcode_file'), value=True)
+    out_csv = out_part.checkbox(_('link_image_barcode_file'), value=True,
+                                help=_('msg_up_help_chk_out_link_file'))
 
     ### Select format of rename image
     cols = out_part.columns([1,3])
-    bt_out_format = cols[0].checkbox(_('Rename_image'))
+    bt_out_format = cols[0].checkbox(_('Rename_image'),
+                                     help=_('msg_up_help_chk_out_format'))
     if bt_out_format:
         lt_format = (_('only_barcode'), _("Image_name_barecode"),
                      _("barecode_image_name"))
 
         cols[1].write('')
-        f_rn = cols[1].radio(_("format_image_name"), lt_format)
+        f_rn = cols[1].radio(_("format_image_name"), lt_format,
+                             help=_('msg_up_help_radio_out_format'))
 
     ### Protect : Can't submit if mandatory field complete
     bool_act_submit = True
@@ -118,7 +129,8 @@ def run():
     cols[1].markdown('<span style="color: orange;" class="enclosing"><i>' +
                       msg_mand + '</i></span>', True)
 
-    if cols[0].button(_('bt_upload_submit'), disabled=not bool_act_submit):
+    if cols[0].button(_('bt_upload_submit'), disabled=not bool_act_submit,
+                      help=_('msg_up_help_bt_submit')):
         # Get name of image without special caracters
         im_name = re.sub('[^\.a-zA-Z0-9]', '_', up_file.name)
         # Save last image name

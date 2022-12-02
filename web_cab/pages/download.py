@@ -16,18 +16,16 @@ from translate import _
 from datetime import timedelta
 
 
-#hashed_passwords = star.Hasher(['123', '456']).generate()
-#st.write(hashed_passwords)
 # Define title of page and menu
 st.set_page_config(
-    page_title=_("ddl pages streamlit"),
-    page_icon="random",
+    page_title=_('Title_down'),
+    page_icon="📤",
     layout="wide",
     initial_sidebar_state="auto",
     menu_items={
-        'Get Help': 'https://lesjoiesducode.fr/quand-on-na-pas-fourni-de-doc-aux-utilisateurs',
-        'Report a bug': "https://forgemia.inra.fr/demecologie/web-cab/-/issues",
-        'About': "first streamlit app"
+        'Get Help': _('http://URL_down_help'),
+        'Report a bug': _('http://URL_down_bug'),
+        'About': _('txt_about')
     }
 )
 
