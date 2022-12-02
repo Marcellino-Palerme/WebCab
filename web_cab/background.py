@@ -98,6 +98,9 @@ def background(uuid):
         pi_sql = """UPDATE inputs SET state=%(state)s, update=CURRENT_TIMESTAMP
                     WHERE uuid=%(uuid)s;"""
 
+        # Query get option
+        option_sql = """ SELECT options FROM inputs WHERE uuid=%(uuid)s;"""
+
         ### Run Cab
         # Get binary of cab
         cab_bin = os.path.join(os.path.dirname(sys.executable), 'cab')
@@ -107,9 +110,11 @@ def background(uuid):
         # Define path where save result of cab
         path_out = os.path.join(os.path.dirname(__file__), 'temp',
                                 uuid + '_temp')
-        ### TODO adapt option
+
         # Define option of cab
-        options = ' -l -i ' + path_in + ' -o ' + path_out + ' -n 2 -c -f'
+        cursor.execute(option_sql, {'uuid':uuid})
+        options = ' -l -i ' + path_in + ' -o ' + path_out + ' ' + \
+                  cursor.fetchone()[0]
         # launch cab
         os.system(cab_bin + options)
 
