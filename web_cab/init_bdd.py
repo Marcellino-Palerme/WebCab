@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS my_user(
 """)
 
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS input(
+CREATE TABLE IF NOT EXISTS inputs(
      uuid VARCHAR(40) PRIMARY KEY UNIQUE,
      login VARCHAR(20) NOT NULL,
      size INTERGER,
