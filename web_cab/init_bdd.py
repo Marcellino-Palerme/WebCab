@@ -7,8 +7,8 @@ Created on Tue Oct  4 14:37:06 2022
 
 module to init database
 """
-
-import sqlite3
+import sys
+import os
 import requests
 from bs4 import BeautifulSoup as BfS
 import re
@@ -17,17 +17,18 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
+sys.path.append(os.path.dirname(__file__))
+from connect import connect_dbb
 
 ADDR_FIREFOX = "https://www.mozilla.org/en-US/firefox/releases/"
 ADDR_CHROME = "https://chromereleases.googleblog.com/search/label/Desktop%20Update"
 ADDR_EDGE = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule"
 ADDR_SAFARI = "https://developer.apple.com/documentation/safari-release-notes"
 
-# Create data base
-conn = sqlite3.connect('ma_base.db')
+# Connect to data base
+cursor = connect_dbb()
 
-
-cursor = conn.cursor()
+# Create all tables
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS browser(
      id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -56,7 +57,6 @@ CREATE TABLE IF NOT EXISTS inputs(
      FOREIGN KEY(login) REFERENCES my_user(login)
 )
 """)
-conn.commit()
 
 ###### Get last version of browsers
 
@@ -76,8 +76,6 @@ version = int(link.text.split('.')[0]) - 1
 
 cursor.execute("""
 INSERT INTO browser(name, version) VALUES(?, ?)""", ("Firefox", version))
-
-conn.commit()
 
 ### Chrome
 req = requests.get(ADDR_CHROME)
@@ -100,8 +98,6 @@ for post in release_part:
 cursor.execute("""
 INSERT INTO browser(name, version) VALUES(?, ?)""", ("Chrome", version))
 
-conn.commit()
-
 ### Edge
 req = requests.get(ADDR_EDGE)
 
@@ -113,7 +109,7 @@ release_part = page.find_all('table')
 
 for table in release_part:
     if table.find('th', string='Version'):
-       break
+        break
 
 # take all links
 links = table.find_all('a')
@@ -126,8 +122,6 @@ for index in range(len(links)):
 
 cursor.execute("""
 INSERT INTO browser(name, version) VALUES(?, ?)""", ("Edge", version))
-
-conn.commit()
 
 ### Safari
 op_fire = Options()
@@ -142,7 +136,3 @@ version = int(version) - 1
 
 cursor.execute("""
 INSERT INTO browser(name, version) VALUES(?, ?)""", ("Safari", version))
-
-conn.commit()
-
-conn.close()
