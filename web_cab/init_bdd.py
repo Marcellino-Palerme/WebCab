@@ -36,19 +36,24 @@ CREATE TABLE IF NOT EXISTS browser(
 )
 """)
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS users(
-     id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-     email TEXT
+CREATE TABLE IF NOT EXISTS my_user(
+     login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
+     email VARCHAR(50) UNIQUE NOT NULL,
+     pwd VARCHAR(50),
+     status ENUM('', 'super', 'temp', 'temp_super')
 )
 """)
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS input(
-     uuid INTEGER PRIMARY KEY UNIQUE,
+     uuid VARCHAR(40) PRIMARY KEY UNIQUE,
+     login VARCHAR(20) NOT NULL,
      size INTERGER,
      state INTERGER,
-     id_user INTEGER,
-     FOREIGN KEY(id_user) REFERENCES user(id)
+     upload DATETIME NOT NULL,
+     update DATETIME,
+     options VARCHAR(100)
+     FOREIGN KEY(login) REFERENCES my_user(login)
 )
 """)
 conn.commit()
