@@ -45,12 +45,15 @@ def init_base():
          version INTEGER
     )
     """)
+    cursor.execute("""CREATE TYPE status_type AS
+                      ENUM ('', 'super', 'temp', 'temp_super')""")
+
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS my_user(
          login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
          email VARCHAR(50) UNIQUE NOT NULL,
          pwd VARCHAR(50),
-         status ENUM('', 'super', 'temp', 'temp_super')
+         status status_type
     )
     """)
 
