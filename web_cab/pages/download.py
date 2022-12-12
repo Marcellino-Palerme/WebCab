@@ -14,6 +14,8 @@ import streamlit as st
 from authentification import login
 from translate import _
 from datetime import timedelta
+from browser import browser_ok
+from init_bdd import check_init
 
 
 # Define title of page and menu
@@ -30,6 +32,8 @@ st.set_page_config(
 )
 
 @login
+@browser_ok
+@check_init
 def page():
     """
     compose page

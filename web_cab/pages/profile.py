@@ -13,6 +13,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from translate import _
 import streamlit as st
 from authentification import login
+from browser import browser_ok
+from init_bdd import check_init
 
 def cancel_label():
     """
@@ -29,6 +31,8 @@ def cancel_label():
 
 
 @login
+@browser_ok
+@check_init
 def page():
     """
     web page of profile

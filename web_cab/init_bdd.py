@@ -20,119 +20,167 @@ from selenium.webdriver.support.wait import WebDriverWait
 sys.path.append(os.path.dirname(__file__))
 from connect import connect_dbb
 
-ADDR_FIREFOX = "https://www.mozilla.org/en-US/firefox/releases/"
-ADDR_CHROME = "https://chromereleases.googleblog.com/search/label/Desktop%20Update"
-ADDR_EDGE = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule"
-ADDR_SAFARI = "https://developer.apple.com/documentation/safari-release-notes"
+def init_base():
+    """
+    Initialise the database
 
-# Connect to data base
-cursor = connect_dbb()
+    Returns
+    -------
+    None.
 
-# Create all tables
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS browser(
-     id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-     name TEXT,
-     version INTEGER
-)
-""")
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS my_user(
-     login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
-     email VARCHAR(50) UNIQUE NOT NULL,
-     pwd VARCHAR(50),
-     status ENUM('', 'super', 'temp', 'temp_super')
-)
-""")
+    """
+    ADDR_FIREFOX = "https://www.mozilla.org/en-US/firefox/releases/"
+    ADDR_CHROME = "https://chromereleases.googleblog.com/search/label/Desktop%20Update"
+    ADDR_EDGE = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule"
+    ADDR_SAFARI = "https://developer.apple.com/documentation/safari-release-notes"
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS inputs(
-     uuid VARCHAR(40) PRIMARY KEY UNIQUE,
-     login VARCHAR(20) NOT NULL,
-     size INTERGER,
-     state INTERGER,
-     upload DATETIME NOT NULL,
-     update DATETIME,
-     options VARCHAR(100)
-     FOREIGN KEY(login) REFERENCES my_user(login)
-)
-""")
+    # Connect to data base
+    cursor = connect_dbb()
 
-###### Get last version of browsers
+    # Create all tables
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS browser(
+         id SERIAL PRIMARY KEY UNIQUE,
+         name TEXT,
+         version INTEGER
+    )
+    """)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS my_user(
+         login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
+         email VARCHAR(50) UNIQUE NOT NULL,
+         pwd VARCHAR(50),
+         status ENUM('', 'super', 'temp', 'temp_super')
+    )
+    """)
 
-### Firefox
-req = requests.get(ADDR_FIREFOX)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS inputs(
+         uuid VARCHAR(40) PRIMARY KEY UNIQUE,
+         login VARCHAR(20) NOT NULL,
+         size INTERGER,
+         state INTERGER,
+         upload DATETIME NOT NULL,
+         update DATETIME,
+         options VARCHAR(100),
+         FOREIGN KEY(login) REFERENCES my_user(login)
+    )
+    """)
 
-# Parsing the HTML
-page = BfS(req.content, 'html.parser')
+    ###### Get last version of browsers
 
-# work on release part
-release_part = page.find('ol', class_='c-release-list')
+    add_browser_sql = """ INSERT INTO browser(name, version)
+                          VALUES(%(name)s, %(version)s)"""
 
-# take first link
-link = release_part.find('a')
+    ### Firefox
+    req = requests.get(ADDR_FIREFOX)
 
-version = int(link.text.split('.')[0]) - 1
+    # Parsing the HTML
+    page = BfS(req.content, 'html.parser')
 
-cursor.execute("""
-INSERT INTO browser(name, version) VALUES(?, ?)""", ("Firefox", version))
+    # work on release part
+    release_part = page.find('ol', class_='c-release-list')
 
-### Chrome
-req = requests.get(ADDR_CHROME)
+    # take first link
+    link = release_part.find('a')
 
-# Parsing the HTML
-page = BfS(req.content, 'html.parser')
+    version = int(link.text.split('.')[0]) - 1
 
-# work on release part
-release_part = page.find_all('div', class_='post')
+    cursor.execute(add_browser_sql, {'name':"Firefox", 'version':version})
 
-for post in release_part:
-    if 'Stable' in post.find('a').text:
-        # Extract complete version
-        version = re.findall('[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*', post.text)[0]
-        # main previous version
-        version = int(version.split('.')[0]) - 1
-        break
+    ### Chrome
+    req = requests.get(ADDR_CHROME)
+
+    # Parsing the HTML
+    page = BfS(req.content, 'html.parser')
+
+    # work on release part
+    release_part = page.find_all('div', class_='post')
+
+    for post in release_part:
+        if 'Stable' in post.find('a').text:
+            # Extract complete version
+            version = re.findall('[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*',
+                                 post.text)[0]
+            # main previous version
+            version = int(version.split('.')[0]) - 1
+            break
+
+    cursor.execute(add_browser_sql, {'name':"Chrome", 'version':version})
+
+    ### Edge
+    req = requests.get(ADDR_EDGE)
+
+    # Parsing the HTML
+    page = BfS(req.content, 'html.parser')
+
+    # work on release part
+    release_part = page.find_all('table')
+
+    for table in release_part:
+        if table.find('th', string='Version'):
+            break
+
+    # take all links
+    links = table.find_all('a')
+
+    # Find last stable version
+    for index in range(len(links)):
+        if 'stable' in links[-(index + 1)].get('href'):
+            version = int(links[-(index + 1)].text.split('.')[0]) - 1
+            break
+
+    cursor.execute(add_browser_sql, {'name':"Edge", 'version':version})
+
+    ### Safari
+    op_fire = Options()
+    op_fire.add_argument('--headless')
+    driver = webdriver.Firefox(options=op_fire)
+    driver.get(ADDR_SAFARI)
+    version = WebDriverWait(driver, timeout=3).\
+              until(lambda d: d.find_element(By.CLASS_NAME,"highlight"))
+    version = version.text
+    driver.quit()
+    version = version.split()[1]
+    version = int(version) - 1
+
+    cursor.execute(add_browser_sql, {'name':"Safari", 'version':version})
 
 
-cursor.execute("""
-INSERT INTO browser(name, version) VALUES(?, ?)""", ("Chrome", version))
+def check_init(function):
+    """
+    Decorator check if database initiate else it initiate it
 
-### Edge
-req = requests.get(ADDR_EDGE)
+    Parameters
+    ----------
+    function : TYPE
+        DESCRIPTION.
 
-# Parsing the HTML
-page = BfS(req.content, 'html.parser')
+    Returns
+    -------
+    function
 
-# work on release part
-release_part = page.find_all('table')
+    """
+    bool_base = False
+    # Connect to data base
+    cursor = connect_dbb()
 
-for table in release_part:
-    if table.find('th', string='Version'):
-        break
+    ### Check if database initiated
+    # Query to check if table created
+    exist_sql = """ SELECT EXISTS (SELECT FROM pg_tables
+                                   WHERE tablename = 'inputs') """
 
-# take all links
-links = table.find_all('a')
+    cursor.execute(exist_sql)
 
-# Find last stable version
-for index in range(len(links)):
-    if 'stable' in links[-(index + 1)].get('href'):
-        version = int(links[-(index + 1)].text.split('.')[0]) - 1
-        break
+    if cursor.fetchone()[0]:
+        # Check table browser is complet
+        browser_sql = """SELECT version FROM browser WHERE name = 'Safari' """
 
-cursor.execute("""
-INSERT INTO browser(name, version) VALUES(?, ?)""", ("Edge", version))
+        cursor.execute(browser_sql)
 
-### Safari
-op_fire = Options()
-op_fire.add_argument('--headless')
-driver = webdriver.Firefox(options=op_fire)
-driver.get(ADDR_SAFARI)
-version = WebDriverWait(driver, timeout=3).until(lambda d: d.find_element(By.CLASS_NAME,"highlight"))
-version = version.text
-driver.quit()
-version = version.split()[1]
-version = int(version) - 1
+        if not cursor.fetchone is None and int(cursor.fetchone()[0]) > 10:
+            bool_base = True
 
-cursor.execute("""
-INSERT INTO browser(name, version) VALUES(?, ?)""", ("Safari", version))
+    # initialize database
+    if bool_base is False :
+        init_base()
