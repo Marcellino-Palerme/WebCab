@@ -61,8 +61,8 @@ def init_base():
     CREATE TABLE IF NOT EXISTS inputs(
          uuid VARCHAR(40) PRIMARY KEY UNIQUE,
          login VARCHAR(20) NOT NULL,
-         size INTERGER,
-         state INTERGER,
+         size INTEGER,
+         state INTEGER,
          upload DATETIME NOT NULL,
          update DATETIME,
          options VARCHAR(100),
