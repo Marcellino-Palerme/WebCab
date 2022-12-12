@@ -63,8 +63,8 @@ def init_base():
          login VARCHAR(20) NOT NULL,
          size INTEGER,
          state INTEGER,
-         upload DATETIME NOT NULL,
-         update DATETIME,
+         upload TIMESTAMP NOT NULL,
+         update TIMESTAMP,
          options VARCHAR(100),
          FOREIGN KEY(login) REFERENCES my_user(login)
     )
