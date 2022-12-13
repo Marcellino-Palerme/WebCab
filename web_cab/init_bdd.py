@@ -16,9 +16,61 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+import json
+import shutil
+import subprocess
 
 sys.path.append(os.path.dirname(__file__))
 from connect import connect_dbb
+
+def update_geckodriver():
+    """
+    Install or update geckodriver for selenium
+
+    Returns
+    -------
+    None.
+
+    """
+    ADDR_GECKODRIVER = "https://github.com/mozilla/geckodriver/releases/latest"
+    temp_ddl='https://github.com/mozilla/geckodriver/releases/download/v<ver>/geckodriver-v<ver>-linux64.tar.gz'
+
+    ### Info on last release of geckodriver
+    req = requests.get(ADDR_GECKODRIVER)
+
+    # Parsing the HTML
+    page = BfS(req.content, 'html.parser')
+
+    # work on release part
+    release_part = page.find('nav', class_='mb-5')
+
+    # take second link
+    link = release_part.find_all('a')[1]
+
+    # Take version without 'v' and '\n' caracter
+    last_version = link.text.split(sep='v')[1][:-1]
+
+    # Check if geckodriver installed
+    path = shutil.which('geckodriver')
+
+    in_version = '0.0.0'
+    if not path is None:
+        in_version = subprocess.run(["geckodriver", "-V"], capture_output=True)
+        in_version = in_version.stdout.split()[1].decode()
+        # Define where put software
+        path = '/usr/bin'
+
+    # Check in version is up to date
+    if last_version > in_version:
+        # Create link to download
+        link_ddl = temp_ddl.replace('<ver>', last_version)
+        # Get software
+        subprocess.run(['wget', link_ddl])
+        # Save it
+        subprocess.run(['tar', 'xf', '*.tar.gz'])
+        subprocess.run(['mv', 'geckodriver', path])
+
+
 
 def init_base():
     """
@@ -33,6 +85,9 @@ def init_base():
     ADDR_CHROME = "https://chromereleases.googleblog.com/search/label/Desktop%20Update"
     ADDR_EDGE = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule"
     ADDR_SAFARI = "https://developer.apple.com/documentation/safari-release-notes"
+
+    # Prepare software for selenium
+    update_geckodriver()
 
     # Connect to data base
     cursor = connect_dbb()
@@ -69,6 +124,22 @@ def init_base():
          FOREIGN KEY(login) REFERENCES my_user(login)
     )
     """)
+
+    #### Add admin user
+    # Get configuration
+    # Get configurations
+    with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
+              'r', encoding='utf-8') as f_conf:
+        d_conf = json.load(f_conf)
+
+    # Query to add admin user
+    admin_sql = """INSERT INTO my_user(login, email, status)
+                   VALUES(%(login)s, %(email)s, %(status)s)"""
+
+    # Query database
+    cursor.execute(admin_sql, {'login':d_conf['login'],
+                               'email':d_conf['email'],
+                               'status':'super'})
 
     ###### Get last version of browsers
 
