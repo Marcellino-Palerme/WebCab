@@ -48,7 +48,8 @@ RUN apt update -y
 RUN apt upgrade -y
 RUN apt install -y git
 RUN apt install -y libzbar-dev
-RUN apt install -y firefox-geckodriver
+RUN apt install -y tar
+RUN apt install -y wget
 
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
@@ -68,7 +69,7 @@ RUN pip install -r cab/requirements.txt
 RUN pip install -r web-cab/requirements.txt
 
 RUN mkdir web-cab/web_cab/conf
-RUN echo $conf >> web-cab/web_cab/conf/conf.json
+RUN echo "${conf}" >> web-cab/web_cab/conf/conf.json
 
 WORKDIR web-cab
 
