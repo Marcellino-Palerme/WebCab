@@ -253,7 +253,7 @@ def check_init(function):
 
         cursor.execute(browser_sql)
 
-        if not cursor.fetchone is None and int(cursor.fetchone()[0]) > 10:
+        if not cursor.fetchone() is None and int(cursor.fetchone()[0]) > 10:
             bool_base = True
 
     # initialize database
