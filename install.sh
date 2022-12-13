@@ -18,6 +18,8 @@ read -p "Enter token gitlab : " token
 read -p "Enter administrator login : " name
 read -p "Enter administrator email : " email
 
+sudo podman pod create pod_wc
+
 # Thx stackoverflow
 # https://stackoverflow.com/a/10497540
 # Generate password of database
@@ -25,9 +27,18 @@ pwd_db=$( dd if=/dev/urandom bs=50 count=1|base64)
 
 
 # Create container of database
-sudo podman run -d --name pg_wc -e POSTGRES_PASSWORD=$pwd_db postgres
+sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgres
 
-conf="{'login':'${name},'email':'${email}','db': {'database':'postgres', 'user': 'postgres', 'password':'${pwd_db}', 'host':'localhost', 'port': '5432'}}"
+conf='{"login":"'
+conf=$conf${name}
+temp=',"email":"'
+conf=$conf$temp
+conf=$conf${email}
+temp='","db": {"database":"postgres", "user": "postgres", "password":"'
+conf=$conf$temp
+conf=$conf${pwd_db}
+temp='", "host":"localhost", "port": "5432"}}'
+conf=$conf$temp
 
 # Create image for web_cab
 sudo podman build -t web_cab --label TOKEN=$token -<<EOF
@@ -67,4 +78,4 @@ CMD streamlit run --browser.gatherUsageStats false web_cab/upload.py
 EOF
 
 # Create container of web_cab
-sudo podman run -d --name ct_web_cab -p 8501:8501 web_cab
+sudo podman run -d --name ct_web_cab --pod=pod_wc -p 8501:8501 web_cab
