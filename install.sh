@@ -18,7 +18,7 @@ read -p "Enter token gitlab : " token
 read -p "Enter administrator login : " name
 read -p "Enter administrator email : " email
 
-sudo podman pod create pod_wc
+sudo podman pod create -p 8501:8501 -n pod_wc
 
 # Thx stackoverflow
 # https://stackoverflow.com/a/10497540
@@ -31,7 +31,7 @@ sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgr
 
 conf='{"login":"'
 conf=$conf${name}
-temp=',"email":"'
+temp='","email":"'
 conf=$conf$temp
 conf=$conf${email}
 temp='","db": {"database":"postgres", "user": "postgres", "password":"'
@@ -79,4 +79,4 @@ CMD streamlit run --browser.gatherUsageStats false web_cab/upload.py
 EOF
 
 # Create container of web_cab
-sudo podman run -d --name ct_web_cab --pod=pod_wc -p 8501:8501 web_cab
+sudo podman run -d --name ct_web_cab --pod=pod_wc web_cab
