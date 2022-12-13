@@ -57,6 +57,7 @@ def update_geckodriver():
     if not path is None:
         in_version = subprocess.run(["geckodriver", "-V"], capture_output=True)
         in_version = in_version.stdout.split()[1].decode()
+    else:
         # Define where put software
         path = '/usr/bin'
 
