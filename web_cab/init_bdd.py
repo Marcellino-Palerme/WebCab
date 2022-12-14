@@ -215,7 +215,7 @@ def init_base(cursor):
     CREATE TABLE IF NOT EXISTS my_user(
          login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
          email VARCHAR(50) UNIQUE NOT NULL,
-         pwd VARCHAR(50),
+         pwd VARCHAR(200),
          status status_type
     )
     """)
