@@ -290,3 +290,5 @@ def check_init(function):
     if bool_base is False :
         init_base(cursor)
         update_browser_version(cursor)
+
+    return function
