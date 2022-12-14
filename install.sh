@@ -50,6 +50,11 @@ RUN apt install -y git
 RUN apt install -y libzbar-dev
 RUN apt install -y tar
 RUN apt install -y wget
+RUN apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
+RUN apt-get install -y libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
+RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
+RUN apt install -y libwebp-dev
 
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
@@ -67,6 +72,9 @@ RUN sed -i /cab/d  web-cab/requirements.txt
 
 RUN pip install -r cab/requirements.txt
 RUN pip install -r web-cab/requirements.txt
+
+# Install cab
+RUN cd cab && python setup.py install
 
 RUN mkdir web-cab/web_cab/conf
 RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
