@@ -12,10 +12,6 @@ import os
 import requests
 from bs4 import BeautifulSoup as BfS
 import re
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 import json
 import shutil
 import subprocess
@@ -72,80 +68,32 @@ def update_geckodriver():
         subprocess.run(['mv', 'geckodriver', path])
 
 
-
-def init_base():
+def update_browser_version(cursor):
     """
-    Initialise the database
+    Add or update version of supported streamlit browser
+
+    Parameters
+    ----------
+    cursor : TYPE
+        cursor to database.
 
     Returns
     -------
     None.
 
     """
+
+    # Define address to get last broswer version
     ADDR_FIREFOX = "https://www.mozilla.org/en-US/firefox/releases/"
     ADDR_CHROME = "https://chromereleases.googleblog.com/search/label/Desktop%20Update"
     ADDR_EDGE = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule"
-    ADDR_SAFARI = "https://developer.apple.com/documentation/safari-release-notes"
+    ADDR_SAFARI = 'https://en.wikipedia.org/wiki/Safari_(web_browser)'
 
-    # Prepare software for selenium
-    update_geckodriver()
-
-    # Connect to data base
-    cursor = connect_dbb()
-
-    # Create all tables
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS browser(
-         id SERIAL PRIMARY KEY UNIQUE,
-         name TEXT,
-         version INTEGER
-    )
-    """)
-    cursor.execute("""CREATE TYPE status_type AS
-                      ENUM ('', 'super', 'temp', 'temp_super')""")
-
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS my_user(
-         login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
-         email VARCHAR(50) UNIQUE NOT NULL,
-         pwd VARCHAR(50),
-         status status_type
-    )
-    """)
-
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS inputs(
-         uuid VARCHAR(40) PRIMARY KEY UNIQUE,
-         login VARCHAR(20) NOT NULL,
-         size INTEGER,
-         state INTEGER,
-         upload TIMESTAMP NOT NULL,
-         update TIMESTAMP,
-         options VARCHAR(100),
-         FOREIGN KEY(login) REFERENCES my_user(login)
-    )
-    """)
-
-    #### Add admin user
-    # Get configuration
-    # Get configurations
-    with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
-              'r', encoding='utf-8') as f_conf:
-        d_conf = json.load(f_conf)
-
-    # Query to add admin user
-    admin_sql = """INSERT INTO my_user(login, email, status)
-                   VALUES(%(login)s, %(email)s, %(status)s)"""
-
-    # Query database
-    cursor.execute(admin_sql, {'login':d_conf['login'],
-                               'email':d_conf['email'],
-                               'status':'super'})
-
-    ###### Get last version of browsers
-
-    add_browser_sql = """ INSERT INTO browser(name, version)
-                          VALUES(%(name)s, %(version)s)"""
+    ### Firefox
+    add_browser_sql = """ INSERT INTO browser (name, version)
+                          VALUES(%(name)s, %(version)s)
+                          ON CONFLICT (name) DO UPDATE SET version=%(version)s
+                          """
 
     ### Firefox
     req = requests.get(ADDR_FIREFOX)
@@ -208,18 +156,100 @@ def init_base():
     cursor.execute(add_browser_sql, {'name':"Edge", 'version':version})
 
     ### Safari
-    op_fire = Options()
-    op_fire.add_argument('--headless')
-    driver = webdriver.Firefox(options=op_fire)
-    driver.get(ADDR_SAFARI)
-    version = WebDriverWait(driver, timeout=3).\
-              until(lambda d: d.find_element(By.CLASS_NAME,"highlight"))
-    version = version.text
-    driver.quit()
-    version = version.split()[1]
+    req = requests.get(ADDR_SAFARI)
+
+    # Parsing the HTML
+    page = BfS(req.content, 'html.parser')
+
+    summary_part = page.find('div', class_='toc')
+
+    release_part=summary_part.find_all('span')
+
+    for release in release_part:
+        if 'Safari' in release.text and not 'o' in release.text:
+            version = int(release.text.split('Safari')[1])
+
     version = int(version) - 1
 
     cursor.execute(add_browser_sql, {'name':"Safari", 'version':version})
+
+
+def init_base(cursor):
+    """
+    Initialise the database
+
+    Parameters
+    ----------
+    cursor : TYPE
+        cursor to database.
+
+    Returns
+    -------
+    None.
+
+    """
+
+
+    # Prepare software for selenium
+    update_geckodriver()
+
+    # Create all tables
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS browser(
+         name VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
+         version INTEGER
+    )
+    """)
+
+    cursor.execute("""
+                   DO $$
+                   BEGIN
+                      IF NOT EXISTS (SELECT 1 FROM pg_type
+                                     WHERE typname = 'status_type') THEN
+                         CREATE TYPE status_type AS
+                         ENUM ('', 'super', 'temp', 'temp_super');
+                     END IF;
+                  END$$;""")
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS my_user(
+         login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
+         email VARCHAR(50) UNIQUE NOT NULL,
+         pwd VARCHAR(50),
+         status status_type
+    )
+    """)
+
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS inputs(
+         uuid VARCHAR(40) PRIMARY KEY UNIQUE,
+         login VARCHAR(20) NOT NULL,
+         size INTEGER,
+         state INTEGER,
+         upload TIMESTAMP NOT NULL,
+         update TIMESTAMP,
+         options VARCHAR(100),
+         FOREIGN KEY(login) REFERENCES my_user(login)
+    )
+    """)
+
+    #### Add admin user
+    # Get configuration
+    # Get configurations
+    with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
+              'r', encoding='utf-8') as f_conf:
+        d_conf = json.load(f_conf)
+
+    # Query to add admin user
+    admin_sql = """INSERT INTO my_user(login, email, status)
+                   VALUES(%(login)s, %(email)s, %(status)s)"""
+
+    # Query database
+    cursor.execute(admin_sql, {'login':d_conf['login'],
+                               'email':d_conf['email'],
+                               'status':'super'})
+
+    ###### Get last version of browsers
 
 
 def check_init(function):
@@ -249,13 +279,14 @@ def check_init(function):
 
     if cursor.fetchone()[0]:
         # Check table browser is complet
-        browser_sql = """SELECT version FROM browser WHERE name = 'Safari' """
+        browser_sql = """SELECT EXISTS(SELECT FROM browser
+                                       WHERE name='Safari')"""
 
         cursor.execute(browser_sql)
 
-        if not cursor.fetchone() is None and int(cursor.fetchone()[0]) > 10:
-            bool_base = True
+        bool_base = bool(cursor.fetchone()[0])
 
     # initialize database
     if bool_base is False :
-        init_base()
+        init_base(cursor)
+        update_browser_version(cursor)
