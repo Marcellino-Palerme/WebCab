@@ -7,8 +7,12 @@ Created on Tue Nov  8 15:06:19 2022
 """
 import streamlit as st
 from streamlit_javascript import st_javascript
-import sqlite3
 import os
+import sys
+
+sys.path.append(os.path.dirname(__file__))
+from connect import connect_dbb
+
 
 def empty_function():
     """
@@ -25,8 +29,9 @@ def browser_ok(function):
     # Verify broswer is compatible
     # Get info on browser client
     info_brow = str(st_javascript("""navigator.userAgent"""))
-    conn = sqlite3.connect(os.path.join(os.getcwd(),'web_cab','ma_base.db'))
-    cursor = conn.cursor()
+
+    # Connect to data base
+    cursor = connect_dbb()
 
     st.session_state['browser'] = False
 
