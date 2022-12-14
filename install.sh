@@ -69,7 +69,7 @@ RUN pip install -r cab/requirements.txt
 RUN pip install -r web-cab/requirements.txt
 
 RUN mkdir web-cab/web_cab/conf
-RUN echo "${conf}" >> web-cab/web_cab/conf/conf.json
+RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
 
 WORKDIR web-cab
 
