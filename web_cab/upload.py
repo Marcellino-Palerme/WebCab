@@ -194,7 +194,7 @@ def run():
                                             'options':options})
 
         # Run in background cab
-        thd_bgd = Thread(target=bgd.launcher)
+        thd_bgd = Thread(target=bgd.temp_launcher)
         thd_bgd.start()
 
         # Explain result
