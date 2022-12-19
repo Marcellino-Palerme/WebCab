@@ -14,6 +14,6 @@ import os
 path_trans = os.path.join(os.path.dirname(__file__), 'msg')
 lang = gt.translation('msg',
                       localedir=path_trans,
-                      languages=['en'])
+                      languages=['fr'])
 lang.install()
 _ = lang.gettext
