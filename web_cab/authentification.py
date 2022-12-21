@@ -683,6 +683,10 @@ class MyAuthen():
         l_users = self._get_users()
         del l_users[l_users.index(st.session_state.login)]
 
+        # Verify if there are user
+        if l_users is None:
+            where_display.write(_('msg_no_user'))
+
         # Select all user except the user
         sbx_user= where_display.selectbox(_('cbx_delete_user'), l_users)
         where_display.text(_('label_login') + ' : ' + sbx_user)
