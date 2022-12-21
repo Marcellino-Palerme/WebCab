@@ -1,0 +1,498 @@
+# English translations for PACKAGE package.
+# Copyright (C) 2022 ORGANIZATION
+# mpalerme <mpalerme@ren-1349-b65>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2022-12-19 13:06+CET\n"
+"PO-Revision-Date: 2022-12-16 15:15+0100\n"
+"Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: authentification.py:89
+#, fuzzy
+msgid "msg_change_email_wrong"
+msgstr "msg_email_end"
+
+#: authentification.py:94
+#, fuzzy
+msgid "msg_change_email_same"
+msgstr "msg_email_end"
+
+#: authentification.py:241
+msgid "title_form_login"
+msgstr "Login"
+
+#: authentification.py:242
+msgid "form_login_login"
+msgstr "form_login_login"
+
+#: authentification.py:243
+msgid "form_login_pwd"
+msgstr "form_login_pwd"
+
+#: authentification.py:245 authentification.py:575
+msgid "bt_login_submit"
+msgstr "bt_login_submit"
+
+#: authentification.py:357
+msgid "title_forgot_pwd"
+msgstr "title_forgot_pwd"
+
+#: authentification.py:358
+msgid "forgot_pwd_login"
+msgstr "forgot_pwd_login"
+
+#: authentification.py:375
+msgid "msg_email_sub_pwd"
+msgstr "msg_email_sub_pwd"
+
+#: authentification.py:376
+msgid "msg_email_header_pwd"
+msgstr "msg_email_header_pwd"
+
+#: authentification.py:377 authentification.py:445 authentification.py:664
+#: background.py:144 background.py:280
+msgid "msg_email_end"
+msgstr "msg_email_end"
+
+#: authentification.py:387
+msgid "bt_forgot_pwd_submit"
+msgstr "bt_forgot_pwd_submit"
+
+#: authentification.py:426
+msgid "title_forgot_login"
+msgstr "title_forgot_login"
+
+#: authentification.py:427
+msgid "forgot_login_email"
+msgstr "forgot_login_email"
+
+#: authentification.py:443
+msgid "msg_email_sub_login"
+msgstr "msg_email_sub_login"
+
+#: authentification.py:444
+msgid "msg_email_header_login"
+msgstr "msg_email_header_login"
+
+#: authentification.py:455
+msgid "bt_forgot_login_submit"
+msgstr "bt_forgot_login_submit"
+
+#: authentification.py:471
+msgid "bt_logout"
+msgstr "bt_logout"
+
+#: authentification.py:471
+msgid "bt_logout_help"
+msgstr "bt_logout_help"
+
+#: authentification.py:500
+#, fuzzy
+msgid "msg_update_email"
+msgstr "msg_email_end"
+
+#: authentification.py:516
+#, fuzzy
+msgid "title_form_up_pwd"
+msgstr "title_forgot_pwd"
+
+#: authentification.py:517
+msgid "form_pwd_current"
+msgstr ""
+
+#: authentification.py:519
+#, fuzzy
+msgid "form_pwd_new"
+msgstr "forgot_pwd_login"
+
+#: authentification.py:521
+#, fuzzy
+msgid "form_pwd_conf"
+msgstr "forgot_pwd_login"
+
+#: authentification.py:559
+#, fuzzy
+msgid "msg_up_pwd_ok"
+msgstr "msg_forgot_pwd_ok"
+
+#: authentification.py:563
+#, fuzzy
+msgid "msg_up_pwd_fail"
+msgstr "msg_forgot_pwd_fail"
+
+#: authentification.py:565
+#, fuzzy
+msgid "msg_up_pwd_miss"
+msgstr "msg_forgot_pwd_miss"
+
+#: authentification.py:612
+msgid "title_form_create_user"
+msgstr ""
+
+#: authentification.py:614
+msgid "form_create_user_login"
+msgstr ""
+
+#: authentification.py:615
+msgid "form_create_user_email"
+msgstr ""
+
+#: authentification.py:616
+msgid "form_create_user_admin"
+msgstr ""
+
+#: authentification.py:641
+msgid "msg_create_user_exist"
+msgstr ""
+
+#: authentification.py:661
+#, fuzzy
+msgid "msg_email_sub_create_user"
+msgstr "msg_email_sub_pwd"
+
+#: authentification.py:662
+#, fuzzy
+msgid "msg_email_header_create_user"
+msgstr "msg_email_header_pwd"
+
+#: authentification.py:666
+msgid "msg_create_user_ok"
+msgstr ""
+
+#: authentification.py:668
+#, fuzzy
+msgid "msg_create_user_miss"
+msgstr "msg_forgot_pwd_miss"
+
+#: authentification.py:670
+#, fuzzy
+msgid "bt_create_user_submit"
+msgstr "bt_forgot_pwd_submit"
+
+#: authentification.py:687
+msgid "cbx_delete_user"
+msgstr ""
+
+#: authentification.py:688
+msgid "label_login"
+msgstr ""
+
+#: authentification.py:689
+msgid "label_email"
+msgstr ""
+
+#: authentification.py:692
+#, fuzzy
+msgid "bt_del_user_submit"
+msgstr "bt_login_submit"
+
+#: authentification.py:695
+msgid "label_confirm_del_user"
+msgstr ""
+
+#: authentification.py:717
+msgid "msg_del_user_ok"
+msgstr ""
+
+#: authentification.py:719
+#, fuzzy
+msgid "msg_del_user_mail_diff"
+msgstr "msg_email_end"
+
+#: authentification.py:721
+msgid "bt_confirm_del_user"
+msgstr ""
+
+#: authentification.py:767
+msgid "bt_forgot_pwd"
+msgstr "bt_forgot_pwd"
+
+#: authentification.py:767
+msgid "bt_forgot_pwd_help"
+msgstr "bt_forgot_pwd_help"
+
+#: authentification.py:771
+msgid "bt_forgot_login"
+msgstr "bt_forgot_login"
+
+#: authentification.py:771
+msgid "bt_forgot_login_help"
+msgstr "bt_forgot_login_help"
+
+#: authentification.py:813
+msgid "msg_forgot_pwd_fail"
+msgstr "msg_forgot_pwd_fail"
+
+#: authentification.py:815
+msgid "msg_forgot_pwd_miss"
+msgstr "msg_forgot_pwd_miss"
+
+#: authentification.py:817
+msgid "msg_forgot_pwd_ok"
+msgstr "msg_forgot_pwd_ok"
+
+#: authentification.py:822
+msgid "msg_forgot_login_fail"
+msgstr "msg_forgot_login_fail"
+
+#: authentification.py:824
+msgid "msg_forgot_login_miss"
+msgstr "msg_forgot_login_miss"
+
+#: authentification.py:826
+msgid "msg_forgot_login_ok"
+msgstr "msg_forgot_login_ok"
+
+#: authentification.py:839
+msgid "msg_login_miss"
+msgstr "msg_login_miss"
+
+#: authentification.py:841
+msgid "msg_login_fail"
+msgstr "msg_login_fail"
+
+#: upload.py:32
+msgid "Title_up"
+msgstr "Title_up"
+
+#: upload.py:37
+msgid "http://URL_up_help"
+msgstr "http://URL_up_help"
+
+#: upload.py:38
+msgid "http://URL_up_bug"
+msgstr "http://URL_up_bug"
+
+#: upload.py:39 pages/download.py:30
+msgid "txt_about"
+msgstr "txt_about"
+
+#: upload.py:58
+msgid "Upload_image"
+msgstr "Upload your images"
+
+#: upload.py:60
+msgid "txt_up_global_help"
+msgstr "txt_up_global_help"
+
+#: upload.py:62
+msgid "Input_part"
+msgstr "Input_part"
+
+#: upload.py:64
+msgid "Archive_with_images"
+msgstr "Archive_with_images"
+
+#: upload.py:65
+msgid "msg_up_help_zip"
+msgstr "msg_up_help_zip"
+
+#: upload.py:67
+msgid "Max_barcode_by_image"
+msgstr "Max_barcode_by_image"
+
+#: upload.py:69
+msgid "msg_up_help_max_bar"
+msgstr "msg_up_help_max_bar"
+
+#: upload.py:73 upload.py:85
+msgid "chk_used_valid_file"
+msgstr "chk_used_valid_file"
+
+#: upload.py:74
+msgid "chk_not_used_valid_file"
+msgstr "chk_not_used_valid_file"
+
+#: upload.py:79
+msgid "radio_valid_file"
+msgstr "radio_valid_file"
+
+#: upload.py:82
+msgid "msg_up_help_radio_valid_file"
+msgstr "msg_up_help_radio_valid_file"
+
+#: upload.py:86
+msgid "msg_up_help_chk_valid_file"
+msgstr "msg_up_help_chk_valid_file"
+
+#: upload.py:91
+msgid "Validation_file"
+msgstr "Validation_file"
+
+#: upload.py:92
+msgid "msg_up_help_valid_file"
+msgstr "msg_up_help_valid_file"
+
+#: upload.py:95
+msgid "Output_part"
+msgstr "Output_part"
+
+#: upload.py:97
+msgid "link_image_barcode_file"
+msgstr "link_image_barcode_file"
+
+#: upload.py:98
+msgid "msg_up_help_chk_out_link_file"
+msgstr "msg_up_help_chk_out_link_file"
+
+#: upload.py:102
+msgid "Rename_image"
+msgstr "Rename_image"
+
+#: upload.py:103
+msgid "msg_up_help_chk_out_format"
+msgstr "msg_up_help_chk_out_format"
+
+#: upload.py:105
+msgid "Image_name_barecode"
+msgstr "Image_name_barecode"
+
+#: upload.py:105
+msgid "only_barcode"
+msgstr "only_barcode"
+
+#: upload.py:106
+msgid "barecode_image_name"
+msgstr "barecode_image_name"
+
+#: upload.py:109
+msgid "format_image_name"
+msgstr "format_image_name"
+
+#: upload.py:110
+msgid "msg_up_help_radio_out_format"
+msgstr "msg_up_help_radio_out_format"
+
+#: upload.py:117
+msgid "msg_up_miss_zip"
+msgstr "msg_up_miss_zip"
+
+#: upload.py:122
+msgid "msg_up_miss_valid_file"
+msgstr "msg_up_miss_valid_file"
+
+#: upload.py:126
+msgid "msg_up_miss_output"
+msgstr "msg_up_miss_output"
+
+#: upload.py:134
+msgid "bt_upload_submit"
+msgstr "bt_upload_submit"
+
+#: upload.py:135
+msgid "msg_up_help_bt_submit"
+msgstr "msg_up_help_bt_submit"
+
+#: upload.py:201
+msgid "Id of your process: "
+msgstr "Id of your process: "
+
+#: upload.py:202
+msgid "msg_success_upload"
+msgstr "msg_success_upload"
+
+#: background.py:142 background.py:278
+#, fuzzy
+msgid "msg_email_sub_end_cab"
+msgstr "msg_email_sub_pwd"
+
+#: background.py:143 background.py:279
+#, fuzzy
+msgid "msg_email_header_end_cab"
+msgstr "msg_email_header_pwd"
+
+#: pages/download.py:23
+#, fuzzy
+msgid "Title_down"
+msgstr "Title_up"
+
+#: pages/download.py:28
+#, fuzzy
+msgid "http://URL_down_help"
+msgstr "http://URL_up_help"
+
+#: pages/download.py:29
+#, fuzzy
+msgid "http://URL_down_bug"
+msgstr "http://URL_up_bug"
+
+#: pages/download.py:63 pages/download.py:68 pages/download.py:74
+msgid " upload: "
+msgstr ""
+
+#: pages/download.py:71
+msgid "Waiting"
+msgstr ""
+
+#: pages/download.py:77
+msgid "Expiring: "
+msgstr ""
+
+#: pages/download.py:82
+msgid "download"
+msgstr ""
+
+#: pages/profile.py:46
+msgid "title_profile_page"
+msgstr ""
+
+#: pages/profile.py:51
+msgid "tab_admin_create"
+msgstr ""
+
+#: pages/profile.py:51
+msgid "tab_user"
+msgstr ""
+
+#: pages/profile.py:52
+msgid "tab_admin_delete"
+msgstr ""
+
+#: pages/profile.py:65
+#, fuzzy
+msgid "row_login"
+msgstr "forgot_pwd_login"
+
+#: pages/profile.py:67
+msgid "row_email"
+msgstr ""
+
+#: pages/profile.py:69
+msgid "row_email_help"
+msgstr ""
+
+#: pages/profile.py:73
+msgid "bt_profile_update"
+msgstr ""
+
+#: pages/profile.py:73
+#, fuzzy
+msgid "bt_profile_update_help"
+msgstr "bt_forgot_pwd_help"
+
+#: pages/profile.py:79
+msgid "bt_profile_cancel"
+msgstr ""
+
+#: pages/profile.py:79
+msgid "bt_profile_cancel_help"
+msgstr ""
+
+#: pages/profile.py:83
+#, fuzzy
+msgid "bt_change_pwd"
+msgstr "bt_forgot_pwd"
+
+#: pages/profile.py:83
+#, fuzzy
+msgid "bt_change_pwd_help"
+msgstr "bt_forgot_pwd_help"
