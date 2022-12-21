@@ -5,249 +5,249 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-19 14:18+CET\n"
+"POT-Creation-Date: 2022-12-19 13:14+CET\n"
 "PO-Revision-Date: 2022-12-19 13:14+0100\n"
 "Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
 "Language-Team: French\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: authentification.py:89
 msgid "msg_change_email_wrong"
-msgstr "Le format de l'email est incorrect"
+msgstr ""
 
 #: authentification.py:94
 msgid "msg_change_email_same"
-msgstr "La nouvelle adresse email est identique a l'ancienne"
+msgstr ""
 
 #: authentification.py:241
 msgid "title_form_login"
-msgstr "Authentification"
+msgstr ""
 
 #: authentification.py:242
 msgid "form_login_login"
-msgstr "Identifiant"
+msgstr ""
 
 #: authentification.py:243
 msgid "form_login_pwd"
-msgstr "Mot de passe"
+msgstr ""
 
 #: authentification.py:245 authentification.py:575
 msgid "bt_login_submit"
-msgstr "Valider"
+msgstr ""
 
 #: authentification.py:357
 msgid "title_forgot_pwd"
-msgstr "Mot de passe oublié"
+msgstr ""
 
 #: authentification.py:358
 msgid "forgot_pwd_login"
-msgstr "Identifiant"
+msgstr ""
 
 #: authentification.py:375
 msgid "msg_email_sub_pwd"
-msgstr "Mot de passe temporaire Web Cab"
+msgstr ""
 
 #: authentification.py:376
 msgid "msg_email_header_pwd"
-msgstr "Bonjour,\nVous trouverez ci-dessous votre mot de passe temporaire pour Web Cab:\n "
+msgstr ""
 
 #: authentification.py:377 authentification.py:445 authentification.py:664
 #: background.py:144 background.py:280
 msgid "msg_email_end"
-msgstr " \nCe message est généré automatique merci de ne pas y repondre.\nCordialement\nWeb Cab"
+msgstr ""
 
 #: authentification.py:387
 msgid "bt_forgot_pwd_submit"
-msgstr "Valider"
+msgstr ""
 
 #: authentification.py:426
 msgid "title_forgot_login"
-msgstr "Identifiant oublié"
+msgstr ""
 
 #: authentification.py:427
 msgid "forgot_login_email"
-msgstr "Email"
+msgstr ""
 
 #: authentification.py:443
 msgid "msg_email_sub_login"
-msgstr "Valider"
+msgstr ""
 
 #: authentification.py:444
 msgid "msg_email_header_login"
-msgstr "Bonjour,\nVous trouverez ci-dessous votre identifiant pour Web Cab:\n "
+msgstr ""
 
 #: authentification.py:455
 msgid "bt_forgot_login_submit"
-msgstr "Valider"
+msgstr ""
 
 #: authentification.py:471
 msgid "bt_logout"
-msgstr "Deconnexion"
+msgstr ""
 
 #: authentification.py:471
 msgid "bt_logout_help"
-msgstr "Fermer le session de l'utilisateur actuel"
+msgstr ""
 
 #: authentification.py:500
 msgid "msg_update_email"
-msgstr "Votre email a été mis à jour"
+msgstr ""
 
 #: authentification.py:516
 msgid "title_form_up_pwd"
-msgstr "Nouveau mot de passe"
+msgstr ""
 
 #: authentification.py:517
 msgid "form_pwd_current"
-msgstr "Mot de passe actuel"
+msgstr ""
 
 #: authentification.py:519
 msgid "form_pwd_new"
-msgstr "Nouveau mot de passe"
+msgstr ""
 
 #: authentification.py:521
 msgid "form_pwd_conf"
-msgstr "Confirmation du nouveau mot de passe"
+msgstr ""
 
 #: authentification.py:559
 msgid "msg_up_pwd_ok"
-msgstr "Votre mot de passe a été mis à jour"
+msgstr ""
 
 #: authentification.py:563
 msgid "msg_up_pwd_fail"
-msgstr "La mise à jour du mot de passe n a pas été faite pour l'une ou plusieurs raisons suivantes:\n- Mot de actuel incorrect\n- Mot de passe de confirmation différent du nouveau\n- Le nouveau mot de passe contient des mots interdits (mot clé de SQL)"
+msgstr ""
 
 #: authentification.py:565
 msgid "msg_up_pwd_miss"
-msgstr "Un des champs est vide"
+msgstr ""
 
 #: authentification.py:612
 msgid "title_form_create_user"
-msgstr "Ajout d'un utilisateur"
+msgstr ""
 
 #: authentification.py:614
 msgid "form_create_user_login"
-msgstr "Identifiant"
+msgstr ""
 
 #: authentification.py:615
 msgid "form_create_user_email"
-msgstr "email"
+msgstr ""
 
 #: authentification.py:616
 msgid "form_create_user_admin"
-msgstr "Administrateur"
+msgstr ""
 
 #: authentification.py:641
 msgid "msg_create_user_exist"
-msgstr "L'utilisateur exite déjà"
+msgstr ""
 
 #: authentification.py:661
 msgid "msg_email_sub_create_user"
-msgstr "Ajouter à Web CAB"
+msgstr ""
 
 #: authentification.py:662
 msgid "msg_email_header_create_user"
-msgstr "Bonjour,\nVous recevez ce message car un compte sur Web Cab a été créé avec votre adresse email.\nSi c'est bien une demande de votre part bienvenue.\nSinon désolé pour le dérangement."
+msgstr ""
 
 #: authentification.py:666
 msgid "msg_create_user_ok"
-msgstr "L'utilisateur a bien été ajouté"
+msgstr ""
 
 #: authentification.py:668
 msgid "msg_create_user_miss"
-msgstr "Une des champs est vide"
+msgstr ""
 
 #: authentification.py:670
 msgid "bt_create_user_submit"
-msgstr "Ajouter"
+msgstr ""
 
 #: authentification.py:687
 msgid "cbx_delete_user"
-msgstr "Supprimer utilisateur"
+msgstr ""
 
 #: authentification.py:688
 msgid "label_login"
-msgstr "Identifiant"
+msgstr ""
 
 #: authentification.py:689
 msgid "label_email"
-msgstr "Email"
+msgstr ""
 
 #: authentification.py:692
 msgid "bt_del_user_submit"
-msgstr "Supprimer"
+msgstr ""
 
 #: authentification.py:695
 msgid "label_confirm_del_user"
-msgstr "Merci de taper l'adresse email de l'utilisateut à supprimer pour valider la suppression"
+msgstr ""
 
 #: authentification.py:717
 msgid "msg_del_user_ok"
-msgstr "L'utilisateur a été supprimé"
+msgstr ""
 
 #: authentification.py:719
 msgid "msg_del_user_mail_diff"
-msgstr "L adresse mail de confirmation est differente"
+msgstr ""
 
 #: authentification.py:721
 msgid "bt_confirm_del_user"
-msgstr "Confirmation"
+msgstr ""
 
 #: authentification.py:767
 msgid "bt_forgot_pwd"
-msgstr "Mot de passe oublié"
+msgstr ""
 
 #: authentification.py:767
 msgid "bt_forgot_pwd_help"
-msgstr "En cas d oublie du mot de passe, un temporaire peut vous être généré"
+msgstr ""
 
 #: authentification.py:771
 msgid "bt_forgot_login"
-msgstr "Identifiant oublié"
+msgstr ""
 
 #: authentification.py:771
 msgid "bt_forgot_login_help"
-msgstr "En cas d oublie de votre identifiant, celui-ci peut vous être communiqué par email"
+msgstr ""
 
 #: authentification.py:813
 msgid "msg_forgot_pwd_fail"
-msgstr "L'information fournie est incorrecte"
+msgstr ""
 
 #: authentification.py:815
 msgid "msg_forgot_pwd_miss"
-msgstr "Le champ ne peut pas être vide"
+msgstr ""
 
 #: authentification.py:817
 msgid "msg_forgot_pwd_ok"
-msgstr "Le mot de passe temporaire vous a été transmit par email (peut-être dans spam)"
+msgstr ""
 
 #: authentification.py:822
 msgid "msg_forgot_login_fail"
-msgstr "L'information fournie est incorrecte"
+msgstr ""
 
 #: authentification.py:824
 msgid "msg_forgot_login_miss"
-msgstr "Le champ ne peut pas être vide"
+msgstr ""
 
 #: authentification.py:826
 msgid "msg_forgot_login_ok"
-msgstr "Votre identifiant vous a été transmit par email (peut-être dans spam)"
+msgstr ""
 
 #: authentification.py:839
 msgid "msg_login_miss"
-msgstr "Un des champs est vide"
+msgstr ""
 
 #: authentification.py:841
 msgid "msg_login_fail"
-msgstr "Les informations fournies sont incorrectes."
+msgstr ""
 
 #: upload.py:32
 msgid "Title_up"
-msgstr "Téléverser"
+msgstr ""
 
 #: upload.py:37
 msgid "http://URL_up_help"
@@ -263,139 +263,139 @@ msgstr ""
 
 #: upload.py:58
 msgid "Upload_image"
-msgstr "Téléverser"
+msgstr ""
 
 #: upload.py:60
 msgid "txt_up_global_help"
-msgstr "Bonjour!<br/>_Si c'est votre première utilisation_<br/>_Rendez-vous [ici]()_<br/>La partie téléversement permet de fournir les images à analyser et configurer ce que vous souhaitez obtenir.<br/>Chaque éléments du formulaire a une aide contextuelle pour vous rappelez ce qu il faut fournir.<br/>Bon remplissage.<br/>L'équipe Web Cab."
+msgstr ""
 
 #: upload.py:62
 msgid "Input_part"
-msgstr "Éléments à fournir"
+msgstr ""
 
 #: upload.py:64
 msgid "Archive_with_images"
-msgstr "Archive (.zip) contenant vos images"
+msgstr ""
 
 #: upload.py:65
 msgid "msg_up_help_zip"
-msgstr "Les images, que vous voulez qu'on analyse, archivées directement dans un fichier .zip"
+msgstr ""
 
 #: upload.py:67
 msgid "Max_barcode_by_image"
-msgstr "Nombre de code barre max. / image"
+msgstr ""
 
 #: upload.py:69
 msgid "msg_up_help_max_bar"
-msgstr "Indiquer le nombre de code barre que contient l'image qui en a le plus"
+msgstr ""
 
 #: upload.py:73 upload.py:85
 msgid "chk_used_valid_file"
-msgstr "Avec fichier de validation"
+msgstr ""
 
 #: upload.py:74
 msgid "chk_not_used_valid_file"
-msgstr "Sans fichier de validation"
+msgstr ""
 
 #: upload.py:79
 msgid "radio_valid_file"
-msgstr "Utiliser un fichier de validation"
+msgstr ""
 
 #: upload.py:82
 msgid "msg_up_help_radio_valid_file"
-msgstr "_Quand il y plusieurs codes barre dans une images, il est préférable d'utliser un fichier de validation:_<ol><li>_Ordonner les codes barre trouvés dans l image_</li><li>_Vérifier que les codes barre trouvés sont bien ceux definis_</li></ol>"
+msgstr ""
 
 #: upload.py:86
 msgid "msg_up_help_chk_valid_file"
-msgstr "Le fichier de validation permet:\n\r1) Vérifier que les codes barre trouves sont bien ceux definis\n\r2) Ordonner les codes barre trouvés dans l image"
+msgstr ""
 
 #: upload.py:91
 msgid "Validation_file"
-msgstr "Fichier de validation"
+msgstr ""
 
 #: upload.py:92
 msgid "msg_up_help_valid_file"
-msgstr "Le fichier de validation est un fichier csv ou chaque ligne correspond à l'ensemble des codes barre qu'on trouve dans une image et chaque colonne ne contient qu'un code barre. L'ordre des codes barre dans une ligne est l'ordre à laquel ils seront concaténés"
+msgstr ""
 
 #: upload.py:95
 msgid "Output_part"
-msgstr "Éléments résultants"
+msgstr ""
 
 #: upload.py:97
 msgid "link_image_barcode_file"
-msgstr "Fichier de correspondance images - code barre"
+msgstr ""
 
 #: upload.py:98
 msgid "msg_up_help_chk_out_link_file"
-msgstr "Fichier csv avec deux colonnes. La première avec le nom de l'image. La seconde avec le ou les codes barre trouvés concaténés par un _ soit dans l'ordre du fichier de validation soit dans l'ordre de leur identification"
+msgstr ""
 
 #: upload.py:102
 msgid "Rename_image"
-msgstr "Renommer l'images"
+msgstr ""
 
 #: upload.py:103
 msgid "msg_up_help_chk_out_format"
-msgstr "Souhaitez-vous que les images soient renommees à partir des codes barre trouvés"
+msgstr ""
 
 #: upload.py:105
 msgid "Image_name_barecode"
-msgstr "<nom de l'image>_<code barre>.extension"
+msgstr ""
 
 #: upload.py:105
 msgid "only_barcode"
-msgstr "<code barre>.extension"
+msgstr ""
 
 #: upload.py:106
 msgid "barecode_image_name"
-msgstr "<code barre>_<nom de l'image>.extension"
+msgstr ""
 
 #: upload.py:109
 msgid "format_image_name"
-msgstr "Format du renommage des images"
+msgstr ""
 
 #: upload.py:110
 msgid "msg_up_help_radio_out_format"
-msgstr "Indiquer comment vous souhaitez que soit renommer les images. Soit:\n\r 1)L'image prend le nom du ou des codes barre separés par _\n\r 2)On garde le nom de l'image et on lui ajoute _ puis le ou les codes barre trouvés séparés par _\n\r 3)On garde le nom de l'image et précédé du ou des codes barre trouvés séparés par _ et de _"
+msgstr ""
 
 #: upload.py:117
 msgid "msg_up_miss_zip"
-msgstr "Il manque l'archive d'images (.zip)"
+msgstr ""
 
 #: upload.py:122
 msgid "msg_up_miss_valid_file"
-msgstr "Il manque le fichier de validation"
+msgstr ""
 
 #: upload.py:126
 msgid "msg_up_miss_output"
-msgstr "Aucune sortie n'a été choix"
+msgstr ""
 
 #: upload.py:134
 msgid "bt_upload_submit"
-msgstr "Valider"
+msgstr ""
 
 #: upload.py:135
 msgid "msg_up_help_bt_submit"
-msgstr "Demander le lancement du traitement des images"
+msgstr ""
 
 #: upload.py:201
 msgid "Id of your process: "
-msgstr "Le numero de votre traitement est "
+msgstr ""
 
 #: upload.py:202
 msgid "msg_success_upload"
-msgstr "Votre demande a ete prise en compte.\nPour l etat du traitement puis telecharger le resultat.\nMerci de vous rendre a le page telechargement (en cliquant sur telecharger a gauche de cette page)"
+msgstr ""
 
 #: background.py:142 background.py:278
 msgid "msg_email_sub_end_cab"
-msgstr "Analyse des images complet"
+msgstr ""
 
 #: background.py:143 background.py:279
 msgid "msg_email_header_end_cab"
-msgstr "Bonjour,\nLe traitement numéro ci-dessous est terminé. Vous pouvez récuperer le résultat sur Web Cab a la page télécharger."
+msgstr ""
 
 #: pages/download.py:23
 msgid "Title_down"
-msgstr "Télécharger"
+msgstr ""
 
 #: pages/download.py:28
 msgid "http://URL_down_help"
@@ -407,68 +407,68 @@ msgstr ""
 
 #: pages/download.py:63 pages/download.py:68 pages/download.py:74
 msgid " upload: "
-msgstr " téléverser: "
+msgstr ""
 
 #: pages/download.py:71
 msgid "Waiting"
-msgstr "En attente"
+msgstr ""
 
 #: pages/download.py:77
 msgid "Expiring: "
-msgstr "Expire: "
+msgstr ""
 
 #: pages/download.py:82
 msgid "download"
-msgstr "télécharger"
+msgstr ""
 
 #: pages/profile.py:46
 msgid "title_profile_page"
-msgstr "Profile"
+msgstr ""
 
 #: pages/profile.py:51
 msgid "tab_admin_create"
-msgstr "Ajouter un utilisateur"
+msgstr ""
 
 #: pages/profile.py:51
 msgid "tab_user"
-msgstr "Mon profile"
+msgstr ""
 
 #: pages/profile.py:52
 msgid "tab_admin_delete"
-msgstr "Supprimer un utilisateur"
+msgstr ""
 
 #: pages/profile.py:65
 msgid "row_login"
-msgstr "Identifiant"
+msgstr ""
 
 #: pages/profile.py:67
 msgid "row_email"
-msgstr "Email"
+msgstr ""
 
 #: pages/profile.py:69
 msgid "row_email_help"
-msgstr "Modifier votre adresse email"
+msgstr ""
 
 #: pages/profile.py:73
 msgid "bt_profile_update"
-msgstr "Mise à jour"
+msgstr ""
 
 #: pages/profile.py:73
 msgid "bt_profile_update_help"
-msgstr "Enregistrer la modification de votre adresse email"
+msgstr ""
 
 #: pages/profile.py:79
 msgid "bt_profile_cancel"
-msgstr "Annuler"
+msgstr ""
 
 #: pages/profile.py:79
 msgid "bt_profile_cancel_help"
-msgstr "Annuler la modification de votre adresse email"
+msgstr ""
 
 #: pages/profile.py:83
 msgid "bt_change_pwd"
-msgstr "Modifier mot de passe"
+msgstr ""
 
 #: pages/profile.py:83
 msgid "bt_change_pwd_help"
-msgstr "Accéder au formulaire de modification de votre mot de passe"
+msgstr ""

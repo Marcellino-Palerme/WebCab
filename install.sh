@@ -59,7 +59,7 @@ RUN apt install -y libwebp-dev
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
 # temporary we go to branch
-RUN cd web-cab && git branch -a && git checkout deploiement
+RUN cd web-cab && git branch -a && git checkout user_friendly
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/cab.git
 
 ### Install all modules

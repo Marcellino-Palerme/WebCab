@@ -57,7 +57,7 @@ def run():
     cols = my_form.columns(4)
     cols[0].header(_('Upload_image'))
     if cols[1].button('?'):
-        st.sidebar.markdown(_('txt_up_global_help'))
+        st.sidebar.markdown(_('txt_up_global_help'), True)
     # Title of input part
     in_part = my_form.expander( '**' + _('Input_part') + '**', True)
     # Upload button to zip
@@ -79,7 +79,7 @@ def run():
         bt_valid_file = in_part.radio(_('radio_valid_file'), choice_valid_file,
                                       horizontal=True,
                                       label_visibility='collapsed')
-        in_part.markdown(_('msg_up_help_radio_valid_file'))
+        in_part.markdown(_('msg_up_help_radio_valid_file'), True)
     else:
         # Part we validation file is optional
         bt_valid_file = in_part.checkbox(_('chk_used_valid_file'),
