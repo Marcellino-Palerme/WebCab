@@ -337,6 +337,11 @@ class MyAuthen():
         start_login = '^' + i_login[0]
         self.cursor.execute(login_sql, {'start_login':start_login})
         l_login_pwd = self.cursor.fetchall()
+
+        # Verify if we find login
+        if l_login_pwd is None:
+            return False
+
         # Check if login exist
         for user in l_login_pwd:
             if user[0] == i_login:
