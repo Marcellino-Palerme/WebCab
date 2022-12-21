@@ -686,8 +686,9 @@ class MyAuthen():
         del l_users[l_users.index(st.session_state.login)]
 
         # Verify if there are user
-        if l_users is None:
+        if len(l_users) == 0:
             where_display.write(_('msg_no_user'))
+            return None
 
         # Select all user except the user
         sbx_user= where_display.selectbox(_('cbx_delete_user'), l_users)
