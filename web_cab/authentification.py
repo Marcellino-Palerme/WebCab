@@ -654,7 +654,8 @@ class MyAuthen():
                         self.cursor.execute(cu_sql,
                         {'login':st.session_state.cu_login,
                          'email':st.session_state.cu_email,
-                         'fake':gen_word(),
+                         'fake':bcrypt.hashpw(gen_word().encode(),
+                                              bcrypt.gensalt()).decode(),
                          'status':'super' if st.session_state.cu_super else ''}
                                            )
 
