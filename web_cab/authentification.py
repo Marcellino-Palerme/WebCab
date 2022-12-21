@@ -153,7 +153,8 @@ class MyAuthen():
             self.cursor.execute(pwd_sql, {'login':i_login})
             return self.cursor.fetchone()[0]
 
-        return ""
+        # return encrypted empty pwd
+        return bcrypt.hashpw("".encode(), bcrypt.gensalt()).decode()
 
     def _valid_pwd(self, i_login, pwd):
         """
