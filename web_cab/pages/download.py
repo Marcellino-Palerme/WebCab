@@ -57,7 +57,31 @@ def page():
 
     ### TODO check if there are process
 
-    for uuid in st.session_state.cursor.fetchall():
+    lt_process = st.session_state.cursor.fetchall()
+
+    # Verify if user have process
+    if len(lt_process) > 0 :
+        cols = st.columns([2,1])
+        cols[0].write(_('msg_explain_ddl_page'))
+        # Legend
+        cols[1].markdown("""
+                            <table>
+                              <tr>
+                                <td>""" + _('title_legend') + """</td>
+                              </tr>
+                              <tr>
+                                <td>⏳ """ + _('legend_wait')+"""<br/>
+                                    🔬 """ + _('legend_in_progress') +"""<br/>
+                                    🏁 """ + _('legend_finish') +"""<br/>
+                                </td>
+                              </tr>
+                            </table>
+                            <br/>
+                         """,True)
+    else:
+        st.write(_('no_process'))
+
+    for uuid in lt_process:
 
         if 0<uuid[1]<100:
             with st.expander('🔬 ' + uuid[0] + _(' upload: ') +

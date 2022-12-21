@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-19 14:18+CET\n"
+"POT-Creation-Date: 2022-12-21 16:58+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,224 +22,228 @@ msgstr ""
 msgid "msg_change_email_same"
 msgstr ""
 
-#: authentification.py:241
+#: authentification.py:242
 msgid "title_form_login"
 msgstr ""
 
-#: authentification.py:242
+#: authentification.py:243
 msgid "form_login_login"
 msgstr ""
 
-#: authentification.py:243
+#: authentification.py:244
 msgid "form_login_pwd"
 msgstr ""
 
-#: authentification.py:245 authentification.py:575
+#: authentification.py:246 authentification.py:577
 msgid "bt_login_submit"
 msgstr ""
 
-#: authentification.py:357
+#: authentification.py:359
 msgid "title_forgot_pwd"
 msgstr ""
 
-#: authentification.py:358
+#: authentification.py:360
 msgid "forgot_pwd_login"
 msgstr ""
 
-#: authentification.py:375
+#: authentification.py:377
 msgid "msg_email_sub_pwd"
 msgstr ""
 
-#: authentification.py:376
+#: authentification.py:378
 msgid "msg_email_header_pwd"
 msgstr ""
 
-#: authentification.py:377 authentification.py:445 authentification.py:664
+#: authentification.py:379 authentification.py:447 authentification.py:667
 #: background.py:144 background.py:280
 msgid "msg_email_end"
 msgstr ""
 
-#: authentification.py:387
+#: authentification.py:389
 msgid "bt_forgot_pwd_submit"
 msgstr ""
 
-#: authentification.py:426
+#: authentification.py:428
 msgid "title_forgot_login"
 msgstr ""
 
-#: authentification.py:427
+#: authentification.py:429
 msgid "forgot_login_email"
 msgstr ""
 
-#: authentification.py:443
+#: authentification.py:445
 msgid "msg_email_sub_login"
 msgstr ""
 
-#: authentification.py:444
+#: authentification.py:446
 msgid "msg_email_header_login"
 msgstr ""
 
-#: authentification.py:455
+#: authentification.py:457
 msgid "bt_forgot_login_submit"
 msgstr ""
 
-#: authentification.py:471
+#: authentification.py:473
 msgid "bt_logout"
 msgstr ""
 
-#: authentification.py:471
+#: authentification.py:473
 msgid "bt_logout_help"
 msgstr ""
 
-#: authentification.py:500
+#: authentification.py:502
 msgid "msg_update_email"
 msgstr ""
 
-#: authentification.py:516
+#: authentification.py:518
 msgid "title_form_up_pwd"
 msgstr ""
 
-#: authentification.py:517
+#: authentification.py:519
 msgid "form_pwd_current"
 msgstr ""
 
-#: authentification.py:519
+#: authentification.py:521
 msgid "form_pwd_new"
 msgstr ""
 
-#: authentification.py:521
+#: authentification.py:523
 msgid "form_pwd_conf"
 msgstr ""
 
-#: authentification.py:559
+#: authentification.py:561
 msgid "msg_up_pwd_ok"
 msgstr ""
 
-#: authentification.py:563
+#: authentification.py:565
 msgid "msg_up_pwd_fail"
 msgstr ""
 
-#: authentification.py:565
+#: authentification.py:567
 msgid "msg_up_pwd_miss"
 msgstr ""
 
-#: authentification.py:612
+#: authentification.py:614
 msgid "title_form_create_user"
 msgstr ""
 
-#: authentification.py:614
+#: authentification.py:616
 msgid "form_create_user_login"
 msgstr ""
 
-#: authentification.py:615
+#: authentification.py:617
 msgid "form_create_user_email"
 msgstr ""
 
-#: authentification.py:616
+#: authentification.py:618
 msgid "form_create_user_admin"
 msgstr ""
 
-#: authentification.py:641
+#: authentification.py:643
 msgid "msg_create_user_exist"
 msgstr ""
 
-#: authentification.py:661
+#: authentification.py:664
 msgid "msg_email_sub_create_user"
 msgstr ""
 
-#: authentification.py:662
+#: authentification.py:665
 msgid "msg_email_header_create_user"
 msgstr ""
 
-#: authentification.py:666
+#: authentification.py:669
 msgid "msg_create_user_ok"
 msgstr ""
 
-#: authentification.py:668
+#: authentification.py:671
 msgid "msg_create_user_miss"
 msgstr ""
 
-#: authentification.py:670
+#: authentification.py:673
 msgid "bt_create_user_submit"
 msgstr ""
 
-#: authentification.py:687
-msgid "cbx_delete_user"
-msgstr ""
-
-#: authentification.py:688
-msgid "label_login"
-msgstr ""
-
-#: authentification.py:689
-msgid "label_email"
-msgstr ""
-
-#: authentification.py:692
-msgid "bt_del_user_submit"
+#: authentification.py:691
+msgid "msg_no_user"
 msgstr ""
 
 #: authentification.py:695
+msgid "cbx_delete_user"
+msgstr ""
+
+#: authentification.py:696
+msgid "label_login"
+msgstr ""
+
+#: authentification.py:697
+msgid "label_email"
+msgstr ""
+
+#: authentification.py:700
+msgid "bt_del_user_submit"
+msgstr ""
+
+#: authentification.py:703
 msgid "label_confirm_del_user"
 msgstr ""
 
-#: authentification.py:717
+#: authentification.py:725
 msgid "msg_del_user_ok"
 msgstr ""
 
-#: authentification.py:719
+#: authentification.py:727
 msgid "msg_del_user_mail_diff"
 msgstr ""
 
-#: authentification.py:721
+#: authentification.py:729
 msgid "bt_confirm_del_user"
 msgstr ""
 
-#: authentification.py:767
+#: authentification.py:775
 msgid "bt_forgot_pwd"
 msgstr ""
 
-#: authentification.py:767
+#: authentification.py:775
 msgid "bt_forgot_pwd_help"
 msgstr ""
 
-#: authentification.py:771
+#: authentification.py:779
 msgid "bt_forgot_login"
 msgstr ""
 
-#: authentification.py:771
+#: authentification.py:779
 msgid "bt_forgot_login_help"
 msgstr ""
 
-#: authentification.py:813
+#: authentification.py:821
 msgid "msg_forgot_pwd_fail"
 msgstr ""
 
-#: authentification.py:815
+#: authentification.py:823
 msgid "msg_forgot_pwd_miss"
 msgstr ""
 
-#: authentification.py:817
+#: authentification.py:825
 msgid "msg_forgot_pwd_ok"
 msgstr ""
 
-#: authentification.py:822
+#: authentification.py:830
 msgid "msg_forgot_login_fail"
 msgstr ""
 
-#: authentification.py:824
+#: authentification.py:832
 msgid "msg_forgot_login_miss"
 msgstr ""
 
-#: authentification.py:826
+#: authentification.py:834
 msgid "msg_forgot_login_ok"
 msgstr ""
 
-#: authentification.py:839
+#: authentification.py:847
 msgid "msg_login_miss"
 msgstr ""
 
-#: authentification.py:841
+#: authentification.py:849
 msgid "msg_login_fail"
 msgstr ""
 
@@ -403,19 +407,43 @@ msgstr ""
 msgid "http://URL_down_bug"
 msgstr ""
 
-#: pages/download.py:63 pages/download.py:68 pages/download.py:74
+#: pages/download.py:64
+msgid "msg_explain_ddl_page"
+msgstr ""
+
+#: pages/download.py:69
+msgid "title_legend"
+msgstr ""
+
+#: pages/download.py:72
+msgid "legend_wait"
+msgstr ""
+
+#: pages/download.py:73
+msgid "legend_in_progress"
+msgstr ""
+
+#: pages/download.py:74
+msgid "legend_finish"
+msgstr ""
+
+#: pages/download.py:81
+msgid "no_process"
+msgstr ""
+
+#: pages/download.py:86 pages/download.py:91 pages/download.py:97
 msgid " upload: "
 msgstr ""
 
-#: pages/download.py:71
+#: pages/download.py:94
 msgid "Waiting"
 msgstr ""
 
-#: pages/download.py:77
+#: pages/download.py:100
 msgid "Expiring: "
 msgstr ""
 
-#: pages/download.py:82
+#: pages/download.py:105
 msgid "download"
 msgstr ""
 
