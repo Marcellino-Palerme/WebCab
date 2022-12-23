@@ -182,9 +182,9 @@ def run():
 
         # Define query add inpus
         add_in_sql = """ INSERT INTO inputs (uuid, login, size, state, upload,
-                                             options)
+                                             options, download)
                          VALUES (%(uuid)s, %(login)s, %(size)s, 0,
-                                 CURRENT_TIMESTAMP,%(options)s);
+                                 CURRENT_TIMESTAMP,%(options)s, false);
                      """
 
         st.session_state['cursor'].execute(add_in_sql,

@@ -16,6 +16,7 @@ from translate import _
 from datetime import timedelta
 from browser import browser_ok
 from init_bdd import check_init
+import shutil
 
 
 # Define title of page and menu
@@ -31,6 +32,54 @@ st.set_page_config(
     }
 )
 
+def up_download(uuid):
+    """
+    Indicate result donwloaded
+
+    Parameters
+    ----------
+    uuid : str
+        Id of input.
+
+    Returns
+    -------
+    None.
+
+    """
+    # Define query
+    up_down_sql = """UPDATE inputs SET download=true
+                     WHERE uuid=%(uuid)s;
+                  """
+    # Query database
+    st.session_state.cursor.execute(up_down_sql, {'uuid':uuid})
+
+def delete_input(uuid, path_temp):
+    """
+    delete the input
+
+    Parameters
+    ----------
+    uuid : str
+        Id of input.
+
+    path_temp : str
+        Where save inputs
+
+    Returns
+    -------
+    None.
+
+    """
+    # Define query
+    delete_sql = """ DELETE FROM inputs WHERE uuid=%(uuid)s;"""
+
+    # Query database
+    st.session_state.cursor.execute(delete_sql, {'uuid':uuid})
+
+    os.remove(os.path.join(path_temp, uuid + '.zip'))
+    shutil.rmtree(os.path.join(path_temp, uuid))
+    shutil.rmtree(os.path.join(path_temp, uuid + '_temp'))
+
 @login
 @browser_ok
 @check_init
@@ -45,8 +94,9 @@ def page():
     """
     ### Get all processing of user
     # Define query
-    user_proc_sql = """ SELECT uuid, state, upload, update FROM inputs
-                        WHERE login=%(login)s;
+    user_proc_sql = """ SELECT uuid, state, upload, update, download
+                        FROM inputs
+                        WHERE login=%(login)s ORDER BY upload;
                     """
     # Query database
     st.session_state.cursor.execute(user_proc_sql,
@@ -57,7 +107,31 @@ def page():
 
     ### TODO check if there are process
 
-    for uuid in st.session_state.cursor.fetchall():
+    lt_process = st.session_state.cursor.fetchall()
+
+    # Verify if user have process
+    if len(lt_process) > 0 :
+        cols = st.columns([2,1])
+        cols[0].write(_('msg_explain_ddl_page'))
+        # Legend
+        cols[1].markdown("""
+                            <table>
+                              <tr>
+                                <td>""" + _('title_legend') + """</td>
+                              </tr>
+                              <tr>
+                                <td>⏳ """ + _('legend_wait')+"""<br/>
+                                    🔬 """ + _('legend_in_progress') +"""<br/>
+                                    🏁 """ + _('legend_finish') +"""<br/>
+                                </td>
+                              </tr>
+                            </table>
+                            <br/>
+                         """,True)
+    else:
+        st.write(_('no_process'))
+
+    for uuid in lt_process:
 
         if 0<uuid[1]<100:
             with st.expander('🔬 ' + uuid[0] + _(' upload: ') +
@@ -77,10 +151,19 @@ def page():
                 st.text(_('Expiring: ') +
                         (uuid[3] +
                          timedelta(days=2)).strftime('%a %d %b %Y, %H:%M'))
+                cols = st.columns([5, 1])
                 with open(os.path.join(path_temp, uuid[0] + '.zip'),
                           "rb") as zp_f:
-                    st.download_button(_('download'), zp_f,
-                                       uuid[0] + '.zip', 'application/zip')
+                    cols[0].download_button(_('download'), zp_f,
+                                            uuid[0] + '.zip',
+                                            'application/zip',
+                                            on_click=up_download,
+                                            args=[uuid[0],])
+                    # Add button to delete process
+                    cols[1].button(_('bt_delete_process'),
+                                   on_click=delete_input,
+                                   args=[uuid[0], path_temp],
+                                   disabled=not uuid[4], key=uuid[0])
 
 if callable(page) :
     page()

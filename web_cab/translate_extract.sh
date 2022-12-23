@@ -13,9 +13,7 @@ find . -name '*.py' | sort | while read line; do
 done
 
 ### Concatenate all file
-# Get all generated file without 0.pot
-# thx https://stackoverflow.com/a/13260148
-ls ${dirtmp} | grep -v "0.pot" | sort | while read name_file; do
+ls ${dirtmp} | sort | while read name_file; do
     # Copy only file from line 18
     num_line=0
     cat ${dirtmp}/${name_file} | while read line; do
