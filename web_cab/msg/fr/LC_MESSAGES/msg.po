@@ -457,7 +457,7 @@ msgid "msg_email_header_end_cab"
 msgstr ""
 "Bonjour,\n"
 "Le traitement numéro ci-dessous est terminé. Vous pouvez récuperer le "
-"résultat sur Web Cab a la page télécharger."
+"résultat sur Web Cab a la page télécharger.\n"
 
 #: pages/download.py:24
 msgid "Title_down"
