@@ -174,6 +174,7 @@ def init_base(cursor):
          upload TIMESTAMP NOT NULL,
          update TIMESTAMP,
          options VARCHAR(100),
+         download BOOL,
          FOREIGN KEY(login) REFERENCES my_user(login)
     )
     """)

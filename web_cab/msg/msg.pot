@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-21 16:58+CET\n"
+"POT-Creation-Date: 2022-12-23 12:27+CET\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,7 +259,7 @@ msgstr ""
 msgid "http://URL_up_bug"
 msgstr ""
 
-#: upload.py:39 pages/download.py:30
+#: upload.py:39 pages/download.py:31
 msgid "txt_about"
 msgstr ""
 
@@ -395,56 +395,60 @@ msgstr ""
 msgid "msg_email_header_end_cab"
 msgstr ""
 
-#: pages/download.py:23
+#: pages/download.py:24
 msgid "Title_down"
 msgstr ""
 
-#: pages/download.py:28
+#: pages/download.py:29
 msgid "http://URL_down_help"
 msgstr ""
 
-#: pages/download.py:29
+#: pages/download.py:30
 msgid "http://URL_down_bug"
 msgstr ""
 
-#: pages/download.py:64
+#: pages/download.py:115
 msgid "msg_explain_ddl_page"
 msgstr ""
 
-#: pages/download.py:69
+#: pages/download.py:120
 msgid "title_legend"
 msgstr ""
 
-#: pages/download.py:72
+#: pages/download.py:123
 msgid "legend_wait"
 msgstr ""
 
-#: pages/download.py:73
+#: pages/download.py:124
 msgid "legend_in_progress"
 msgstr ""
 
-#: pages/download.py:74
+#: pages/download.py:125
 msgid "legend_finish"
 msgstr ""
 
-#: pages/download.py:81
+#: pages/download.py:132
 msgid "no_process"
 msgstr ""
 
-#: pages/download.py:86 pages/download.py:91 pages/download.py:97
+#: pages/download.py:137 pages/download.py:142 pages/download.py:148
 msgid " upload: "
 msgstr ""
 
-#: pages/download.py:94
+#: pages/download.py:145
 msgid "Waiting"
 msgstr ""
 
-#: pages/download.py:100
+#: pages/download.py:151
 msgid "Expiring: "
 msgstr ""
 
-#: pages/download.py:105
+#: pages/download.py:157
 msgid "download"
+msgstr ""
+
+#: pages/download.py:163
+msgid "bt_delete_process"
 msgstr ""
 
 #: pages/profile.py:46

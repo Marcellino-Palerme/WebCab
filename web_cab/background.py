@@ -52,7 +52,7 @@ def unzip(uuid):
     zip_name = list(filter(lambda l_f: 'zip' in l_f, os.listdir(dir_zip)))[0]
 
     # create extract directory
-    os.makedirs(dir_extract)
+    os.makedirs(dir_extract, exist_ok=True)
 
     # Open Zip
     with zf(os.path.join(dir_zip, zip_name),'r') as zip_f:

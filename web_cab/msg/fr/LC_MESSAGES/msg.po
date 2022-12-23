@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-21 16:58+CET\n"
+"POT-Creation-Date: 2022-12-23 12:27+CET\n"
 "PO-Revision-Date: 2022-12-19 13:14+0100\n"
 "Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
 "Language-Team: French\n"
@@ -186,7 +186,6 @@ msgid "bt_create_user_submit"
 msgstr "Ajouter"
 
 #: authentification.py:691
-#, fuzzy
 msgid "msg_no_user"
 msgstr "L'utilisateur a été supprimé"
 
@@ -288,7 +287,7 @@ msgstr ""
 msgid "http://URL_up_bug"
 msgstr ""
 
-#: upload.py:39 pages/download.py:30
+#: upload.py:39 pages/download.py:31
 msgid "txt_about"
 msgstr ""
 
@@ -460,59 +459,63 @@ msgstr ""
 "Le traitement numéro ci-dessous est terminé. Vous pouvez récuperer le "
 "résultat sur Web Cab a la page télécharger."
 
-#: pages/download.py:23
+#: pages/download.py:24
 msgid "Title_down"
 msgstr "Télécharger"
 
-#: pages/download.py:28
+#: pages/download.py:29
 msgid "http://URL_down_help"
 msgstr ""
 
-#: pages/download.py:29
+#: pages/download.py:30
 msgid "http://URL_down_bug"
 msgstr ""
 
-#: pages/download.py:64
+#: pages/download.py:115
 msgid "msg_explain_ddl_page"
 msgstr ""
 "Pour avoir plus de détails sur un traitement, et s'il est terminé téléchager "
 "le résultat, cliquez sur le traitement désiré."
 
-#: pages/download.py:69
+#: pages/download.py:120
 msgid "title_legend"
 msgstr "Légende"
 
-#: pages/download.py:72
+#: pages/download.py:123
 msgid "legend_wait"
 msgstr "Le traitement n'est pas encore lancé."
 
-#: pages/download.py:73
+#: pages/download.py:124
 msgid "legend_in_progress"
 msgstr "Le traitement est en cours."
 
-#: pages/download.py:74
+#: pages/download.py:125
 msgid "legend_finish"
 msgstr "Le traitement est terminé."
 
-#: pages/download.py:81
+#: pages/download.py:132
 msgid "no_process"
 msgstr "Aucun traitement n'est enregistré pour votre compte"
 
-#: pages/download.py:86 pages/download.py:91 pages/download.py:97
+#: pages/download.py:137 pages/download.py:142 pages/download.py:148
 msgid " upload: "
 msgstr " téléverser: "
 
-#: pages/download.py:94
+#: pages/download.py:145
 msgid "Waiting"
 msgstr "En attente"
 
-#: pages/download.py:100
+#: pages/download.py:151
 msgid "Expiring: "
 msgstr "Expire: "
 
-#: pages/download.py:105
+#: pages/download.py:157
 msgid "download"
 msgstr "télécharger"
+
+#: pages/download.py:163
+msgid "bt_delete_process"
+msgstr "Supprimer"
 
 #: pages/profile.py:46
 msgid "title_profile_page"
