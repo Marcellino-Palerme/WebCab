@@ -13,60 +13,9 @@ import requests
 from bs4 import BeautifulSoup as BfS
 import re
 import json
-import shutil
-import subprocess
 
 sys.path.append(os.path.dirname(__file__))
 from connect import connect_dbb
-
-def update_geckodriver():
-    """
-    Install or update geckodriver for selenium
-
-    Returns
-    -------
-    None.
-
-    """
-    ADDR_GECKODRIVER = "https://github.com/mozilla/geckodriver/releases/latest"
-    temp_ddl='https://github.com/mozilla/geckodriver/releases/download/v<ver>/geckodriver-v<ver>-linux64.tar.gz'
-
-    ### Info on last release of geckodriver
-    req = requests.get(ADDR_GECKODRIVER)
-
-    # Parsing the HTML
-    page = BfS(req.content, 'html.parser')
-
-    # work on release part
-    release_part = page.find('nav', class_='mb-5')
-
-    # take second link
-    link = release_part.find_all('a')[1]
-
-    # Take version without 'v' and '\n' caracter
-    last_version = link.text.split(sep='v')[1][:-1]
-
-    # Check if geckodriver installed
-    path = shutil.which('geckodriver')
-
-    in_version = '0.0.0'
-    if not path is None:
-        in_version = subprocess.run(["geckodriver", "-V"], capture_output=True)
-        in_version = in_version.stdout.split()[1].decode()
-    else:
-        # Define where put software
-        path = '/usr/bin'
-
-    # Check in version is up to date
-    if last_version > in_version:
-        # Create link to download
-        link_ddl = temp_ddl.replace('<ver>', last_version)
-        # Get software
-        subprocess.run(['wget', link_ddl])
-        # Save it
-        subprocess.run(['tar', 'xf', '*.tar.gz'])
-        subprocess.run(['mv', 'geckodriver', path])
-
 
 def update_browser_version(cursor):
     """
@@ -188,10 +137,6 @@ def init_base(cursor):
     None.
 
     """
-
-
-    # Prepare software for selenium
-    update_geckodriver()
 
     # Create all tables
     cursor.execute("""
