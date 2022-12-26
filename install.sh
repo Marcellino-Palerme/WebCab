@@ -17,6 +17,9 @@ fi
 read -p "Enter token gitlab : " token
 read -p "Enter administrator login : " name
 read -p "Enter administrator email : " email
+read -p "Enter site email: " site_email
+read -sp "Enter site email password: " site_email_pwd
+read -p "Enter site email server: " site_email_sv
 
 sudo podman pod create -p 8501:8501 -n pod_wc
 
@@ -29,11 +32,26 @@ pwd_db=$( dd if=/dev/urandom bs=50 count=1|base64)
 # Create container of database
 sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgres
 
+## Define configuration file
+# administrator configuration
 conf='{"login":"'
 conf=$conf${name}
 temp='","email":"'
 conf=$conf$temp
 conf=$conf${email}
+
+# Site Email configuration
+temp='","sender_email":"'
+conf=$conf$temp
+conf=$conf${site_email}
+temp='","pwd_email":"'
+conf=$conf$temp
+conf=$conf${site_email_pwd}
+temp='","smtp_server":"'
+conf=$conf$temp
+conf=$conf${site_email_sv}
+
+# Database configuration
 temp='","db": {"database":"postgres", "user": "postgres", "password":"'
 conf=$conf$temp
 conf=$conf${pwd_db}
