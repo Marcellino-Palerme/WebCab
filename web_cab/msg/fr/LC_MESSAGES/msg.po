@@ -55,17 +55,17 @@ msgstr "Mot de passe temporaire Web Cab"
 #: authentification.py:378
 msgid "msg_email_header_pwd"
 msgstr ""
-"Bonjour,\n"
-"Vous trouverez ci-dessous votre mot de passe temporaire pour Web Cab:\n"
+"Bonjour,\r\n"
+"Vous trouverez ci-dessous votre mot de passe temporaire pour Web Cab:\r\n"
 " "
 
 #: authentification.py:379 authentification.py:447 authentification.py:667
 #: background.py:144 background.py:280
 msgid "msg_email_end"
 msgstr ""
-" \n"
-"Ce message est généré automatique merci de ne pas y repondre.\n"
-"Cordialement\n"
+" \r\n"
+"Ce message est généré automatique merci de ne pas y repondre.\r\n"
+"Cordialement\r\n"
 "Web Cab"
 
 #: authentification.py:389
@@ -87,8 +87,8 @@ msgstr "Valider"
 #: authentification.py:446
 msgid "msg_email_header_login"
 msgstr ""
-"Bonjour,\n"
-"Vous trouverez ci-dessous votre identifiant pour Web Cab:\n"
+"Bonjour,\r\n"
+"Vous trouverez ci-dessous votre identifiant pour Web Cab:\r\n"
 " "
 
 #: authentification.py:457
@@ -131,9 +131,9 @@ msgstr "Votre mot de passe a été mis à jour"
 msgid "msg_up_pwd_fail"
 msgstr ""
 "La mise à jour du mot de passe n a pas été faite pour l'une ou plusieurs "
-"raisons suivantes:\n"
-"- Mot de actuel incorrect\n"
-"- Mot de passe de confirmation différent du nouveau\n"
+"raisons suivantes:\r\n"
+"- Mot de actuel incorrect\r\n"
+"- Mot de passe de confirmation différent du nouveau\r\n"
 "- Le nouveau mot de passe contient des mots interdits (mot clé de SQL)"
 
 #: authentification.py:567
@@ -167,10 +167,10 @@ msgstr "Ajouter à Web CAB"
 #: authentification.py:665
 msgid "msg_email_header_create_user"
 msgstr ""
-"Bonjour,\n"
+"Bonjour,\r\n"
 "Vous recevez ce message car un compte sur Web Cab a été créé avec votre "
-"adresse email.\n"
-"Si c'est bien une demande de votre part bienvenue.\n"
+"adresse email.\r\n"
+"Si c'est bien une demande de votre part bienvenue.\r\n"
 "Sinon désolé pour le dérangement."
 
 #: authentification.py:669
@@ -349,8 +349,8 @@ msgstr ""
 #: upload.py:86
 msgid "msg_up_help_chk_valid_file"
 msgstr ""
-"Le fichier de validation permet:\n"
-"\r1) Vérifier que les codes barre trouves sont bien ceux definis\n"
+"Le fichier de validation permet:\r\n"
+"\r1) Vérifier que les codes barre trouves sont bien ceux definis\r\n"
 "\r2) Ordonner les codes barre trouvés dans l image"
 
 #: upload.py:91
@@ -409,10 +409,10 @@ msgstr "Format du renommage des images"
 #: upload.py:110
 msgid "msg_up_help_radio_out_format"
 msgstr ""
-"Indiquer comment vous souhaitez que soit renommer les images. Soit:\n"
-"\r 1)L'image prend le nom du ou des codes barre separés par _\n"
+"Indiquer comment vous souhaitez que soit renommer les images. Soit:\r\n"
+"\r 1)L'image prend le nom du ou des codes barre separés par _\r\n"
 "\r 2)On garde le nom de l'image et on lui ajoute _ puis le ou les codes "
-"barre trouvés séparés par _\n"
+"barre trouvés séparés par _\r\n"
 "\r 3)On garde le nom de l'image et précédé du ou des codes barre trouvés "
 "séparés par _ et de _"
 
@@ -443,8 +443,8 @@ msgstr "Le numero de votre traitement est "
 #: upload.py:202
 msgid "msg_success_upload"
 msgstr ""
-"Votre demande a ete prise en compte.\n"
-"Pour l etat du traitement puis telecharger le resultat.\n"
+"Votre demande a ete prise en compte.\r\n"
+"Pour l etat du traitement puis telecharger le resultat.\r\n"
 "Merci de vous rendre a le page telechargement (en cliquant sur telecharger a "
 "gauche de cette page)"
 
@@ -455,9 +455,9 @@ msgstr "Analyse des images complet"
 #: background.py:143 background.py:279
 msgid "msg_email_header_end_cab"
 msgstr ""
-"Bonjour,\n"
+"Bonjour,\r\n"
 "Le traitement numéro ci-dessous est terminé. Vous pouvez récuperer le "
-"résultat sur Web Cab a la page télécharger.\n"
+"résultat sur Web Cab a la page télécharger.\r\n "
 
 #: pages/download.py:24
 msgid "Title_down"
