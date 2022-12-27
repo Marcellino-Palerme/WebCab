@@ -25,6 +25,7 @@ from browser import browser_ok
 import background as bgd
 from threading import Thread
 from init_bdd import check_init
+from custom import hide_hamburger
 
 
 # Define title of page and menu
@@ -39,6 +40,7 @@ st.set_page_config(
 @login
 @browser_ok
 @check_init
+@hide_hamburger
 def run():
 
     # Define where save Uploaded image

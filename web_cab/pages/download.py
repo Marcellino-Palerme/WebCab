@@ -17,6 +17,7 @@ from datetime import timedelta
 from browser import browser_ok
 from init_bdd import check_init
 import shutil
+from custom import hide_hamburger
 
 
 # Define title of page and menu
@@ -78,6 +79,7 @@ def delete_input(uuid, path_temp):
 @login
 @browser_ok
 @check_init
+@hide_hamburger
 def page():
     """
     compose page

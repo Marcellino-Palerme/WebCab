@@ -15,6 +15,7 @@ import streamlit as st
 from authentification import login
 from browser import browser_ok
 from init_bdd import check_init
+from custom import hide_hamburger
 
 def cancel_label():
     """
@@ -33,6 +34,7 @@ def cancel_label():
 @login
 @browser_ok
 @check_init
+@hide_hamburger
 def page():
     """
     web page of profile
