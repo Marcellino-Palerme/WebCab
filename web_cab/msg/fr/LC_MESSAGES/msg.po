@@ -1,13 +1,13 @@
 # French translations for PACKAGE package.
 # Copyright (C) 2022 ORGANIZATION
-# mpalerme <mpalerme@ren-1349-b65>, 2022.
+# Marcellino Palerme <marcellino.palerme@inrae.fr>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-23 12:27+CET\n"
+"POT-Creation-Date: 2022-12-27 11:30+CET\n"
 "PO-Revision-Date: 2022-12-19 13:14+0100\n"
-"Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
+"Last-Translator: Marcellino Palerme <marcellino.palerme@inrae.fr>\n"
 "Language-Team: French\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -56,14 +56,12 @@ msgstr "Mot de passe temporaire Web Cab"
 msgid "msg_email_header_pwd"
 msgstr ""
 "Bonjour,\r\n"
-"Vous trouverez ci-dessous votre mot de passe temporaire pour Web Cab:\r\n"
-" "
+"Vous trouverez ci-dessous votre mot de passe temporaire pour Web Cab:"
 
 #: authentification.py:379 authentification.py:447 authentification.py:667
 #: background.py:144 background.py:280
 msgid "msg_email_end"
 msgstr ""
-" \r\n"
 "Ce message est généré automatique merci de ne pas y repondre.\r\n"
 "Cordialement\r\n"
 "Web Cab"
@@ -88,8 +86,7 @@ msgstr "Valider"
 msgid "msg_email_header_login"
 msgstr ""
 "Bonjour,\r\n"
-"Vous trouverez ci-dessous votre identifiant pour Web Cab:\r\n"
-" "
+"Vous trouverez ci-dessous votre identifiant pour Web Cab:"
 
 #: authentification.py:457
 msgid "bt_forgot_login_submit"
@@ -279,23 +276,11 @@ msgstr "Les informations fournies sont incorrectes."
 msgid "Title_up"
 msgstr "Téléverser"
 
-#: upload.py:37
-msgid "http://URL_up_help"
-msgstr ""
-
-#: upload.py:38
-msgid "http://URL_up_bug"
-msgstr ""
-
-#: upload.py:39 pages/download.py:31
-msgid "txt_about"
-msgstr ""
-
-#: upload.py:58
+#: upload.py:53
 msgid "Upload_image"
 msgstr "Téléverser"
 
-#: upload.py:60
+#: upload.py:55
 msgid "txt_up_global_help"
 msgstr ""
 "Bonjour!<br/>_Si c'est votre première utilisation_<br/>_Rendez-vous [ici]"
@@ -304,41 +289,41 @@ msgstr ""
 "a une aide contextuelle pour vous rappelez ce qu il faut fournir.<br/>Bon "
 "remplissage.<br/>L'équipe Web Cab."
 
-#: upload.py:62
+#: upload.py:57
 msgid "Input_part"
 msgstr "Éléments à fournir"
 
-#: upload.py:64
+#: upload.py:59
 msgid "Archive_with_images"
 msgstr "Archive (.zip) contenant vos images"
 
-#: upload.py:65
+#: upload.py:60
 msgid "msg_up_help_zip"
 msgstr ""
 "Les images, que vous voulez qu'on analyse, archivées directement dans un "
 "fichier .zip"
 
-#: upload.py:67
+#: upload.py:62
 msgid "Max_barcode_by_image"
 msgstr "Nombre de code barre max. / image"
 
-#: upload.py:69
+#: upload.py:64
 msgid "msg_up_help_max_bar"
 msgstr "Indiquer le nombre de code barre que contient l'image qui en a le plus"
 
-#: upload.py:73 upload.py:85
+#: upload.py:68 upload.py:80
 msgid "chk_used_valid_file"
 msgstr "Avec fichier de validation"
 
-#: upload.py:74
+#: upload.py:69
 msgid "chk_not_used_valid_file"
 msgstr "Sans fichier de validation"
 
-#: upload.py:79
+#: upload.py:74
 msgid "radio_valid_file"
 msgstr "Utiliser un fichier de validation"
 
-#: upload.py:82
+#: upload.py:77
 msgid "msg_up_help_radio_valid_file"
 msgstr ""
 "_Quand il y plusieurs codes barre dans une images, il est préférable "
@@ -346,18 +331,18 @@ msgstr ""
 "trouvés dans l image_</li><li>_Vérifier que les codes barre trouvés sont "
 "bien ceux definis_</li></ol>"
 
-#: upload.py:86
+#: upload.py:81
 msgid "msg_up_help_chk_valid_file"
 msgstr ""
 "Le fichier de validation permet:\r\n"
 "\r1) Vérifier que les codes barre trouves sont bien ceux definis\r\n"
 "\r2) Ordonner les codes barre trouvés dans l image"
 
-#: upload.py:91
+#: upload.py:86
 msgid "Validation_file"
 msgstr "Fichier de validation"
 
-#: upload.py:92
+#: upload.py:87
 msgid "msg_up_help_valid_file"
 msgstr ""
 "Le fichier de validation est un fichier csv ou chaque ligne correspond à "
@@ -365,48 +350,48 @@ msgstr ""
 "contient qu'un code barre. L'ordre des codes barre dans une ligne est "
 "l'ordre à laquel ils seront concaténés"
 
-#: upload.py:95
+#: upload.py:90
 msgid "Output_part"
 msgstr "Éléments résultants"
 
-#: upload.py:97
+#: upload.py:92
 msgid "link_image_barcode_file"
 msgstr "Fichier de correspondance images - code barre"
 
-#: upload.py:98
+#: upload.py:93
 msgid "msg_up_help_chk_out_link_file"
 msgstr ""
 "Fichier csv avec deux colonnes. La première avec le nom de l'image. La "
 "seconde avec le ou les codes barre trouvés concaténés par un _ soit dans "
 "l'ordre du fichier de validation soit dans l'ordre de leur identification"
 
-#: upload.py:102
+#: upload.py:97
 msgid "Rename_image"
 msgstr "Renommer l'images"
 
-#: upload.py:103
+#: upload.py:98
 msgid "msg_up_help_chk_out_format"
 msgstr ""
 "Souhaitez-vous que les images soient renommees à partir des codes barre "
 "trouvés"
 
-#: upload.py:105
+#: upload.py:100
 msgid "Image_name_barecode"
 msgstr "<nom de l'image>_<code barre>.extension"
 
-#: upload.py:105
+#: upload.py:100
 msgid "only_barcode"
 msgstr "<code barre>.extension"
 
-#: upload.py:106
+#: upload.py:101
 msgid "barecode_image_name"
 msgstr "<code barre>_<nom de l'image>.extension"
 
-#: upload.py:109
+#: upload.py:104
 msgid "format_image_name"
 msgstr "Format du renommage des images"
 
-#: upload.py:110
+#: upload.py:105
 msgid "msg_up_help_radio_out_format"
 msgstr ""
 "Indiquer comment vous souhaitez que soit renommer les images. Soit:\r\n"
@@ -416,31 +401,31 @@ msgstr ""
 "\r 3)On garde le nom de l'image et précédé du ou des codes barre trouvés "
 "séparés par _ et de _"
 
-#: upload.py:117
+#: upload.py:112
 msgid "msg_up_miss_zip"
 msgstr "Il manque l'archive d'images (.zip)"
 
-#: upload.py:122
+#: upload.py:117
 msgid "msg_up_miss_valid_file"
 msgstr "Il manque le fichier de validation"
 
-#: upload.py:126
+#: upload.py:121
 msgid "msg_up_miss_output"
 msgstr "Aucune sortie n'a été choix"
 
-#: upload.py:134
+#: upload.py:129
 msgid "bt_upload_submit"
 msgstr "Valider"
 
-#: upload.py:135
+#: upload.py:130
 msgid "msg_up_help_bt_submit"
 msgstr "Demander le lancement du traitement des images"
 
-#: upload.py:201
+#: upload.py:196
 msgid "Id of your process: "
 msgstr "Le numero de votre traitement est "
 
-#: upload.py:202
+#: upload.py:197
 msgid "msg_success_upload"
 msgstr ""
 "Votre demande a ete prise en compte.\r\n"
@@ -457,63 +442,55 @@ msgid "msg_email_header_end_cab"
 msgstr ""
 "Bonjour,\r\n"
 "Le traitement numéro ci-dessous est terminé. Vous pouvez récuperer le "
-"résultat sur Web Cab a la page télécharger.\r\n "
+"résultat sur Web Cab a la page télécharger."
 
 #: pages/download.py:24
 msgid "Title_down"
 msgstr "Télécharger"
 
-#: pages/download.py:29
-msgid "http://URL_down_help"
-msgstr ""
-
-#: pages/download.py:30
-msgid "http://URL_down_bug"
-msgstr ""
-
-#: pages/download.py:115
+#: pages/download.py:110
 msgid "msg_explain_ddl_page"
 msgstr ""
 "Pour avoir plus de détails sur un traitement, et s'il est terminé téléchager "
 "le résultat, cliquez sur le traitement désiré."
 
-#: pages/download.py:120
+#: pages/download.py:115
 msgid "title_legend"
 msgstr "Légende"
 
-#: pages/download.py:123
+#: pages/download.py:118
 msgid "legend_wait"
 msgstr "Le traitement n'est pas encore lancé."
 
-#: pages/download.py:124
+#: pages/download.py:119
 msgid "legend_in_progress"
 msgstr "Le traitement est en cours."
 
-#: pages/download.py:125
+#: pages/download.py:120
 msgid "legend_finish"
 msgstr "Le traitement est terminé."
 
-#: pages/download.py:132
+#: pages/download.py:127
 msgid "no_process"
 msgstr "Aucun traitement n'est enregistré pour votre compte"
 
-#: pages/download.py:137 pages/download.py:142 pages/download.py:148
+#: pages/download.py:132 pages/download.py:137 pages/download.py:143
 msgid " upload: "
 msgstr " téléverser: "
 
-#: pages/download.py:145
+#: pages/download.py:140
 msgid "Waiting"
 msgstr "En attente"
 
-#: pages/download.py:151
+#: pages/download.py:146
 msgid "Expiring: "
 msgstr "Expire: "
 
-#: pages/download.py:157
+#: pages/download.py:152
 msgid "download"
 msgstr "télécharger"
 
-#: pages/download.py:163
+#: pages/download.py:158
 msgid "bt_delete_process"
 msgstr "Supprimer"
 

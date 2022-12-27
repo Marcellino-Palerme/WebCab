@@ -375,8 +375,8 @@ class MyAuthen():
                     # Send temporary paswword by email
                     email = self.get_email(v_login)
                     send_email(dst=email, sub=_('msg_email_sub_pwd'),
-                               msg=_('msg_email_header_pwd') + pwd +
-                                   _('msg_email_end'))
+                               msg=_('msg_email_header_pwd') + '\r\n\r\n'
+                                   + pwd + '\r\n\r\n' + _('msg_email_end'))
 
                 else:
                     st.session_state['state_forgot_pwd'] = 1
@@ -443,8 +443,8 @@ class MyAuthen():
 
                     # Send login by email
                     send_email(dst=v_email, sub=_('msg_email_sub_login'),
-                               msg=_('msg_email_header_login') + v_login +
-                                   _('msg_email_end'))
+                               msg=_('msg_email_header_login') + '\r\n\r\n' +
+                                   v_login + '\r\n\r\n' + _('msg_email_end'))
 
                 else:
                     st.session_state['state_forgot_login'] = 1
@@ -663,8 +663,8 @@ class MyAuthen():
                         send_email(st.session_state.cu_email,
                                    _('msg_email_sub_create_user'),
                                    _('msg_email_header_create_user') +
-                                   st.session_state.cu_login +
-                                   _('msg_email_end'))
+                                   '\r\n\r\n' + st.session_state.cu_login +
+                                   '\r\n\r\n' + _('msg_email_end'))
 
                         where_display.success(_('msg_create_user_ok'))
             else:

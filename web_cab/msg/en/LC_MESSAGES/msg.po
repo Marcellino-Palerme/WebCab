@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-23 12:27+CET\n"
+"POT-Creation-Date: 2022-12-27 11:30+CET\n"
 "PO-Revision-Date: 2022-12-16 15:15+0100\n"
 "Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
 "Language-Team: English\n"
@@ -268,139 +268,127 @@ msgstr "msg_login_fail"
 msgid "Title_up"
 msgstr "Title_up"
 
-#: upload.py:37
-msgid "http://URL_up_help"
-msgstr "http://URL_up_help"
-
-#: upload.py:38
-msgid "http://URL_up_bug"
-msgstr "http://URL_up_bug"
-
-#: upload.py:39 pages/download.py:31
-msgid "txt_about"
-msgstr "txt_about"
-
-#: upload.py:58
+#: upload.py:53
 msgid "Upload_image"
 msgstr "Upload your images"
 
-#: upload.py:60
+#: upload.py:55
 msgid "txt_up_global_help"
 msgstr "txt_up_global_help"
 
-#: upload.py:62
+#: upload.py:57
 msgid "Input_part"
 msgstr "Input_part"
 
-#: upload.py:64
+#: upload.py:59
 msgid "Archive_with_images"
 msgstr "Archive_with_images"
 
-#: upload.py:65
+#: upload.py:60
 msgid "msg_up_help_zip"
 msgstr "msg_up_help_zip"
 
-#: upload.py:67
+#: upload.py:62
 msgid "Max_barcode_by_image"
 msgstr "Max_barcode_by_image"
 
-#: upload.py:69
+#: upload.py:64
 msgid "msg_up_help_max_bar"
 msgstr "msg_up_help_max_bar"
 
-#: upload.py:73 upload.py:85
+#: upload.py:68 upload.py:80
 msgid "chk_used_valid_file"
 msgstr "chk_used_valid_file"
 
-#: upload.py:74
+#: upload.py:69
 msgid "chk_not_used_valid_file"
 msgstr "chk_not_used_valid_file"
 
-#: upload.py:79
+#: upload.py:74
 msgid "radio_valid_file"
 msgstr "radio_valid_file"
 
-#: upload.py:82
+#: upload.py:77
 msgid "msg_up_help_radio_valid_file"
 msgstr "msg_up_help_radio_valid_file"
 
-#: upload.py:86
+#: upload.py:81
 msgid "msg_up_help_chk_valid_file"
 msgstr "msg_up_help_chk_valid_file"
 
-#: upload.py:91
+#: upload.py:86
 msgid "Validation_file"
 msgstr "Validation_file"
 
-#: upload.py:92
+#: upload.py:87
 msgid "msg_up_help_valid_file"
 msgstr "msg_up_help_valid_file"
 
-#: upload.py:95
+#: upload.py:90
 msgid "Output_part"
 msgstr "Output_part"
 
-#: upload.py:97
+#: upload.py:92
 msgid "link_image_barcode_file"
 msgstr "link_image_barcode_file"
 
-#: upload.py:98
+#: upload.py:93
 msgid "msg_up_help_chk_out_link_file"
 msgstr "msg_up_help_chk_out_link_file"
 
-#: upload.py:102
+#: upload.py:97
 msgid "Rename_image"
 msgstr "Rename_image"
 
-#: upload.py:103
+#: upload.py:98
 msgid "msg_up_help_chk_out_format"
 msgstr "msg_up_help_chk_out_format"
 
-#: upload.py:105
+#: upload.py:100
 msgid "Image_name_barecode"
 msgstr "Image_name_barecode"
 
-#: upload.py:105
+#: upload.py:100
 msgid "only_barcode"
 msgstr "only_barcode"
 
-#: upload.py:106
+#: upload.py:101
 msgid "barecode_image_name"
 msgstr "barecode_image_name"
 
-#: upload.py:109
+#: upload.py:104
 msgid "format_image_name"
 msgstr "format_image_name"
 
-#: upload.py:110
+#: upload.py:105
 msgid "msg_up_help_radio_out_format"
 msgstr "msg_up_help_radio_out_format"
 
-#: upload.py:117
+#: upload.py:112
 msgid "msg_up_miss_zip"
 msgstr "msg_up_miss_zip"
 
-#: upload.py:122
+#: upload.py:117
 msgid "msg_up_miss_valid_file"
 msgstr "msg_up_miss_valid_file"
 
-#: upload.py:126
+#: upload.py:121
 msgid "msg_up_miss_output"
 msgstr "msg_up_miss_output"
 
-#: upload.py:134
+#: upload.py:129
 msgid "bt_upload_submit"
 msgstr "bt_upload_submit"
 
-#: upload.py:135
+#: upload.py:130
 msgid "msg_up_help_bt_submit"
 msgstr "msg_up_help_bt_submit"
 
-#: upload.py:201
+#: upload.py:196
 msgid "Id of your process: "
 msgstr "Id of your process: "
 
-#: upload.py:202
+#: upload.py:197
 msgid "msg_success_upload"
 msgstr "msg_success_upload"
 
@@ -419,59 +407,49 @@ msgstr "msg_email_header_pwd"
 msgid "Title_down"
 msgstr "Title_up"
 
-#: pages/download.py:29
-#, fuzzy
-msgid "http://URL_down_help"
-msgstr "http://URL_up_help"
-
-#: pages/download.py:30
-#, fuzzy
-msgid "http://URL_down_bug"
-msgstr "http://URL_up_bug"
-
-#: pages/download.py:115
+#: pages/download.py:110
 #, fuzzy
 msgid "msg_explain_ddl_page"
 msgstr "msg_email_end"
 
-#: pages/download.py:120
+#: pages/download.py:115
 #, fuzzy
 msgid "title_legend"
 msgstr "Login"
 
-#: pages/download.py:123
+#: pages/download.py:118
 msgid "legend_wait"
 msgstr ""
 
-#: pages/download.py:124
+#: pages/download.py:119
 msgid "legend_in_progress"
 msgstr ""
 
-#: pages/download.py:125
+#: pages/download.py:120
 msgid "legend_finish"
 msgstr ""
 
-#: pages/download.py:132
+#: pages/download.py:127
 msgid "no_process"
 msgstr ""
 
-#: pages/download.py:137 pages/download.py:142 pages/download.py:148
+#: pages/download.py:132 pages/download.py:137 pages/download.py:143
 msgid " upload: "
 msgstr ""
 
-#: pages/download.py:145
+#: pages/download.py:140
 msgid "Waiting"
 msgstr ""
 
-#: pages/download.py:151
+#: pages/download.py:146
 msgid "Expiring: "
 msgstr ""
 
-#: pages/download.py:157
+#: pages/download.py:152
 msgid "download"
 msgstr ""
 
-#: pages/download.py:163
+#: pages/download.py:158
 msgid "bt_delete_process"
 msgstr ""
 
@@ -530,3 +508,20 @@ msgstr "bt_forgot_pwd"
 #, fuzzy
 msgid "bt_change_pwd_help"
 msgstr "bt_forgot_pwd_help"
+
+#~ msgid "http://URL_up_help"
+#~ msgstr "http://URL_up_help"
+
+#~ msgid "http://URL_up_bug"
+#~ msgstr "http://URL_up_bug"
+
+#~ msgid "txt_about"
+#~ msgstr "txt_about"
+
+#, fuzzy
+#~ msgid "http://URL_down_help"
+#~ msgstr "http://URL_up_help"
+
+#, fuzzy
+#~ msgid "http://URL_down_bug"
+#~ msgstr "http://URL_up_bug"

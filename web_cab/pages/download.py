@@ -24,12 +24,7 @@ st.set_page_config(
     page_title=_('Title_down'),
     page_icon="📤",
     layout="wide",
-    initial_sidebar_state="auto",
-    menu_items={
-        'Get Help': _('http://URL_down_help'),
-        'Report a bug': _('http://URL_down_bug'),
-        'About': _('txt_about')
-    }
+    initial_sidebar_state="auto"
 )
 
 def up_download(uuid):

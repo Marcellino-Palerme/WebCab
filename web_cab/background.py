@@ -140,8 +140,8 @@ def background(uuid):
         cursor.execute(email_sql, {'uuid':uuid})
 
         send_email(dst=cursor.fetchone()[0],sub=_('msg_email_sub_end_cab'),
-                   msg=_('msg_email_header_end_cab') + uuid +
-                       _('msg_email_end'))
+                   msg=_('msg_email_header_end_cab') + '\r\n\r\n' + uuid +
+                       '\r\n\r\n' + _('msg_email_end'))
 
 
 
@@ -276,8 +276,8 @@ def temp_background(uuid):
         cursor.execute(email_sql, {'uuid':uuid})
 
         send_email(dst=cursor.fetchone()[0],sub=_('msg_email_sub_end_cab'),
-                   msg=_('msg_email_header_end_cab') + uuid +
-                       _('msg_email_end'))
+                   msg=_('msg_email_header_end_cab') + '\r\n\r\n' + uuid +
+                       '\r\n\r\n' + _('msg_email_end'))
 
         break
 
