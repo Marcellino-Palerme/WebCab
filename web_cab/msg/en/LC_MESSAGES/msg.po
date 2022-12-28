@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-27 11:30+CET\n"
+"POT-Creation-Date: 2022-12-28 15:07+CET\n"
 "PO-Revision-Date: 2022-12-16 15:15+0100\n"
 "Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
 "Language-Team: English\n"
@@ -264,131 +264,187 @@ msgstr "msg_login_miss"
 msgid "msg_login_fail"
 msgstr "msg_login_fail"
 
-#: upload.py:32
+#: pages/profile.py:48
+msgid "title_profile_page"
+msgstr ""
+
+#: pages/profile.py:53
+msgid "tab_admin_create"
+msgstr ""
+
+#: pages/profile.py:53
+msgid "tab_user"
+msgstr ""
+
+#: pages/profile.py:54
+msgid "tab_admin_delete"
+msgstr ""
+
+#: pages/profile.py:67
+#, fuzzy
+msgid "row_login"
+msgstr "forgot_pwd_login"
+
+#: pages/profile.py:69
+msgid "row_email"
+msgstr ""
+
+#: pages/profile.py:71
+msgid "row_email_help"
+msgstr ""
+
+#: pages/profile.py:75
+msgid "bt_profile_update"
+msgstr ""
+
+#: pages/profile.py:75
+#, fuzzy
+msgid "bt_profile_update_help"
+msgstr "bt_forgot_pwd_help"
+
+#: pages/profile.py:81
+msgid "bt_profile_cancel"
+msgstr ""
+
+#: pages/profile.py:81
+msgid "bt_profile_cancel_help"
+msgstr ""
+
+#: pages/profile.py:85
+#, fuzzy
+msgid "bt_change_pwd"
+msgstr "bt_forgot_pwd"
+
+#: pages/profile.py:85
+#, fuzzy
+msgid "bt_change_pwd_help"
+msgstr "bt_forgot_pwd_help"
+
+#: upload.py:33
 msgid "Title_up"
 msgstr "Title_up"
 
-#: upload.py:53
+#: upload.py:55
 msgid "Upload_image"
 msgstr "Upload your images"
 
-#: upload.py:55
+#: upload.py:57
 msgid "txt_up_global_help"
 msgstr "txt_up_global_help"
 
-#: upload.py:57
+#: upload.py:59
 msgid "Input_part"
 msgstr "Input_part"
 
-#: upload.py:59
+#: upload.py:61
 msgid "Archive_with_images"
 msgstr "Archive_with_images"
 
-#: upload.py:60
+#: upload.py:62
 msgid "msg_up_help_zip"
 msgstr "msg_up_help_zip"
 
-#: upload.py:62
+#: upload.py:64
 msgid "Max_barcode_by_image"
 msgstr "Max_barcode_by_image"
 
-#: upload.py:64
+#: upload.py:66
 msgid "msg_up_help_max_bar"
 msgstr "msg_up_help_max_bar"
 
-#: upload.py:68 upload.py:80
+#: upload.py:70 upload.py:82
 msgid "chk_used_valid_file"
 msgstr "chk_used_valid_file"
 
-#: upload.py:69
+#: upload.py:71
 msgid "chk_not_used_valid_file"
 msgstr "chk_not_used_valid_file"
 
-#: upload.py:74
+#: upload.py:76
 msgid "radio_valid_file"
 msgstr "radio_valid_file"
 
-#: upload.py:77
+#: upload.py:79
 msgid "msg_up_help_radio_valid_file"
 msgstr "msg_up_help_radio_valid_file"
 
-#: upload.py:81
+#: upload.py:83
 msgid "msg_up_help_chk_valid_file"
 msgstr "msg_up_help_chk_valid_file"
 
-#: upload.py:86
+#: upload.py:88
 msgid "Validation_file"
 msgstr "Validation_file"
 
-#: upload.py:87
+#: upload.py:89
 msgid "msg_up_help_valid_file"
 msgstr "msg_up_help_valid_file"
 
-#: upload.py:90
+#: upload.py:92
 msgid "Output_part"
 msgstr "Output_part"
 
-#: upload.py:92
+#: upload.py:94
 msgid "link_image_barcode_file"
 msgstr "link_image_barcode_file"
 
-#: upload.py:93
+#: upload.py:95
 msgid "msg_up_help_chk_out_link_file"
 msgstr "msg_up_help_chk_out_link_file"
 
-#: upload.py:97
+#: upload.py:99
 msgid "Rename_image"
 msgstr "Rename_image"
 
-#: upload.py:98
+#: upload.py:100
 msgid "msg_up_help_chk_out_format"
 msgstr "msg_up_help_chk_out_format"
 
-#: upload.py:100
+#: upload.py:102
 msgid "Image_name_barecode"
 msgstr "Image_name_barecode"
 
-#: upload.py:100
+#: upload.py:102
 msgid "only_barcode"
 msgstr "only_barcode"
 
-#: upload.py:101
+#: upload.py:103
 msgid "barecode_image_name"
 msgstr "barecode_image_name"
 
-#: upload.py:104
+#: upload.py:106
 msgid "format_image_name"
 msgstr "format_image_name"
 
-#: upload.py:105
+#: upload.py:107
 msgid "msg_up_help_radio_out_format"
 msgstr "msg_up_help_radio_out_format"
 
-#: upload.py:112
+#: upload.py:114
 msgid "msg_up_miss_zip"
 msgstr "msg_up_miss_zip"
 
-#: upload.py:117
+#: upload.py:119
 msgid "msg_up_miss_valid_file"
 msgstr "msg_up_miss_valid_file"
 
-#: upload.py:121
+#: upload.py:123
 msgid "msg_up_miss_output"
 msgstr "msg_up_miss_output"
 
-#: upload.py:129
+#: upload.py:131
 msgid "bt_upload_submit"
 msgstr "bt_upload_submit"
 
-#: upload.py:130
+#: upload.py:132
 msgid "msg_up_help_bt_submit"
 msgstr "msg_up_help_bt_submit"
 
-#: upload.py:196
+#: upload.py:198
 msgid "Id of your process: "
 msgstr "Id of your process: "
 
-#: upload.py:197
+#: upload.py:199
 msgid "msg_success_upload"
 msgstr "msg_success_upload"
 
@@ -402,112 +458,172 @@ msgstr "msg_email_sub_pwd"
 msgid "msg_email_header_end_cab"
 msgstr "msg_email_header_pwd"
 
-#: pages/download.py:24
+#: pages/download.py:25
 #, fuzzy
 msgid "Title_down"
 msgstr "Title_up"
 
-#: pages/download.py:110
+#: pages/download.py:112
 #, fuzzy
 msgid "msg_explain_ddl_page"
 msgstr "msg_email_end"
 
-#: pages/download.py:115
+#: pages/download.py:117
 #, fuzzy
 msgid "title_legend"
 msgstr "Login"
 
-#: pages/download.py:118
+#: pages/download.py:120
 msgid "legend_wait"
 msgstr ""
 
-#: pages/download.py:119
+#: pages/download.py:121
 msgid "legend_in_progress"
 msgstr ""
 
-#: pages/download.py:120
+#: pages/download.py:122
 msgid "legend_finish"
 msgstr ""
 
-#: pages/download.py:127
+#: pages/download.py:129
 msgid "no_process"
 msgstr ""
 
-#: pages/download.py:132 pages/download.py:137 pages/download.py:143
+#: pages/download.py:134 pages/download.py:139 pages/download.py:145
 msgid " upload: "
 msgstr ""
 
-#: pages/download.py:140
+#: pages/download.py:142
 msgid "Waiting"
 msgstr ""
 
-#: pages/download.py:146
+#: pages/download.py:148
 msgid "Expiring: "
 msgstr ""
 
-#: pages/download.py:152
+#: pages/download.py:154
 msgid "download"
 msgstr ""
 
-#: pages/download.py:158
+#: pages/download.py:160
 msgid "bt_delete_process"
 msgstr ""
 
-#: pages/profile.py:46
-msgid "title_profile_page"
-msgstr ""
-
-#: pages/profile.py:51
-msgid "tab_admin_create"
-msgstr ""
-
-#: pages/profile.py:51
-msgid "tab_user"
-msgstr ""
-
-#: pages/profile.py:52
-msgid "tab_admin_delete"
-msgstr ""
-
-#: pages/profile.py:65
+#: pages/help.py:24
 #, fuzzy
-msgid "row_login"
-msgstr "forgot_pwd_login"
+msgid "Title_help"
+msgstr "Title_up"
 
-#: pages/profile.py:67
-msgid "row_email"
+#: pages/help.py:114
+msgid "Title_help_summary"
 msgstr ""
 
-#: pages/profile.py:69
-msgid "row_email_help"
+#: pages/help.py:115
+msgid "Txt_help_summary_ht"
 msgstr ""
 
-#: pages/profile.py:73
-msgid "bt_profile_update"
+#: pages/help.py:116
+msgid "Title_help_quickstart"
 msgstr ""
 
-#: pages/profile.py:73
+#: pages/help.py:117
+msgid "Txt_help_quickstart_ht"
+msgstr ""
+
+#: pages/help.py:118
 #, fuzzy
-msgid "bt_profile_update_help"
-msgstr "bt_forgot_pwd_help"
+msgid "Title_help_upload"
+msgstr "Title_up"
 
-#: pages/profile.py:79
-msgid "bt_profile_cancel"
+#: pages/help.py:119
+msgid "Txt_help_upload_ht"
 msgstr ""
 
-#: pages/profile.py:79
-msgid "bt_profile_cancel_help"
+#: pages/help.py:120
+msgid "Title_help_up_input"
 msgstr ""
 
-#: pages/profile.py:83
-#, fuzzy
-msgid "bt_change_pwd"
-msgstr "bt_forgot_pwd"
+#: pages/help.py:121
+msgid "Txt_help_up_input_ht"
+msgstr ""
 
-#: pages/profile.py:83
+#: pages/help.py:122
+msgid "Title_help_archive"
+msgstr ""
+
+#: pages/help.py:123
+msgid "Txt_help_archive_ht"
+msgstr ""
+
+#: pages/help.py:124
+msgid "Title_help_nb_barcode"
+msgstr ""
+
+#: pages/help.py:125
+msgid "Txt_help_nb_barcode_ht"
+msgstr ""
+
+#: pages/help.py:126
 #, fuzzy
-msgid "bt_change_pwd_help"
-msgstr "bt_forgot_pwd_help"
+msgid "Title_help_valid_file"
+msgstr "msg_up_help_valid_file"
+
+#: pages/help.py:127
+#, fuzzy
+msgid "Txt_help_valid_file_ht"
+msgstr "msg_up_help_valid_file"
+
+#: pages/help.py:128
+msgid "Title_help_up_output"
+msgstr ""
+
+#: pages/help.py:129
+msgid "Txt_help_up_output"
+msgstr ""
+
+#: pages/help.py:130
+msgid "Title_help_im_bar_csv"
+msgstr ""
+
+#: pages/help.py:131
+msgid "Txt_help_im_bar_csv_ht"
+msgstr ""
+
+#: pages/help.py:132
+msgid "Title_help_rename_im"
+msgstr ""
+
+#: pages/help.py:133
+msgid "Txt_help_rename_im_ht"
+msgstr ""
+
+#: pages/help.py:135
+#, fuzzy
+msgid "Title_help_download"
+msgstr "Title_up"
+
+#: pages/help.py:136
+msgid "Txt_help_download_ht"
+msgstr ""
+
+#: pages/help.py:137
+#, fuzzy
+msgid "Title_help_profile"
+msgstr "msg_up_help_valid_file"
+
+#: pages/help.py:138
+#, fuzzy
+msgid "Txt_help_profile_ht"
+msgstr "msg_up_help_valid_file"
+
+#: pages/help.py:139
+#, fuzzy
+msgid "Title_help_FAQ"
+msgstr "Title_up"
+
+#: pages/help.py:140
+msgid "Txt_help_FAQ_ht"
+msgstr ""
 
 #~ msgid "http://URL_up_help"
 #~ msgstr "http://URL_up_help"
