@@ -10,7 +10,7 @@ This page to see and manage the user profile
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from translate import _
+from translate import _, select_language
 import streamlit as st
 from authentification import login
 from browser import browser_ok
@@ -30,8 +30,9 @@ def cancel_label():
     if 'new_email' in  st.session_state :
         st.session_state.new_email = authr.get_email(st.session_state.login)
 
+select_language()
 
-@login
+@login(trans=_)
 @browser_ok
 @check_init
 @hide_hamburger

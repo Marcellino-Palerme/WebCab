@@ -12,7 +12,7 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import streamlit as st
 from authentification import login
-from translate import _
+from translate import _, select_language
 from datetime import timedelta
 from browser import browser_ok
 from init_bdd import check_init
@@ -76,7 +76,9 @@ def delete_input(uuid, path_temp):
     shutil.rmtree(os.path.join(path_temp, uuid))
     shutil.rmtree(os.path.join(path_temp, uuid + '_temp'))
 
-@login
+select_language()
+
+@login(trans=_)
 @browser_ok
 @check_init
 @hide_hamburger

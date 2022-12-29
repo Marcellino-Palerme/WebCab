@@ -9,14 +9,51 @@ Created on Thu Nov  3 15:01:29 2022
 import gettext as gt
 import os
 import re
+import streamlit as st
 
 # get path of directory translate
 path_trans = os.path.join(os.path.dirname(__file__), 'msg')
-lang = gt.translation('msg',
-                      localedir=path_trans,
-                      languages=['fr'])
-lang.install()
-_ = lang.gettext
+
+# List of supported language
+dic_lang = {'fr':{'name' : 'Français'},
+            'en':{'name' : 'English'}}
+
+for lang in dic_lang:
+
+    dic_lang[lang]['trans'] = gt.translation('msg',
+                                             localedir=path_trans,
+                                             languages=[lang])
+
+    dic_lang[lang]['trans'].install()
+
+_ = dic_lang['fr']['trans'].gettext
+
+save = 'fr'
+
+def change():
+    global _, save
+    if 'lang' in st.session_state:
+        _ = dic_lang[st.session_state.lang]['trans'].gettext
+        save = st.session_state.lang
+
+def complet(code):
+
+    return dic_lang[code]['name']
+
+def select_language():
+    """
+    decorator add list to select the language
+
+    Returns
+    -------
+    None.
+
+    """
+    index = list(dic_lang).index(save);
+
+    # Add in sidebar language selector
+    st.sidebar.selectbox('🌐', dic_lang, index=index, format_func=complet,
+                         key='lang', on_change=change)
 
 def link(txt):
     """

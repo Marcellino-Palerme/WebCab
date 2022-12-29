@@ -9,7 +9,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(__file__))
 import re
-from translate import _
+# from translate import _, select_language
 import streamlit as st
 from my_email import send_email
 import bcrypt
@@ -780,7 +780,7 @@ def forgot():
              st.session_state.authr.forgot_login()
 
 
-def login(function):
+def login(*args, **kwargs):
     """
     Decorator to manage the sign in
 
@@ -794,57 +794,63 @@ def login(function):
     function
 
     """
-    if (not'browser' in st.session_state or
-        st.session_state['browser'] is False):
-        return vide
+    global _
+    _ = kwargs['trans']
+    def inner(function):
+        if (not'browser' in st.session_state or
+            st.session_state['browser'] is False):
+            return vide
 
-    # Connect to database
-    cursor = ct.connect_dbb()
-    st.session_state['cursor'] = cursor
 
-    ### Manage sign in
-    # initiate login widget
-    authr = MyAuthen(cursor)
+        # Connect to database
+        cursor = ct.connect_dbb()
+        st.session_state['cursor'] = cursor
 
-    # Save obj in session
-    st.session_state['authr'] = authr
+        ### Manage sign in
+        # initiate login widget
+        authr = MyAuthen(cursor)
 
-    # Show widget login
-    authr.login()
+        # Save obj in session
+        st.session_state['authr'] = authr
 
-    if st.session_state.auth_status is not True:
-        # Add buttons for forgot password or login
-        forgot()
+        # Show widget login
+        authr.login()
 
-    if 'state_forgot_pwd' in st.session_state:
-        if st.session_state.state_forgot_pwd == 1 :
-            st.error(_('msg_forgot_pwd_fail'))
-        elif st.session_state.state_forgot_pwd == 2:
-            st.info(_('msg_forgot_pwd_miss'))
-        elif st.session_state.state_forgot_pwd == 0:
-            st.success(_('msg_forgot_pwd_ok'))
-        del st.session_state.state_forgot_pwd
+        if st.session_state.auth_status is not True:
+            # Add buttons for forgot password or login
+            forgot()
 
-    if 'state_forgot_login' in st.session_state:
-        if st.session_state.state_forgot_login == 1 :
-            st.error(_('msg_forgot_login_fail'))
-        elif st.session_state.state_forgot_login == 2:
-            st.info(_('msg_forgot_login_miss'))
-        elif st.session_state.state_forgot_login == 0:
-            st.success(_('msg_forgot_login_ok'))
-        del st.session_state.state_forgot_login
+        if 'state_forgot_pwd' in st.session_state:
+            if st.session_state.state_forgot_pwd == 1 :
+                st.error(_('msg_forgot_pwd_fail'))
+            elif st.session_state.state_forgot_pwd == 2:
+                st.info(_('msg_forgot_pwd_miss'))
+            elif st.session_state.state_forgot_pwd == 0:
+                st.success(_('msg_forgot_pwd_ok'))
+            del st.session_state.state_forgot_pwd
 
-    v_return = vide
-    if st.session_state.auth_status is True :
-        # add acces profile and logout on sidebar
-        authr.logout()
-        if st.session_state.temp_pwd is True:
-            authr.change_pwd(st)
-        else:
-            del st.session_state.temp_pwd
-            v_return = function
-    elif st.session_state.miss is True :
-        st.info(_('msg_login_miss'))
-    elif st.session_state.auth_status is False :
-        st.error(_('msg_login_fail'))
-    return v_return
+        if 'state_forgot_login' in st.session_state:
+            if st.session_state.state_forgot_login == 1 :
+                st.error(_('msg_forgot_login_fail'))
+            elif st.session_state.state_forgot_login == 2:
+                st.info(_('msg_forgot_login_miss'))
+            elif st.session_state.state_forgot_login == 0:
+                st.success(_('msg_forgot_login_ok'))
+            del st.session_state.state_forgot_login
+
+        v_return = vide
+        if st.session_state.auth_status is True :
+            # add acces profile and logout on sidebar
+            authr.logout()
+            if st.session_state.temp_pwd is True:
+                authr.change_pwd(st)
+            else:
+                del st.session_state.temp_pwd
+                v_return = function
+        elif st.session_state.miss is True :
+            st.info(_('msg_login_miss'))
+        elif st.session_state.auth_status is False :
+            st.error(_('msg_login_fail'))
+        return v_return
+
+    return inner

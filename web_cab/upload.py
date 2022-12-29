@@ -19,7 +19,6 @@ sys.path.append(os.path.dirname(__file__))
 import streamlit as st
 import re
 from authentification import login
-from translate import _
 import uuid
 from browser import browser_ok
 import background as bgd
@@ -27,6 +26,7 @@ from threading import Thread
 from init_bdd import check_init
 from custom import hide_hamburger
 
+from translate import _, select_language
 
 # Define title of page and menu
 st.set_page_config(
@@ -36,8 +36,9 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
+select_language()
 
-@login
+@login(trans=_)
 @browser_ok
 @check_init
 @hide_hamburger
