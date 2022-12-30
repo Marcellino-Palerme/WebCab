@@ -10,6 +10,7 @@ import gettext as gt
 import os
 import re
 import streamlit as st
+from streamlit_javascript import st_javascript
 
 # get path of directory translate
 path_trans = os.path.join(os.path.dirname(__file__), 'msg')
@@ -32,9 +33,11 @@ save = 'fr'
 
 def change():
     global _, save
+
     if 'lang' in st.session_state:
-        _ = dic_lang[st.session_state.lang]['trans'].gettext
         save = st.session_state.lang
+        _ = dic_lang[save]['trans'].gettext
+
 
 def complet(code):
 
@@ -49,6 +52,7 @@ def select_language():
     None.
 
     """
+
     index = list(dic_lang).index(save);
 
     # Add in sidebar language selector

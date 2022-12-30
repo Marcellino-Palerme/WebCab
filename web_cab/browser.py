@@ -26,6 +26,10 @@ def empty_function():
 
 
 def browser_ok(function):
+
+    if 'browser' in st.session_state and st.session_state.browser is True:
+        return function
+
     # Verify broswer is compatible
     # Get info on browser client
     info_brow = str(st_javascript("""navigator.userAgent"""))
