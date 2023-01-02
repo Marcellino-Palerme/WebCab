@@ -17,6 +17,16 @@ from browser import browser_ok
 from init_bdd import check_init
 from custom import hide_hamburger
 
+
+
+# Define title of page and menu
+st.set_page_config(
+    page_title=_('Title_profile'),
+    page_icon="🛂",
+    layout="wide",
+    initial_sidebar_state="auto"
+)
+
 def cancel_label():
     """
     Cancel modification of row

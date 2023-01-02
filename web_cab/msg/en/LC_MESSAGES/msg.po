@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-28 15:07+CET\n"
+"POT-Creation-Date: 2023-01-02 11:16+CET\n"
 "PO-Revision-Date: 2022-12-16 15:15+0100\n"
 "Last-Translator: mpalerme <mpalerme@ren-1349-b65>\n"
 "Language-Team: English\n"
@@ -15,6 +15,311 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: 1_📥_upload.py:33
+msgid "Title_up"
+msgstr "Title_up"
+
+#: 1_📥_upload.py:56
+msgid "Upload_image"
+msgstr "Upload your images"
+
+#: 1_📥_upload.py:58
+msgid "txt_up_global_help"
+msgstr "txt_up_global_help"
+
+#: 1_📥_upload.py:60
+msgid "Input_part"
+msgstr "Input_part"
+
+#: 1_📥_upload.py:62
+msgid "Archive_with_images"
+msgstr "Archive_with_images"
+
+#: 1_📥_upload.py:63
+msgid "msg_up_help_zip"
+msgstr "msg_up_help_zip"
+
+#: 1_📥_upload.py:65
+msgid "Max_barcode_by_image"
+msgstr "Max_barcode_by_image"
+
+#: 1_📥_upload.py:67
+msgid "msg_up_help_max_bar"
+msgstr "msg_up_help_max_bar"
+
+#: 1_📥_upload.py:71 1_📥_upload.py:83
+msgid "chk_used_valid_file"
+msgstr "chk_used_valid_file"
+
+#: 1_📥_upload.py:72
+msgid "chk_not_used_valid_file"
+msgstr "chk_not_used_valid_file"
+
+#: 1_📥_upload.py:77
+msgid "radio_valid_file"
+msgstr "radio_valid_file"
+
+#: 1_📥_upload.py:80
+msgid "msg_up_help_radio_valid_file"
+msgstr "msg_up_help_radio_valid_file"
+
+#: 1_📥_upload.py:84
+msgid "msg_up_help_chk_valid_file"
+msgstr "msg_up_help_chk_valid_file"
+
+#: 1_📥_upload.py:89
+msgid "Validation_file"
+msgstr "Validation_file"
+
+#: 1_📥_upload.py:90
+msgid "msg_up_help_valid_file"
+msgstr "msg_up_help_valid_file"
+
+#: 1_📥_upload.py:93
+msgid "Output_part"
+msgstr "Output_part"
+
+#: 1_📥_upload.py:95
+msgid "link_image_barcode_file"
+msgstr "link_image_barcode_file"
+
+#: 1_📥_upload.py:96
+msgid "msg_up_help_chk_out_link_file"
+msgstr "msg_up_help_chk_out_link_file"
+
+#: 1_📥_upload.py:100
+msgid "Rename_image"
+msgstr "Rename_image"
+
+#: 1_📥_upload.py:101
+msgid "msg_up_help_chk_out_format"
+msgstr "msg_up_help_chk_out_format"
+
+#: 1_📥_upload.py:103
+msgid "Image_name_barecode"
+msgstr "Image_name_barecode"
+
+#: 1_📥_upload.py:103
+msgid "only_barcode"
+msgstr "only_barcode"
+
+#: 1_📥_upload.py:104
+msgid "barecode_image_name"
+msgstr "barecode_image_name"
+
+#: 1_📥_upload.py:107
+msgid "format_image_name"
+msgstr "format_image_name"
+
+#: 1_📥_upload.py:108
+msgid "msg_up_help_radio_out_format"
+msgstr "msg_up_help_radio_out_format"
+
+#: 1_📥_upload.py:115
+msgid "msg_up_miss_zip"
+msgstr "msg_up_miss_zip"
+
+#: 1_📥_upload.py:120
+msgid "msg_up_miss_valid_file"
+msgstr "msg_up_miss_valid_file"
+
+#: 1_📥_upload.py:124
+msgid "msg_up_miss_output"
+msgstr "msg_up_miss_output"
+
+#: 1_📥_upload.py:132
+msgid "bt_upload_submit"
+msgstr "bt_upload_submit"
+
+#: 1_📥_upload.py:133
+msgid "msg_up_help_bt_submit"
+msgstr "msg_up_help_bt_submit"
+
+#: 1_📥_upload.py:199
+msgid "Id of your process: "
+msgstr "Id of your process: "
+
+#: 1_📥_upload.py:200
+msgid "msg_success_upload"
+msgstr "msg_success_upload"
+
+#: pages/3_🆘_help.py:24
+#, fuzzy
+msgid "Title_help"
+msgstr "Title_up"
+
+#: pages/3_🆘_help.py:116
+msgid "Title_help_summary"
+msgstr ""
+
+#: pages/3_🆘_help.py:117
+msgid "Txt_help_summary_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:118
+msgid "Title_help_quickstart"
+msgstr ""
+
+#: pages/3_🆘_help.py:119
+msgid "Txt_help_quickstart_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:120
+#, fuzzy
+msgid "Title_help_upload"
+msgstr "Title_up"
+
+#: pages/3_🆘_help.py:121
+msgid "Txt_help_upload_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:122
+msgid "Title_help_up_input"
+msgstr ""
+
+#: pages/3_🆘_help.py:123
+msgid "Txt_help_up_input_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:124
+msgid "Title_help_archive"
+msgstr ""
+
+#: pages/3_🆘_help.py:125
+msgid "Txt_help_archive_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:126
+msgid "Title_help_nb_barcode"
+msgstr ""
+
+#: pages/3_🆘_help.py:127
+msgid "Txt_help_nb_barcode_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:128
+#, fuzzy
+msgid "Title_help_valid_file"
+msgstr "msg_up_help_valid_file"
+
+#: pages/3_🆘_help.py:129
+#, fuzzy
+msgid "Txt_help_valid_file_ht"
+msgstr "msg_up_help_valid_file"
+
+#: pages/3_🆘_help.py:130
+msgid "Title_help_up_output"
+msgstr ""
+
+#: pages/3_🆘_help.py:131
+msgid "Txt_help_up_output"
+msgstr ""
+
+#: pages/3_🆘_help.py:132
+msgid "Title_help_im_bar_csv"
+msgstr ""
+
+#: pages/3_🆘_help.py:133
+msgid "Txt_help_im_bar_csv_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:134
+msgid "Title_help_rename_im"
+msgstr ""
+
+#: pages/3_🆘_help.py:135
+msgid "Txt_help_rename_im_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:137
+#, fuzzy
+msgid "Title_help_download"
+msgstr "Title_up"
+
+#: pages/3_🆘_help.py:138
+msgid "Txt_help_download_ht"
+msgstr ""
+
+#: pages/3_🆘_help.py:139
+#, fuzzy
+msgid "Title_help_profile"
+msgstr "msg_up_help_valid_file"
+
+#: pages/3_🆘_help.py:140
+#, fuzzy
+msgid "Txt_help_profile_ht"
+msgstr "msg_up_help_valid_file"
+
+#: pages/3_🆘_help.py:141
+#, fuzzy
+msgid "Title_help_FAQ"
+msgstr "Title_up"
+
+#: pages/3_🆘_help.py:142
+msgid "Txt_help_FAQ_ht"
+msgstr ""
+
+#: pages/4_🛂_profile.py:24
+#, fuzzy
+msgid "Title_profile"
+msgstr "msg_up_help_valid_file"
+
+#: pages/4_🛂_profile.py:59
+msgid "title_profile_page"
+msgstr ""
+
+#: pages/4_🛂_profile.py:64
+msgid "tab_admin_create"
+msgstr ""
+
+#: pages/4_🛂_profile.py:64
+msgid "tab_user"
+msgstr ""
+
+#: pages/4_🛂_profile.py:65
+msgid "tab_admin_delete"
+msgstr ""
+
+#: pages/4_🛂_profile.py:78
+#, fuzzy
+msgid "row_login"
+msgstr "forgot_pwd_login"
+
+#: pages/4_🛂_profile.py:80
+msgid "row_email"
+msgstr ""
+
+#: pages/4_🛂_profile.py:82
+msgid "row_email_help"
+msgstr ""
+
+#: pages/4_🛂_profile.py:86
+msgid "bt_profile_update"
+msgstr ""
+
+#: pages/4_🛂_profile.py:86
+#, fuzzy
+msgid "bt_profile_update_help"
+msgstr "bt_forgot_pwd_help"
+
+#: pages/4_🛂_profile.py:92
+msgid "bt_profile_cancel"
+msgstr ""
+
+#: pages/4_🛂_profile.py:92
+msgid "bt_profile_cancel_help"
+msgstr ""
+
+#: pages/4_🛂_profile.py:96
+#, fuzzy
+msgid "bt_change_pwd"
+msgstr "bt_forgot_pwd"
+
+#: pages/4_🛂_profile.py:96
+#, fuzzy
+msgid "bt_change_pwd_help"
+msgstr "bt_forgot_pwd_help"
 
 #: authentification.py:89
 #, fuzzy
@@ -232,221 +537,37 @@ msgstr "bt_forgot_login"
 msgid "bt_forgot_login_help"
 msgstr "bt_forgot_login_help"
 
-#: authentification.py:821
+#: authentification.py:825
 msgid "msg_forgot_pwd_fail"
 msgstr "msg_forgot_pwd_fail"
 
-#: authentification.py:823
+#: authentification.py:827
 msgid "msg_forgot_pwd_miss"
 msgstr "msg_forgot_pwd_miss"
 
-#: authentification.py:825
+#: authentification.py:829
 msgid "msg_forgot_pwd_ok"
 msgstr "msg_forgot_pwd_ok"
 
-#: authentification.py:830
+#: authentification.py:834
 msgid "msg_forgot_login_fail"
 msgstr "msg_forgot_login_fail"
 
-#: authentification.py:832
+#: authentification.py:836
 msgid "msg_forgot_login_miss"
 msgstr "msg_forgot_login_miss"
 
-#: authentification.py:834
+#: authentification.py:838
 msgid "msg_forgot_login_ok"
 msgstr "msg_forgot_login_ok"
 
-#: authentification.py:847
+#: authentification.py:851
 msgid "msg_login_miss"
 msgstr "msg_login_miss"
 
-#: authentification.py:849
+#: authentification.py:853
 msgid "msg_login_fail"
 msgstr "msg_login_fail"
-
-#: pages/profile.py:48
-msgid "title_profile_page"
-msgstr ""
-
-#: pages/profile.py:53
-msgid "tab_admin_create"
-msgstr ""
-
-#: pages/profile.py:53
-msgid "tab_user"
-msgstr ""
-
-#: pages/profile.py:54
-msgid "tab_admin_delete"
-msgstr ""
-
-#: pages/profile.py:67
-#, fuzzy
-msgid "row_login"
-msgstr "forgot_pwd_login"
-
-#: pages/profile.py:69
-msgid "row_email"
-msgstr ""
-
-#: pages/profile.py:71
-msgid "row_email_help"
-msgstr ""
-
-#: pages/profile.py:75
-msgid "bt_profile_update"
-msgstr ""
-
-#: pages/profile.py:75
-#, fuzzy
-msgid "bt_profile_update_help"
-msgstr "bt_forgot_pwd_help"
-
-#: pages/profile.py:81
-msgid "bt_profile_cancel"
-msgstr ""
-
-#: pages/profile.py:81
-msgid "bt_profile_cancel_help"
-msgstr ""
-
-#: pages/profile.py:85
-#, fuzzy
-msgid "bt_change_pwd"
-msgstr "bt_forgot_pwd"
-
-#: pages/profile.py:85
-#, fuzzy
-msgid "bt_change_pwd_help"
-msgstr "bt_forgot_pwd_help"
-
-#: upload.py:33
-msgid "Title_up"
-msgstr "Title_up"
-
-#: upload.py:55
-msgid "Upload_image"
-msgstr "Upload your images"
-
-#: upload.py:57
-msgid "txt_up_global_help"
-msgstr "txt_up_global_help"
-
-#: upload.py:59
-msgid "Input_part"
-msgstr "Input_part"
-
-#: upload.py:61
-msgid "Archive_with_images"
-msgstr "Archive_with_images"
-
-#: upload.py:62
-msgid "msg_up_help_zip"
-msgstr "msg_up_help_zip"
-
-#: upload.py:64
-msgid "Max_barcode_by_image"
-msgstr "Max_barcode_by_image"
-
-#: upload.py:66
-msgid "msg_up_help_max_bar"
-msgstr "msg_up_help_max_bar"
-
-#: upload.py:70 upload.py:82
-msgid "chk_used_valid_file"
-msgstr "chk_used_valid_file"
-
-#: upload.py:71
-msgid "chk_not_used_valid_file"
-msgstr "chk_not_used_valid_file"
-
-#: upload.py:76
-msgid "radio_valid_file"
-msgstr "radio_valid_file"
-
-#: upload.py:79
-msgid "msg_up_help_radio_valid_file"
-msgstr "msg_up_help_radio_valid_file"
-
-#: upload.py:83
-msgid "msg_up_help_chk_valid_file"
-msgstr "msg_up_help_chk_valid_file"
-
-#: upload.py:88
-msgid "Validation_file"
-msgstr "Validation_file"
-
-#: upload.py:89
-msgid "msg_up_help_valid_file"
-msgstr "msg_up_help_valid_file"
-
-#: upload.py:92
-msgid "Output_part"
-msgstr "Output_part"
-
-#: upload.py:94
-msgid "link_image_barcode_file"
-msgstr "link_image_barcode_file"
-
-#: upload.py:95
-msgid "msg_up_help_chk_out_link_file"
-msgstr "msg_up_help_chk_out_link_file"
-
-#: upload.py:99
-msgid "Rename_image"
-msgstr "Rename_image"
-
-#: upload.py:100
-msgid "msg_up_help_chk_out_format"
-msgstr "msg_up_help_chk_out_format"
-
-#: upload.py:102
-msgid "Image_name_barecode"
-msgstr "Image_name_barecode"
-
-#: upload.py:102
-msgid "only_barcode"
-msgstr "only_barcode"
-
-#: upload.py:103
-msgid "barecode_image_name"
-msgstr "barecode_image_name"
-
-#: upload.py:106
-msgid "format_image_name"
-msgstr "format_image_name"
-
-#: upload.py:107
-msgid "msg_up_help_radio_out_format"
-msgstr "msg_up_help_radio_out_format"
-
-#: upload.py:114
-msgid "msg_up_miss_zip"
-msgstr "msg_up_miss_zip"
-
-#: upload.py:119
-msgid "msg_up_miss_valid_file"
-msgstr "msg_up_miss_valid_file"
-
-#: upload.py:123
-msgid "msg_up_miss_output"
-msgstr "msg_up_miss_output"
-
-#: upload.py:131
-msgid "bt_upload_submit"
-msgstr "bt_upload_submit"
-
-#: upload.py:132
-msgid "msg_up_help_bt_submit"
-msgstr "msg_up_help_bt_submit"
-
-#: upload.py:198
-msgid "Id of your process: "
-msgstr "Id of your process: "
-
-#: upload.py:199
-msgid "msg_success_upload"
-msgstr "msg_success_upload"
 
 #: background.py:142 background.py:278
 #, fuzzy
@@ -458,171 +579,56 @@ msgstr "msg_email_sub_pwd"
 msgid "msg_email_header_end_cab"
 msgstr "msg_email_header_pwd"
 
-#: pages/download.py:25
+#: pages/2_📤_download.py:25
 #, fuzzy
 msgid "Title_down"
 msgstr "Title_up"
 
-#: pages/download.py:112
+#: pages/2_📤_download.py:114
 #, fuzzy
 msgid "msg_explain_ddl_page"
 msgstr "msg_email_end"
 
-#: pages/download.py:117
+#: pages/2_📤_download.py:119
 #, fuzzy
 msgid "title_legend"
 msgstr "Login"
 
-#: pages/download.py:120
+#: pages/2_📤_download.py:122
 msgid "legend_wait"
 msgstr ""
 
-#: pages/download.py:121
+#: pages/2_📤_download.py:123
 msgid "legend_in_progress"
 msgstr ""
 
-#: pages/download.py:122
+#: pages/2_📤_download.py:124
 msgid "legend_finish"
 msgstr ""
 
-#: pages/download.py:129
+#: pages/2_📤_download.py:131
 msgid "no_process"
 msgstr ""
 
-#: pages/download.py:134 pages/download.py:139 pages/download.py:145
+#: pages/2_📤_download.py:136 pages/2_📤_download.py:141
+#: pages/2_📤_download.py:147
 msgid " upload: "
 msgstr ""
 
-#: pages/download.py:142
+#: pages/2_📤_download.py:144
 msgid "Waiting"
 msgstr ""
 
-#: pages/download.py:148
+#: pages/2_📤_download.py:150
 msgid "Expiring: "
 msgstr ""
 
-#: pages/download.py:154
+#: pages/2_📤_download.py:156
 msgid "download"
 msgstr ""
 
-#: pages/download.py:160
+#: pages/2_📤_download.py:162
 msgid "bt_delete_process"
-msgstr ""
-
-#: pages/help.py:24
-#, fuzzy
-msgid "Title_help"
-msgstr "Title_up"
-
-#: pages/help.py:114
-msgid "Title_help_summary"
-msgstr ""
-
-#: pages/help.py:115
-msgid "Txt_help_summary_ht"
-msgstr ""
-
-#: pages/help.py:116
-msgid "Title_help_quickstart"
-msgstr ""
-
-#: pages/help.py:117
-msgid "Txt_help_quickstart_ht"
-msgstr ""
-
-#: pages/help.py:118
-#, fuzzy
-msgid "Title_help_upload"
-msgstr "Title_up"
-
-#: pages/help.py:119
-msgid "Txt_help_upload_ht"
-msgstr ""
-
-#: pages/help.py:120
-msgid "Title_help_up_input"
-msgstr ""
-
-#: pages/help.py:121
-msgid "Txt_help_up_input_ht"
-msgstr ""
-
-#: pages/help.py:122
-msgid "Title_help_archive"
-msgstr ""
-
-#: pages/help.py:123
-msgid "Txt_help_archive_ht"
-msgstr ""
-
-#: pages/help.py:124
-msgid "Title_help_nb_barcode"
-msgstr ""
-
-#: pages/help.py:125
-msgid "Txt_help_nb_barcode_ht"
-msgstr ""
-
-#: pages/help.py:126
-#, fuzzy
-msgid "Title_help_valid_file"
-msgstr "msg_up_help_valid_file"
-
-#: pages/help.py:127
-#, fuzzy
-msgid "Txt_help_valid_file_ht"
-msgstr "msg_up_help_valid_file"
-
-#: pages/help.py:128
-msgid "Title_help_up_output"
-msgstr ""
-
-#: pages/help.py:129
-msgid "Txt_help_up_output"
-msgstr ""
-
-#: pages/help.py:130
-msgid "Title_help_im_bar_csv"
-msgstr ""
-
-#: pages/help.py:131
-msgid "Txt_help_im_bar_csv_ht"
-msgstr ""
-
-#: pages/help.py:132
-msgid "Title_help_rename_im"
-msgstr ""
-
-#: pages/help.py:133
-msgid "Txt_help_rename_im_ht"
-msgstr ""
-
-#: pages/help.py:135
-#, fuzzy
-msgid "Title_help_download"
-msgstr "Title_up"
-
-#: pages/help.py:136
-msgid "Txt_help_download_ht"
-msgstr ""
-
-#: pages/help.py:137
-#, fuzzy
-msgid "Title_help_profile"
-msgstr "msg_up_help_valid_file"
-
-#: pages/help.py:138
-#, fuzzy
-msgid "Txt_help_profile_ht"
-msgstr "msg_up_help_valid_file"
-
-#: pages/help.py:139
-#, fuzzy
-msgid "Title_help_FAQ"
-msgstr "Title_up"
-
-#: pages/help.py:140
-msgid "Txt_help_FAQ_ht"
 msgstr ""
 
 #~ msgid "http://URL_up_help"

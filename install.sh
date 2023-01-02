@@ -98,7 +98,7 @@ RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
 WORKDIR web-cab
 
 # Command to run web-cab
-CMD streamlit run --browser.gatherUsageStats false web_cab/upload.py
+CMD streamlit run --browser.gatherUsageStats false web_cab/1_📥_upload.py
 
 EOF
 

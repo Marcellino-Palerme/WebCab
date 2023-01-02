@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-12-28 15:07+CET\n"
+"POT-Creation-Date: 2023-01-02 11:16+CET\n"
 "PO-Revision-Date: 2022-12-19 13:14+0100\n"
 "Last-Translator: Marcellino Palerme <marcellino.palerme@inrae.fr>\n"
 "Language-Team: French\n"
@@ -15,6 +15,385 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: 1_📥_upload.py:33
+msgid "Title_up"
+msgstr "Téléverser"
+
+#: 1_📥_upload.py:56
+msgid "Upload_image"
+msgstr "Téléverser"
+
+#: 1_📥_upload.py:58
+msgid "txt_up_global_help"
+msgstr ""
+"Bonjour!<br/>_Si c'est votre première utilisation_<br/>_Rendez-vous sur "
+"🆘_<br/>La partie téléversement permet de fournir les images à analyser et "
+"configurer ce que vous souhaitez obtenir.<br/>Chaque éléments du formulaire "
+"a une aide contextuelle pour vous rappelez ce qu il faut fournir.<br/>Bon "
+"remplissage.<br/>L'équipe Web Cab."
+
+#: 1_📥_upload.py:60
+msgid "Input_part"
+msgstr "Éléments à fournir"
+
+#: 1_📥_upload.py:62
+msgid "Archive_with_images"
+msgstr "Archive (.zip) contenant vos images"
+
+#: 1_📥_upload.py:63
+msgid "msg_up_help_zip"
+msgstr ""
+"Les images, que vous voulez qu'on analyse, archivées directement dans un "
+"fichier .zip"
+
+#: 1_📥_upload.py:65
+msgid "Max_barcode_by_image"
+msgstr "Nombre de code barre max. / image"
+
+#: 1_📥_upload.py:67
+msgid "msg_up_help_max_bar"
+msgstr "Indiquer le nombre de code barre que contient l'image qui en a le plus"
+
+#: 1_📥_upload.py:71 1_📥_upload.py:83
+msgid "chk_used_valid_file"
+msgstr "Avec fichier de validation"
+
+#: 1_📥_upload.py:72
+msgid "chk_not_used_valid_file"
+msgstr "Sans fichier de validation"
+
+#: 1_📥_upload.py:77
+msgid "radio_valid_file"
+msgstr "Utiliser un fichier de validation"
+
+#: 1_📥_upload.py:80
+msgid "msg_up_help_radio_valid_file"
+msgstr ""
+"_Quand il y plusieurs codes barre dans une images, il est préférable "
+"d'utliser un fichier de validation:_<ol><li>_Ordonner les codes barre "
+"trouvés dans l image_</li><li>_Vérifier que les codes barre trouvés sont "
+"bien ceux definis_</li></ol>"
+
+#: 1_📥_upload.py:84
+msgid "msg_up_help_chk_valid_file"
+msgstr ""
+"Le fichier de validation permet:\r\n"
+"\r1) Vérifier que les codes barre trouves sont bien ceux definis\r\n"
+"\r2) Ordonner les codes barre trouvés dans l image"
+
+#: 1_📥_upload.py:89
+msgid "Validation_file"
+msgstr "Fichier de validation"
+
+#: 1_📥_upload.py:90
+msgid "msg_up_help_valid_file"
+msgstr ""
+"Le fichier de validation est un fichier csv ou chaque ligne correspond à "
+"l'ensemble des codes barre qu'on trouve dans une image et chaque colonne ne "
+"contient qu'un code barre. L'ordre des codes barre dans une ligne est "
+"l'ordre à laquel ils seront concaténés"
+
+#: 1_📥_upload.py:93
+msgid "Output_part"
+msgstr "Éléments résultants"
+
+#: 1_📥_upload.py:95
+msgid "link_image_barcode_file"
+msgstr "Fichier de correspondance images - code barre"
+
+#: 1_📥_upload.py:96
+msgid "msg_up_help_chk_out_link_file"
+msgstr ""
+"Fichier csv avec deux colonnes. La première avec le nom de l'image. La "
+"seconde avec le ou les codes barre trouvés concaténés par un _ soit dans "
+"l'ordre du fichier de validation soit dans l'ordre de leur identification"
+
+#: 1_📥_upload.py:100
+msgid "Rename_image"
+msgstr "Renommer l'images"
+
+#: 1_📥_upload.py:101
+msgid "msg_up_help_chk_out_format"
+msgstr ""
+"Souhaitez-vous que les images soient renommees à partir des codes barre "
+"trouvés"
+
+#: 1_📥_upload.py:103
+msgid "Image_name_barecode"
+msgstr "<nom de l'image>_<code barre>.extension"
+
+#: 1_📥_upload.py:103
+msgid "only_barcode"
+msgstr "<code barre>.extension"
+
+#: 1_📥_upload.py:104
+msgid "barecode_image_name"
+msgstr "<code barre>_<nom de l'image>.extension"
+
+#: 1_📥_upload.py:107
+msgid "format_image_name"
+msgstr "Format du renommage des images"
+
+#: 1_📥_upload.py:108
+msgid "msg_up_help_radio_out_format"
+msgstr ""
+"Indiquer comment vous souhaitez que soit renommer les images. Soit:\r\n"
+"\r 1)L'image prend le nom du ou des codes barre separés par _\r\n"
+"\r 2)On garde le nom de l'image et on lui ajoute _ puis le ou les codes "
+"barre trouvés séparés par _\r\n"
+"\r 3)On garde le nom de l'image et précédé du ou des codes barre trouvés "
+"séparés par _ et de _"
+
+#: 1_📥_upload.py:115
+msgid "msg_up_miss_zip"
+msgstr "Il manque l'archive d'images (.zip)"
+
+#: 1_📥_upload.py:120
+msgid "msg_up_miss_valid_file"
+msgstr "Il manque le fichier de validation"
+
+#: 1_📥_upload.py:124
+msgid "msg_up_miss_output"
+msgstr "Aucune sortie n'a été choix"
+
+#: 1_📥_upload.py:132
+msgid "bt_upload_submit"
+msgstr "Valider"
+
+#: 1_📥_upload.py:133
+msgid "msg_up_help_bt_submit"
+msgstr "Demander le lancement du traitement des images"
+
+#: 1_📥_upload.py:199
+msgid "Id of your process: "
+msgstr "Le numero de votre traitement est "
+
+#: 1_📥_upload.py:200
+msgid "msg_success_upload"
+msgstr ""
+"Votre demande a ete prise en compte.\r\n"
+"Pour l etat du traitement puis telecharger le resultat.\r\n"
+"Merci de vous rendre a le page telechargement (en cliquant sur telecharger a "
+"gauche de cette page)"
+
+#: pages/3_🆘_help.py:24
+msgid "Title_help"
+msgstr "Aide"
+
+#: pages/3_🆘_help.py:116
+msgid "Title_help_summary"
+msgstr "Présentation"
+
+#: pages/3_🆘_help.py:117
+msgid "Txt_help_summary_ht"
+msgstr ""
+"**Web Cab** est la mise en ligne de l'application de bureau Cab<br/>Elle a "
+"pour but d'extraire les codes barre et QR de vos images<br/><img src='resume."
+"png' alt='Une image donnée à web cab  et ressort le code "
+"barre'style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:118
+msgid "Title_help_quickstart"
+msgstr "Prise en main rapide"
+
+#: pages/3_🆘_help.py:119
+msgid "Txt_help_quickstart_ht"
+msgstr ""
+"<blockquote><h5>Important</h5>Pour utiliser <strong>Web Cab</strong>, il "
+"vous faut un compte <br/>Pour l'obtenir merci de contacter l'équipe </"
+"blockquote>"
+
+#: pages/3_🆘_help.py:120
+msgid "Title_help_upload"
+msgstr "Téléverser"
+
+#: pages/3_🆘_help.py:121
+msgid "Txt_help_upload_ht"
+msgstr ""
+"Cette page est un formulaire pour configurer l'analyse de vos images<br/"
+"><img src='televerser.png' alt='Formulaire de téléversement'style='border: "
+"7px solid #525;border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:122
+msgid "Title_help_up_input"
+msgstr "Partie éléments à fournir"
+
+#: pages/3_🆘_help.py:123
+msgid "Txt_help_up_input_ht"
+msgstr ""
+"Première partie du formulaire<br/><img src='A_fournir.png' alt='Première "
+"partie du forulaire'style='border: 7px solid #525;border-radius: 7% 0% 15% "
+"0%;'>"
+
+#: pages/3_🆘_help.py:124
+msgid "Title_help_archive"
+msgstr "Archive des images"
+
+#: pages/3_🆘_help.py:125
+msgid "Txt_help_archive_ht"
+msgstr ""
+"Explication de la création du fichier d'archive .zip<br/><img src='archive."
+"png' alt='imprime écran pour ajout d archive'style='border: 7px solid #525;"
+"border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:126
+msgid "Title_help_nb_barcode"
+msgstr "Nombre de codes barre"
+
+#: pages/3_🆘_help.py:127
+msgid "Txt_help_nb_barcode_ht"
+msgstr ""
+"Comment choisir la valeur<br/><img src='codemax.png' alt='imprime écran du "
+"sélecteur du nombre de code barre maximum par image' style='border: 7px "
+"solid #525;border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:128
+msgid "Title_help_valid_file"
+msgstr "Fichier de validation"
+
+#: pages/3_🆘_help.py:129
+msgid "Txt_help_valid_file_ht"
+msgstr ""
+"Le fichier de validation est un fichier csv ou chaque ligne correspond à "
+"l'ensemble des codes barre qu'on trouve dans une image et chaque colonne ne "
+"contient qu'un code barre. L'ordre des codes barre dans une ligne est "
+"l'ordre à laquel ils seront concaténés <br/>Choisir d'utiliser le fichier de "
+"validation.<br/><img src='validation_check.png' alt='imprime écran du choix "
+"du fichier de validation'style='border: 7px solid #525;border-radius: 7% 0% "
+"15% 0%;'><br/><br/>Forte recommandation d'utiliser le fichier de validation, "
+"quand le nombre de  code barre par image maximum est supérieur à 1<br/><img "
+"src='validation_max.png' alt='imprime écran fichier validation du fait du "
+"nombre de code barre'style='border: 7px solid #525;border-radius: 7% 0% 15% "
+"0%;'>"
+
+#: pages/3_🆘_help.py:130
+msgid "Title_help_up_output"
+msgstr "Partie des éléments souhaités"
+
+#: pages/3_🆘_help.py:131
+msgid "Txt_help_up_output"
+msgstr ""
+"Seconde partie du formulaire<br/><img src='sortie.png' alt='Seconde partie "
+"du formulaire'style='border: 7px solid #525;border-radius: 7% 0% 15% "
+"0%;'><br/><br/>Ensemble des options possibles pour le résultat d'un "
+"traitement<img src='sortie_options.png' alt='Les options de la "
+"sortie'style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:132
+msgid "Title_help_im_bar_csv"
+msgstr "Fichier de correspondance"
+
+#: pages/3_🆘_help.py:133
+msgid "Txt_help_im_bar_csv_ht"
+msgstr "Explication de la structure du fichier de correspondance"
+
+#: pages/3_🆘_help.py:134
+msgid "Title_help_rename_im"
+msgstr "Renommage des images"
+
+#: pages/3_🆘_help.py:135
+msgid "Txt_help_rename_im_ht"
+msgstr "Explication des trois options de renommage d'image"
+
+#: pages/3_🆘_help.py:137
+msgid "Title_help_download"
+msgstr "Télécharger"
+
+#: pages/3_🆘_help.py:138
+msgid "Txt_help_download_ht"
+msgstr ""
+"Comment suivre, récupérer et supprimer les traitements soumis<br/><img "
+"src='telechargement.png' alt='Page de téléchargment'style='border: 7px solid "
+"#525;border-radius: 7% 0% 15% 0%;'><br/><br/>Ligne d'un traitement pas "
+"encore commencé<br/><img src='attente_fermer.png' alt='traitement en attente "
+"fermé'style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/"
+">Détail d'un traitement pas encore commencé<br/><img src='attente_ouvert."
+"png' alt='traitement en attente ouvert'style='border: 7px solid #525;border-"
+"radius: 7% 0% 15% 0%;'><br/><br/>Ligne d'un traitement en cours "
+"d'exécution<br/>Détail d'un traitement en cours d'exécution<br/>Ligne d'un "
+"traitement terminé<br/><img src='fini_fermer.png' alt='traitement terminé "
+"fermé'style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/"
+">Détail d'un traitement terminé. Possibilité de le télécharger et le "
+"supprimer<br/><img src='fini_ouvert.png' alt='traitement terminé "
+"ouvert'style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:139
+msgid "Title_help_profile"
+msgstr "Profile"
+
+#: pages/3_🆘_help.py:140
+msgid "Txt_help_profile_ht"
+msgstr ""
+"Connaître les possibilités dans la gestion du profile de l'utilisateur<br/"
+"><img src='profile.png' alt='Page du profile'style='border: 7px solid #525;"
+"border-radius: 7% 0% 15% 0%;'><br/><br/>Formulaire de modification du mot de "
+"passe<br/><img src='nouv_mdp.png' alt='Formulaire de modification de mot de "
+"passe'style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
+
+#: pages/3_🆘_help.py:141
+msgid "Title_help_FAQ"
+msgstr "FAQ"
+
+#: pages/3_🆘_help.py:142
+msgid "Txt_help_FAQ_ht"
+msgstr "Ensemble de questions ou de précision de parties"
+
+#: pages/4_🛂_profile.py:24
+msgid "Title_profile"
+msgstr "Profile"
+
+#: pages/4_🛂_profile.py:59
+msgid "title_profile_page"
+msgstr "Profile"
+
+#: pages/4_🛂_profile.py:64
+msgid "tab_admin_create"
+msgstr "Ajouter un utilisateur"
+
+#: pages/4_🛂_profile.py:64
+msgid "tab_user"
+msgstr "Mon profile"
+
+#: pages/4_🛂_profile.py:65
+msgid "tab_admin_delete"
+msgstr "Supprimer un utilisateur"
+
+#: pages/4_🛂_profile.py:78
+msgid "row_login"
+msgstr "Identifiant"
+
+#: pages/4_🛂_profile.py:80
+msgid "row_email"
+msgstr "Email"
+
+#: pages/4_🛂_profile.py:82
+msgid "row_email_help"
+msgstr "Modifier votre adresse email"
+
+#: pages/4_🛂_profile.py:86
+msgid "bt_profile_update"
+msgstr "Mise à jour"
+
+#: pages/4_🛂_profile.py:86
+msgid "bt_profile_update_help"
+msgstr "Enregistrer la modification de votre adresse email"
+
+#: pages/4_🛂_profile.py:92
+msgid "bt_profile_cancel"
+msgstr "Annuler"
+
+#: pages/4_🛂_profile.py:92
+msgid "bt_profile_cancel_help"
+msgstr "Annuler la modification de votre adresse email"
+
+#: pages/4_🛂_profile.py:96
+msgid "bt_change_pwd"
+msgstr "Modifier mot de passe"
+
+#: pages/4_🛂_profile.py:96
+msgid "bt_change_pwd_help"
+msgstr "Accéder au formulaire de modification de votre mot de passe"
 
 #: authentification.py:89
 msgid "msg_change_email_wrong"
@@ -238,252 +617,39 @@ msgstr ""
 "En cas d oublie de votre identifiant, celui-ci peut vous être communiqué par "
 "email"
 
-#: authentification.py:821
+#: authentification.py:825
 msgid "msg_forgot_pwd_fail"
 msgstr "L'information fournie est incorrecte"
 
-#: authentification.py:823
+#: authentification.py:827
 msgid "msg_forgot_pwd_miss"
 msgstr "Le champ ne peut pas être vide"
 
-#: authentification.py:825
+#: authentification.py:829
 msgid "msg_forgot_pwd_ok"
 msgstr ""
 "Le mot de passe temporaire vous a été transmit par email (peut-être dans "
 "spam)"
 
-#: authentification.py:830
+#: authentification.py:834
 msgid "msg_forgot_login_fail"
 msgstr "L'information fournie est incorrecte"
 
-#: authentification.py:832
+#: authentification.py:836
 msgid "msg_forgot_login_miss"
 msgstr "Le champ ne peut pas être vide"
 
-#: authentification.py:834
+#: authentification.py:838
 msgid "msg_forgot_login_ok"
 msgstr "Votre identifiant vous a été transmit par email (peut-être dans spam)"
 
-#: authentification.py:847
+#: authentification.py:851
 msgid "msg_login_miss"
 msgstr "Un des champs est vide"
 
-#: authentification.py:849
+#: authentification.py:853
 msgid "msg_login_fail"
 msgstr "Les informations fournies sont incorrectes."
-
-#: pages/profile.py:48
-msgid "title_profile_page"
-msgstr "Profile"
-
-#: pages/profile.py:53
-msgid "tab_admin_create"
-msgstr "Ajouter un utilisateur"
-
-#: pages/profile.py:53
-msgid "tab_user"
-msgstr "Mon profile"
-
-#: pages/profile.py:54
-msgid "tab_admin_delete"
-msgstr "Supprimer un utilisateur"
-
-#: pages/profile.py:67
-msgid "row_login"
-msgstr "Identifiant"
-
-#: pages/profile.py:69
-msgid "row_email"
-msgstr "Email"
-
-#: pages/profile.py:71
-msgid "row_email_help"
-msgstr "Modifier votre adresse email"
-
-#: pages/profile.py:75
-msgid "bt_profile_update"
-msgstr "Mise à jour"
-
-#: pages/profile.py:75
-msgid "bt_profile_update_help"
-msgstr "Enregistrer la modification de votre adresse email"
-
-#: pages/profile.py:81
-msgid "bt_profile_cancel"
-msgstr "Annuler"
-
-#: pages/profile.py:81
-msgid "bt_profile_cancel_help"
-msgstr "Annuler la modification de votre adresse email"
-
-#: pages/profile.py:85
-msgid "bt_change_pwd"
-msgstr "Modifier mot de passe"
-
-#: pages/profile.py:85
-msgid "bt_change_pwd_help"
-msgstr "Accéder au formulaire de modification de votre mot de passe"
-
-#: upload.py:33
-msgid "Title_up"
-msgstr "Téléverser"
-
-#: upload.py:55
-msgid "Upload_image"
-msgstr "Téléverser"
-
-#: upload.py:57
-msgid "txt_up_global_help"
-msgstr ""
-"Bonjour!<br/>_Si c'est votre première utilisation_<br/>_Rendez-vous sur 🆘_"
-"<br/>La partie téléversement permet de fournir les images à analyser et "
-"configurer ce que vous souhaitez obtenir.<br/>Chaque éléments du formulaire "
-"a une aide contextuelle pour vous rappelez ce qu il faut fournir.<br/>Bon "
-"remplissage.<br/>L'équipe Web Cab."
-
-#: upload.py:59
-msgid "Input_part"
-msgstr "Éléments à fournir"
-
-#: upload.py:61
-msgid "Archive_with_images"
-msgstr "Archive (.zip) contenant vos images"
-
-#: upload.py:62
-msgid "msg_up_help_zip"
-msgstr ""
-"Les images, que vous voulez qu'on analyse, archivées directement dans un "
-"fichier .zip"
-
-#: upload.py:64
-msgid "Max_barcode_by_image"
-msgstr "Nombre de code barre max. / image"
-
-#: upload.py:66
-msgid "msg_up_help_max_bar"
-msgstr "Indiquer le nombre de code barre que contient l'image qui en a le plus"
-
-#: upload.py:70 upload.py:82
-msgid "chk_used_valid_file"
-msgstr "Avec fichier de validation"
-
-#: upload.py:71
-msgid "chk_not_used_valid_file"
-msgstr "Sans fichier de validation"
-
-#: upload.py:76
-msgid "radio_valid_file"
-msgstr "Utiliser un fichier de validation"
-
-#: upload.py:79
-msgid "msg_up_help_radio_valid_file"
-msgstr ""
-"_Quand il y plusieurs codes barre dans une images, il est préférable "
-"d'utliser un fichier de validation:_<ol><li>_Ordonner les codes barre "
-"trouvés dans l image_</li><li>_Vérifier que les codes barre trouvés sont "
-"bien ceux definis_</li></ol>"
-
-#: upload.py:83
-msgid "msg_up_help_chk_valid_file"
-msgstr ""
-"Le fichier de validation permet:\r\n"
-"\r1) Vérifier que les codes barre trouves sont bien ceux definis\r\n"
-"\r2) Ordonner les codes barre trouvés dans l image"
-
-#: upload.py:88
-msgid "Validation_file"
-msgstr "Fichier de validation"
-
-#: upload.py:89
-msgid "msg_up_help_valid_file"
-msgstr ""
-"Le fichier de validation est un fichier csv ou chaque ligne correspond à "
-"l'ensemble des codes barre qu'on trouve dans une image et chaque colonne ne "
-"contient qu'un code barre. L'ordre des codes barre dans une ligne est "
-"l'ordre à laquel ils seront concaténés"
-
-#: upload.py:92
-msgid "Output_part"
-msgstr "Éléments résultants"
-
-#: upload.py:94
-msgid "link_image_barcode_file"
-msgstr "Fichier de correspondance images - code barre"
-
-#: upload.py:95
-msgid "msg_up_help_chk_out_link_file"
-msgstr ""
-"Fichier csv avec deux colonnes. La première avec le nom de l'image. La "
-"seconde avec le ou les codes barre trouvés concaténés par un _ soit dans "
-"l'ordre du fichier de validation soit dans l'ordre de leur identification"
-
-#: upload.py:99
-msgid "Rename_image"
-msgstr "Renommer l'images"
-
-#: upload.py:100
-msgid "msg_up_help_chk_out_format"
-msgstr ""
-"Souhaitez-vous que les images soient renommees à partir des codes barre "
-"trouvés"
-
-#: upload.py:102
-msgid "Image_name_barecode"
-msgstr "<nom de l'image>_<code barre>.extension"
-
-#: upload.py:102
-msgid "only_barcode"
-msgstr "<code barre>.extension"
-
-#: upload.py:103
-msgid "barecode_image_name"
-msgstr "<code barre>_<nom de l'image>.extension"
-
-#: upload.py:106
-msgid "format_image_name"
-msgstr "Format du renommage des images"
-
-#: upload.py:107
-msgid "msg_up_help_radio_out_format"
-msgstr ""
-"Indiquer comment vous souhaitez que soit renommer les images. Soit:\r\n"
-"\r 1)L'image prend le nom du ou des codes barre separés par _\r\n"
-"\r 2)On garde le nom de l'image et on lui ajoute _ puis le ou les codes "
-"barre trouvés séparés par _\r\n"
-"\r 3)On garde le nom de l'image et précédé du ou des codes barre trouvés "
-"séparés par _ et de _"
-
-#: upload.py:114
-msgid "msg_up_miss_zip"
-msgstr "Il manque l'archive d'images (.zip)"
-
-#: upload.py:119
-msgid "msg_up_miss_valid_file"
-msgstr "Il manque le fichier de validation"
-
-#: upload.py:123
-msgid "msg_up_miss_output"
-msgstr "Aucune sortie n'a été choix"
-
-#: upload.py:131
-msgid "bt_upload_submit"
-msgstr "Valider"
-
-#: upload.py:132
-msgid "msg_up_help_bt_submit"
-msgstr "Demander le lancement du traitement des images"
-
-#: upload.py:198
-msgid "Id of your process: "
-msgstr "Le numero de votre traitement est "
-
-#: upload.py:199
-msgid "msg_success_upload"
-msgstr ""
-"Votre demande a ete prise en compte.\r\n"
-"Pour l etat du traitement puis telecharger le resultat.\r\n"
-"Merci de vous rendre a le page telechargement (en cliquant sur telecharger a "
-"gauche de cette page)"
 
 #: background.py:142 background.py:278
 msgid "msg_email_sub_end_cab"
@@ -496,227 +662,53 @@ msgstr ""
 "Le traitement numéro ci-dessous est terminé. Vous pouvez récuperer le "
 "résultat sur Web Cab a la page télécharger."
 
-#: pages/download.py:25
+#: pages/2_📤_download.py:25
 msgid "Title_down"
 msgstr "Télécharger"
 
-#: pages/download.py:112
+#: pages/2_📤_download.py:114
 msgid "msg_explain_ddl_page"
 msgstr ""
 "Pour avoir plus de détails sur un traitement, et s'il est terminé téléchager "
 "le résultat, cliquez sur le traitement désiré."
 
-#: pages/download.py:117
+#: pages/2_📤_download.py:119
 msgid "title_legend"
 msgstr "Légende"
 
-#: pages/download.py:120
+#: pages/2_📤_download.py:122
 msgid "legend_wait"
 msgstr "Le traitement n'est pas encore lancé."
 
-#: pages/download.py:121
+#: pages/2_📤_download.py:123
 msgid "legend_in_progress"
 msgstr "Le traitement est en cours."
 
-#: pages/download.py:122
+#: pages/2_📤_download.py:124
 msgid "legend_finish"
 msgstr "Le traitement est terminé."
 
-#: pages/download.py:129
+#: pages/2_📤_download.py:131
 msgid "no_process"
 msgstr "Aucun traitement n'est enregistré pour votre compte"
 
-#: pages/download.py:134 pages/download.py:139 pages/download.py:145
+#: pages/2_📤_download.py:136 pages/2_📤_download.py:141
+#: pages/2_📤_download.py:147
 msgid " upload: "
 msgstr " téléverser: "
 
-#: pages/download.py:142
+#: pages/2_📤_download.py:144
 msgid "Waiting"
 msgstr "En attente"
 
-#: pages/download.py:148
+#: pages/2_📤_download.py:150
 msgid "Expiring: "
 msgstr "Expire: "
 
-#: pages/download.py:154
+#: pages/2_📤_download.py:156
 msgid "download"
 msgstr "télécharger"
 
-#: pages/download.py:160
+#: pages/2_📤_download.py:162
 msgid "bt_delete_process"
 msgstr "Supprimer"
-
-#: pages/help.py:24
-msgid "Title_help"
-msgstr "Aide"
-
-#: pages/help.py:114
-msgid "Title_help_summary"
-msgstr "Présentation"
-
-#: pages/help.py:115
-msgid "Txt_help_summary_ht"
-msgstr ""
-"**Web Cab** est la mise en ligne de l'application de bureau Cab<br/>Elle a "
-"pour but d'extraire les codes barre et QR de vos images<br/><img src='resume."
-"png' alt='Une image donnée à web cab  et ressort le code barre'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:116
-msgid "Title_help_quickstart"
-msgstr "Prise en main rapide"
-
-#: pages/help.py:117
-msgid "Txt_help_quickstart_ht"
-msgstr ""
-"<blockquote><h5>Important</h5>Pour utiliser <strong>Web Cab</strong>, il "
-"vous faut un compte <br/>Pour l'obtenir merci de contacter l'équipe </"
-"blockquote>"
-
-#: pages/help.py:118
-msgid "Title_help_upload"
-msgstr "Téléverser"
-
-#: pages/help.py:119
-msgid "Txt_help_upload_ht"
-msgstr ""
-"Cette page est un formulaire pour configurer l'analyse de vos images<br/>"
-"<img src='televerser.png' alt='Formulaire de téléversement'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:120
-msgid "Title_help_up_input"
-msgstr "Partie éléments à fournir"
-
-#: pages/help.py:121
-msgid "Txt_help_up_input_ht"
-msgstr ""
-"Première partie du formulaire<br/>"
-"<img src='A_fournir.png' alt='Première partie du forulaire'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:122
-msgid "Title_help_archive"
-msgstr "Archive des images"
-
-#: pages/help.py:123
-msgid "Txt_help_archive_ht"
-msgstr ""
-"Explication de la création du fichier d'archive .zip<br/>"
-"<img src='archive.png' alt='imprime écran pour ajout d archive'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:124
-msgid "Title_help_nb_barcode"
-msgstr "Nombre de codes barre"
-
-#: pages/help.py:125
-msgid "Txt_help_nb_barcode_ht"
-msgstr ""
-"Comment choisir la valeur<br/>"
-"<img src='codemax.png' alt='imprime écran du sélecteur du nombre de code"
-" barre maximum par image'"
-" style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:126
-msgid "Title_help_valid_file"
-msgstr ""
-"Fichier de validation"
-
-#: pages/help.py:127
-msgid "Txt_help_valid_file_ht"
-msgstr ""
-"Le fichier de validation est un fichier csv ou chaque ligne correspond à "
-"l'ensemble des codes barre qu'on trouve dans une image et chaque colonne ne "
-"contient qu'un code barre. L'ordre des codes barre dans une ligne est "
-"l'ordre à laquel ils seront concaténés <br/>"
-"Choisir d'utiliser le fichier de validation.<br/>"
-"<img src='validation_check.png' alt='imprime écran du choix du fichier de"
-" validation'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Forte recommandation d'utiliser le fichier de validation, quand le nombre de "
-" code barre par image maximum est supérieur à 1<br/>"
-"<img src='validation_max.png' alt='imprime écran fichier validation du fait "
-"du nombre de code barre'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:128
-msgid "Title_help_up_output"
-msgstr "Partie des éléments souhaités"
-
-#: pages/help.py:129
-msgid "Txt_help_up_output"
-msgstr ""
-"Seconde partie du formulaire<br/>"
-"<img src='sortie.png' alt='Seconde partie du formulaire'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Ensemble des options possibles pour le résultat d'un traitement"
-"<img src='sortie_options.png' alt='Les options de la sortie'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:130
-msgid "Title_help_im_bar_csv"
-msgstr "Fichier de correspondance"
-
-#: pages/help.py:131
-msgid "Txt_help_im_bar_csv_ht"
-msgstr ""
-"Explication de la structure du fichier de correspondance"
-
-#: pages/help.py:132
-msgid "Title_help_rename_im"
-msgstr "Renommage des images"
-
-#: pages/help.py:133
-msgid "Txt_help_rename_im_ht"
-msgstr "Explication des trois options de renommage d'image"
-
-#: pages/help.py:135
-msgid "Title_help_download"
-msgstr "Télécharger"
-
-#: pages/help.py:136
-msgid "Txt_help_download_ht"
-msgstr ""
-"Comment suivre, récupérer et supprimer les traitements soumis<br/>"
-"<img src='telechargement.png' alt='Page de téléchargment'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Ligne d'un traitement pas encore commencé<br/>"
-"<img src='attente_fermer.png' alt='traitement en attente fermé'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Détail d'un traitement pas encore commencé<br/>"
-"<img src='attente_ouvert.png' alt='traitement en attente ouvert'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Ligne d'un traitement en cours d'exécution<br/>"
-"Détail d'un traitement en cours d'exécution<br/>"
-"Ligne d'un traitement terminé<br/>"
-"<img src='fini_fermer.png' alt='traitement terminé fermé'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Détail d'un traitement terminé. Possibilité de le télécharger et le supprimer"
-"<br/>"
-"<img src='fini_ouvert.png' alt='traitement terminé ouvert'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-
-#: pages/help.py:137
-msgid "Title_help_profile"
-msgstr "Profile"
-
-#: pages/help.py:138
-msgid "Txt_help_profile_ht"
-msgstr ""
-"Connaître les possibilités dans la gestion du profile de l'utilisateur<br/>"
-"<img src='profile.png' alt='Page du profile'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
-"Formulaire de modification du mot de passe<br/>"
-"<img src='nouv_mdp.png' alt='Formulaire de modification de mot de passe'"
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-
-#: pages/help.py:139
-msgid "Title_help_FAQ"
-msgstr "FAQ"
-
-#: pages/help.py:140
-msgid "Txt_help_FAQ_ht"
-msgstr ""
-"Ensemble de questions ou de précision de parties"
