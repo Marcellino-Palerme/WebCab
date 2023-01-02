@@ -10,7 +10,6 @@ import gettext as gt
 import os
 import re
 import streamlit as st
-from streamlit_javascript import st_javascript
 
 # get path of directory translate
 path_trans = os.path.join(os.path.dirname(__file__), 'msg')
@@ -79,5 +78,9 @@ def link(txt):
     # Create link
     # thx https://stackoverflow.com/a/8801066
     txt_link = re.sub('[^a-zA-Z0-9]', '-', txt_trans.lower())
+
+    # Delete double -
+    temp = txt_link.split('-')
+    txt_link = '-'.join([x for x in temp if len(x)>0])
 
     return '[%s](#%s)' % (txt_trans, txt_link)

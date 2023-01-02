@@ -335,8 +335,8 @@ msgstr "Téléverser"
 #: upload.py:57
 msgid "txt_up_global_help"
 msgstr ""
-"Bonjour!<br/>_Si c'est votre première utilisation_<br/>_Rendez-vous [ici]"
-"()_<br/>La partie téléversement permet de fournir les images à analyser et "
+"Bonjour!<br/>_Si c'est votre première utilisation_<br/>_Rendez-vous sur 🆘_"
+"<br/>La partie téléversement permet de fournir les images à analyser et "
 "configurer ce que vous souhaitez obtenir.<br/>Chaque éléments du formulaire "
 "a une aide contextuelle pour vous rappelez ce qu il faut fournir.<br/>Bon "
 "remplissage.<br/>L'équipe Web Cab."
@@ -559,7 +559,8 @@ msgid "Txt_help_summary_ht"
 msgstr ""
 "**Web Cab** est la mise en ligne de l'application de bureau Cab<br/>Elle a "
 "pour but d'extraire les codes barre et QR de vos images<br/><img src='resume."
-"png' alt='Une image donnée à web cab  et ressort le code barre'>"
+"png' alt='Une image donnée à web cab  et ressort le code barre'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:116
 msgid "Title_help_quickstart"
@@ -578,7 +579,10 @@ msgstr "Téléverser"
 
 #: pages/help.py:119
 msgid "Txt_help_upload_ht"
-msgstr "Cette page est un formulaire pour configurer l'analyse de vos images"
+msgstr ""
+"Cette page est un formulaire pour configurer l'analyse de vos images<br/>"
+"<img src='televerser.png' alt='Formulaire de téléversement'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:120
 msgid "Title_help_up_input"
@@ -586,7 +590,10 @@ msgstr "Partie éléments à fournir"
 
 #: pages/help.py:121
 msgid "Txt_help_up_input_ht"
-msgstr "Première partie du formulaire"
+msgstr ""
+"Première partie du formulaire<br/>"
+"<img src='A_fournir.png' alt='Première partie du forulaire'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:122
 msgid "Title_help_archive"
@@ -594,7 +601,10 @@ msgstr "Archive des images"
 
 #: pages/help.py:123
 msgid "Txt_help_archive_ht"
-msgstr "Explication de la création du fichier d'archive .zip"
+msgstr ""
+"Explication de la création du fichier d'archive .zip<br/>"
+"<img src='archive.png' alt='imprime écran pour ajout d archive'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:124
 msgid "Title_help_nb_barcode"
@@ -602,7 +612,11 @@ msgstr "Nombre de codes barre"
 
 #: pages/help.py:125
 msgid "Txt_help_nb_barcode_ht"
-msgstr "Comment choisir le film"
+msgstr ""
+"Comment choisir la valeur<br/>"
+"<img src='codemax.png' alt='imprime écran du sélecteur du nombre de code"
+" barre maximum par image'"
+" style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:126
 msgid "Title_help_valid_file"
@@ -615,7 +629,16 @@ msgstr ""
 "Le fichier de validation est un fichier csv ou chaque ligne correspond à "
 "l'ensemble des codes barre qu'on trouve dans une image et chaque colonne ne "
 "contient qu'un code barre. L'ordre des codes barre dans une ligne est "
-"l'ordre à laquel ils seront concaténés"
+"l'ordre à laquel ils seront concaténés <br/>"
+"Choisir d'utiliser le fichier de validation.<br/>"
+"<img src='validation_check.png' alt='imprime écran du choix du fichier de"
+" validation'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Forte recommandation d'utiliser le fichier de validation, quand le nombre de "
+" code barre par image maximum est supérieur à 1<br/>"
+"<img src='validation_max.png' alt='imprime écran fichier validation du fait "
+"du nombre de code barre'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:128
 msgid "Title_help_up_output"
@@ -623,7 +646,13 @@ msgstr "Partie des éléments souhaités"
 
 #: pages/help.py:129
 msgid "Txt_help_up_output"
-msgstr "Seconde partie du formulaire"
+msgstr ""
+"Seconde partie du formulaire<br/>"
+"<img src='sortie.png' alt='Seconde partie du formulaire'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Ensemble des options possibles pour le résultat d'un traitement"
+"<img src='sortie_options.png' alt='Les options de la sortie'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:130
 msgid "Title_help_im_bar_csv"
@@ -631,7 +660,8 @@ msgstr "Fichier de correspondance"
 
 #: pages/help.py:131
 msgid "Txt_help_im_bar_csv_ht"
-msgstr "Explication de la structure du fichier de correspondance"
+msgstr ""
+"Explication de la structure du fichier de correspondance"
 
 #: pages/help.py:132
 msgid "Title_help_rename_im"
@@ -648,7 +678,25 @@ msgstr "Télécharger"
 #: pages/help.py:136
 msgid "Txt_help_download_ht"
 msgstr ""
-"Comment suivre, récupérer et supprimer les traitements soumis"
+"Comment suivre, récupérer et supprimer les traitements soumis<br/>"
+"<img src='telechargement.png' alt='Page de téléchargment'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Ligne d'un traitement pas encore commencé<br/>"
+"<img src='attente_fermer.png' alt='traitement en attente fermé'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Détail d'un traitement pas encore commencé<br/>"
+"<img src='attente_ouvert.png' alt='traitement en attente ouvert'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Ligne d'un traitement en cours d'exécution<br/>"
+"Détail d'un traitement en cours d'exécution<br/>"
+"Ligne d'un traitement terminé<br/>"
+"<img src='fini_fermer.png' alt='traitement terminé fermé'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Détail d'un traitement terminé. Possibilité de le télécharger et le supprimer"
+"<br/>"
+"<img src='fini_ouvert.png' alt='traitement terminé ouvert'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
+
 
 #: pages/help.py:137
 msgid "Title_help_profile"
@@ -657,7 +705,12 @@ msgstr "Profile"
 #: pages/help.py:138
 msgid "Txt_help_profile_ht"
 msgstr ""
-"Connaître les possibilités dans la gestion du profile de l'utilisateur"
+"Connaître les possibilités dans la gestion du profile de l'utilisateur<br/>"
+"<img src='profile.png' alt='Page du profile'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/><br/>"
+"Formulaire de modification du mot de passe<br/>"
+"<img src='nouv_mdp.png' alt='Formulaire de modification de mot de passe'"
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
 
 #: pages/help.py:139
 msgid "Title_help_FAQ"
