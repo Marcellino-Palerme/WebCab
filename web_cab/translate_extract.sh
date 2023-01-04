@@ -39,12 +39,12 @@ rm -fr $dirtmp
 cd msg
 
 # For each language we create or update translate file
-ls -d */ | while read my_dir; do
+ls -d * | grep -v msg.pot | while read my_dir; do
     # Check if file exist
-    if [ ! -f ${my_dir}LC_MESSAGES/msg.po ]; then
-        msginit -l fr -i msg.pot -o ${my_dir}LC_MESSAGES/msg.po
+    if [ ! -f ${my_dir}/LC_MESSAGES/msg.po ]; then
+        msginit -l ${my_dir} -i msg.pot -o ${my_dir}/LC_MESSAGES/msg.po
     else
-        msgmerge --update ${my_dir}LC_MESSAGES/msg.po msg.pot
+        msgmerge --update ${my_dir}/LC_MESSAGES/msg.po msg.pot
     fi
 
 done
