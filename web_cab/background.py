@@ -8,7 +8,6 @@ Created on Wed Nov  9 10:52:18 2022
 
 """
 from zipfile import ZipFile as zf
-import runpy
 import time
 import os
 import sys
@@ -21,7 +20,7 @@ from connect import connect_dbb
 from my_email import send_email
 from translate import _
 
-DELAY_CHECK = 2
+DELAY_CHECK = 60
 
 # % used by one CAB runnning
 CPU = 2

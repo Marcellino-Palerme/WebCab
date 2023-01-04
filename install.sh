@@ -15,13 +15,14 @@ else
 fi
 
 read -p "Enter token gitlab : " token
+read -p "Enter where save inputs: " path_inputs
 read -p "Enter administrator login : " name
 read -p "Enter administrator email : " email
 read -p "Enter site email: " site_email
-read -sp "Enter site email password: " site_email_pwd
 read -p "Enter site email server: " site_email_sv
+read -sp "Enter site email password: " site_email_pwd
 
-sudo podman pod create -p 8501:8501 -n pod_wc
+sudo podman pod create -p 8501:8501 -v ${path_inputs}:/web-cab/web_cab/temp -n pod_wc
 
 # Thx stackoverflow
 # https://stackoverflow.com/a/10497540
@@ -58,25 +59,16 @@ conf=$conf${pwd_db}
 temp='", "host":"localhost", "port": "5432"}}'
 conf=$conf$temp
 
-# Create image for web_cab
-sudo podman build -t web_cab --label TOKEN=$token -<<EOF
+# Create image for web_cab front-end
+sudo podman build -t web_cab_front --label TOKEN=$token -<<EOF
 FROM python:slim
 # install system librairies
 RUN apt update -y
 RUN apt upgrade -y
 RUN apt install -y git
-RUN apt install -y libzbar-dev
-RUN apt install -y tar
-RUN apt install -y wget
-RUN apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
-RUN apt-get install -y libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
-RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
-RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
-RUN apt install -y libwebp-dev
 
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
-RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/cab.git
 
 ### Install all modules
 RUN pip install -U pip
@@ -86,11 +78,8 @@ RUN pip install poetry
 RUN cd web-cab && poetry export -f requirements.txt --without-hashes --output requirements.txt
 RUN sed -i /cab/d  web-cab/requirements.txt
 
-RUN pip install -r cab/requirements.txt
-RUN pip install -r web-cab/requirements.txt
 
-# Install cab
-RUN cd cab && python setup.py install
+RUN pip install -r web-cab/requirements.txt
 
 RUN mkdir web-cab/web_cab/conf
 RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
@@ -102,5 +91,51 @@ CMD streamlit run --browser.gatherUsageStats false web_cab/1_📥_upload.py
 
 EOF
 
-# Create container of web_cab
-sudo podman run -d --name ct_web_cab --pod=pod_wc web_cab
+# Create image for web_cab back-end
+sudo podman build -t web_cab_back --label TOKEN=$token -<<EOF
+FROM python:slim
+# install system librairies
+RUN apt update -y
+RUN apt upgrade -y
+RUN apt install -y git
+RUN apt install -y libzbar-dev
+RUN apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
+RUN apt-get install -y libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
+RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
+RUN apt install -y libwebp-dev
+
+RUN git init
+
+### Get two projects
+# Get Cab
+RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/cab.git
+# Get partial web-cab
+RUN git remote add -f origin https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
+RUN cd web-cab && git config core.sparseCheckout true
+RUN echo "web-cab/web_cab/conf/conf.json" >> web-cab/.git/info/sparse-checkout
+RUN echo "web-cab/web_cab/my_email.py" >> web-cab/.git/info/sparse-checkout
+RUN echo "web-cab/web_cab/connect.py" >> web-cab/.git/info/sparse-checkout
+RUN echo "web-cab/web_cab/background.py" >> web-cab/.git/info/sparse-checkout
+
+### Install all modules
+RUN pip install -U pip
+RUN pip install psycopg2-binary
+
+# Install cab
+RUN cd cab && python setup.py install
+
+RUN mkdir web-cab/web_cab/conf
+RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
+
+WORKDIR web-cab
+
+# Command to run web-cab
+CMD python web_cab/background.py
+
+EOF
+
+# Create container of web_cab front-end
+sudo podman run -d --name ct_web_cab_f --pod=pod_wc web_cab_front
+# Create container of web_cab back-end
+sudo podman run -d --name ct_web_cab_b --pod=pod_wc web_cab_back
