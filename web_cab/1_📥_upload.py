@@ -21,8 +21,8 @@ import re
 from authentification import login
 import uuid
 from browser import browser_ok
-import background as bgd
-from threading import Thread
+#import background as bgd
+#from threading import Thread
 from init_bdd import check_init
 from custom import hide_hamburger
 
@@ -190,10 +190,6 @@ def run():
                                             'login':st.session_state.login,
                                             'size':sys.getsizeof(raw_data),
                                             'options':options})
-
-        # Run in background cab
-        thd_bgd = Thread(target=bgd.temp_launcher)
-        thd_bgd.start()
 
         # Explain result
         st.info(_('Id of your process: ') + my_uuid)
