@@ -22,7 +22,7 @@ read -p "Enter site email: " site_email
 read -p "Enter site email server: " site_email_sv
 read -sp "Enter site email password: " site_email_pwd
 
-sudo podman pod create -p 8501:8501 -v ${path_inputs}:/web-cab/web_cab/temp -n pod_wc
+sudo podman pod create -p 8501:8501 -n pod_wc
 
 # Thx stackoverflow
 # https://stackoverflow.com/a/10497540
@@ -76,8 +76,6 @@ RUN pip install poetry
 
 # create requirements file for web-cab
 RUN cd web-cab && poetry export -f requirements.txt --without-hashes --output requirements.txt
-RUN sed -i /cab/d  web-cab/requirements.txt
-
 
 RUN pip install -r web-cab/requirements.txt
 
@@ -105,22 +103,26 @@ RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
 RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
 RUN apt install -y libwebp-dev
 
-RUN git init
-
 ### Get two projects
 # Get Cab
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/cab.git
 # Get partial web-cab
+RUN git init
 RUN git remote add -f origin https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
-RUN cd web-cab && git config core.sparseCheckout true
-RUN echo "web-cab/web_cab/conf/conf.json" >> web-cab/.git/info/sparse-checkout
-RUN echo "web-cab/web_cab/my_email.py" >> web-cab/.git/info/sparse-checkout
-RUN echo "web-cab/web_cab/connect.py" >> web-cab/.git/info/sparse-checkout
-RUN echo "web-cab/web_cab/background.py" >> web-cab/.git/info/sparse-checkout
+RUN git config core.sparseCheckout true
+RUN echo "web-cab/web_cab/my_email.py" >> .git/info/sparse-checkout
+RUN echo "web-cab/web_cab/connect.py" >> .git/info/sparse-checkout
+RUN echo "web-cab/web_cab/background.py" >> .git/info/sparse-checkout
+RUN echo "web-cab/pyproject.toml" >> .git/info/sparse-checkout
+RUN echo "web-cab/poetry.lock" >> .git/info/sparse-checkout
+RUN git pull origin main
+
+# create requirements file for web-cab
+RUN cd web-cab && poetry export -f requirements.txt --without-hashes --only back --output requirements.txt
 
 ### Install all modules
 RUN pip install -U pip
-RUN pip install psycopg2-binary
+RUN pip install -r web-cab/requirements.txt
 
 # Install cab
 RUN cd cab && python setup.py install
@@ -136,6 +138,6 @@ CMD python web_cab/background.py
 EOF
 
 # Create container of web_cab front-end
-sudo podman run -d --name ct_web_cab_f --pod=pod_wc web_cab_front
+sudo podman run -d --name ct_web_cab_f --pod=pod_wc -v ${path_inputs}:/web-cab/web_cab/temp web_cab_front
 # Create container of web_cab back-end
-sudo podman run -d --name ct_web_cab_b --pod=pod_wc web_cab_back
+sudo podman run -d --name ct_web_cab_b --pod=pod_wc -v ${path_inputs}:/web-cab/web_cab/temp web_cab_back
