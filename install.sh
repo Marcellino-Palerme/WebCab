@@ -107,30 +107,36 @@ RUN apt install -y libwebp-dev
 # Get Cab
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/cab.git
 # Get partial web-cab
-RUN git init
-RUN git remote add -f origin https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
-RUN git config core.sparseCheckout true
-RUN echo "web-cab/web_cab/my_email.py" >> .git/info/sparse-checkout
-RUN echo "web-cab/web_cab/connect.py" >> .git/info/sparse-checkout
-RUN echo "web-cab/web_cab/background.py" >> .git/info/sparse-checkout
-RUN echo "web-cab/pyproject.toml" >> .git/info/sparse-checkout
-RUN echo "web-cab/poetry.lock" >> .git/info/sparse-checkout
+RUN mkdir back
+RUN cd back && git init
+RUN cd back && git config init.defaultBranch main
+RUN cd back && git config core.sparseCheckout true
+RUN cd back && git config pull.rebase false
+RUN cd back && git remote add -f origin https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
+RUN cd back && echo "web_cab/my_email.py" >> .git/info/sparse-checkout
+RUN cd back && echo "web_cab/connect.py" >> .git/info/sparse-checkout
+RUN cd back && echo "web_cab/background.py" >> .git/info/sparse-checkout
+RUN cd back && echo "pyproject.toml" >> .git/info/sparse-checkout
+RUN cd back && echo "poetry.lock" >> .git/info/sparse-checkout
 RUN git pull origin main
 
-# create requirements file for web-cab
-RUN cd web-cab && poetry export -f requirements.txt --without-hashes --only back --output requirements.txt
+
 
 ### Install all modules
 RUN pip install -U pip
-RUN pip install -r web-cab/requirements.txt
+RUN pip install poetry
+# create requirements file for web-cab
+RUN cd back && poetry export -f requirements.txt --without-hashes --only back --output requirements.txt
+RUN pip install -r cab/requirements.txt
+RUN pip install -r back/requirements.txt
 
 # Install cab
 RUN cd cab && python setup.py install
 
-RUN mkdir web-cab/web_cab/conf
-RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
+RUN mkdir back/web_cab/conf
+RUN echo '${conf}' >> back/web_cab/conf/conf.json
 
-WORKDIR web-cab
+WORKDIR back
 
 # Command to run web-cab
 CMD python web_cab/background.py
@@ -140,4 +146,4 @@ EOF
 # Create container of web_cab front-end
 sudo podman run -d --name ct_web_cab_f --pod=pod_wc -v ${path_inputs}:/web-cab/web_cab/temp web_cab_front
 # Create container of web_cab back-end
-sudo podman run -d --name ct_web_cab_b --pod=pod_wc -v ${path_inputs}:/web-cab/web_cab/temp web_cab_back
+sudo podman run -d --name ct_web_cab_b --pod=pod_wc -v ${path_inputs}:/back/web_cab/temp web_cab_back
