@@ -24,6 +24,7 @@ spyder = "^5.4.0"
 
 [tool.poetry.group.back.dependencies]
 psycopg2-binary = "^2.9.5"
+psutil = "^5.9.4"
 
 [build-system]
 requires = ["poetry-core"]
