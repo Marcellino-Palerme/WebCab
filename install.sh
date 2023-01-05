@@ -121,7 +121,7 @@ RUN cd back && echo "web_cab/msg/fr/LC_MESSAGES/msg.mo" >> .git/info/sparse-chec
 RUN cd back && echo "web_cab/msg/en/LC_MESSAGES/msg.mo" >> .git/info/sparse-checkout
 RUN cd back && echo "pyproject.toml" >> .git/info/sparse-checkout
 RUN cd back && echo "poetry.lock" >> .git/info/sparse-checkout
-RUN git pull origin main
+RUN cd back && git pull origin main
 
 
 
