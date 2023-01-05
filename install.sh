@@ -116,6 +116,9 @@ RUN cd back && git remote add -f origin https://oauth2:${token}@forgemia.inra.fr
 RUN cd back && echo "web_cab/my_email.py" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/connect.py" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/background.py" >> .git/info/sparse-checkout
+RUN cd back && echo "web_cab/translate.py" >> .git/info/sparse-checkout
+RUN cd back && echo "web_cab/msg/fr/LC_MESSAGES/msg.mo" >> .git/info/sparse-checkout
+RUN cd back && echo "web_cab/msg/en/LC_MESSAGES/msg.mo" >> .git/info/sparse-checkout
 RUN cd back && echo "pyproject.toml" >> .git/info/sparse-checkout
 RUN cd back && echo "poetry.lock" >> .git/info/sparse-checkout
 RUN git pull origin main
