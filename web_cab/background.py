@@ -21,8 +21,6 @@ from connect import connect_dbb
 from my_email import send_email
 from translate import _
 
-DELAY_CHECK = 60
-
 # % used by one CAB runnning
 CPU = 2
 # % used by all process
@@ -241,7 +239,7 @@ def launcher(path_temp):
 
 def delete(path_temp):
     """
-
+    delete all expired done process
 
     Parameters
     ----------
@@ -253,6 +251,29 @@ def delete(path_temp):
     None.
 
     """
+    ### Take all UUID in database done and expired
+    # Defne query
+    uuid_sql = """ SELECT uuid FROM inputs
+                   WHERE state=100 AND
+                         update + interval ' 2 days'< CURRENT_TIMESTAMP ;
+               """
+    # Connect to database
+    cursor = connect_dbb()
+
+    # Query dbb
+    cursor.execute(uuid_sql)
+
+    ### Delete process
+    for uuid in cursor.fetchall():
+        ## In Database
+        # Define query
+        delete_sql = """ DELETE FROM inputs WHERE uuid=%(uuid)s;"""
+
+        # Query database
+        cursor.execute(delete_sql, {'uuid':uuid[0]})
+
+        # On disk
+        os.remove(os.path.join(path_temp, uuid[0] + '.zip'))
 
 def scheduler(path_temp):
     """
@@ -272,15 +293,17 @@ def scheduler(path_temp):
     watch = 0
     while(True):
         watch += 1
-        print(watch)
-        # launcher(path_temp)
+
+        # Every one minute we check if we need launch processes
         th.Thread(target=launcher, args=(path_temp,)).start()
 
+        # Every 2 hours we check if we can delete Done process
         if watch > 120:
             delete(path_temp)
             watch = 0
 
-        time.sleep(DELAY_CHECK)
+        # Wait 1 minutes
+        time.sleep(60)
 
 
 
