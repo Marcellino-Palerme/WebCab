@@ -16,7 +16,6 @@ from translate import _, select_language
 from datetime import timedelta
 from browser import browser_ok
 from init_bdd import check_init
-import shutil
 from custom import hide_hamburger
 
 
@@ -49,14 +48,14 @@ def up_download(uuid):
     # Query database
     st.session_state.cursor.execute(up_down_sql, {'uuid':uuid})
 
-def delete_input(uuid, path_temp):
+def delete_result(uuid, path_temp):
     """
-    delete the input
+    delete the result (.zip)
 
     Parameters
     ----------
     uuid : str
-        Id of input.
+        Id of process.
 
     path_temp : str
         Where save inputs
@@ -73,8 +72,6 @@ def delete_input(uuid, path_temp):
     st.session_state.cursor.execute(delete_sql, {'uuid':uuid})
 
     os.remove(os.path.join(path_temp, uuid + '.zip'))
-    shutil.rmtree(os.path.join(path_temp, uuid))
-    shutil.rmtree(os.path.join(path_temp, uuid + '_temp'))
 
 select_language()
 
@@ -160,7 +157,7 @@ def page():
                                             args=[uuid[0],])
                     # Add button to delete process
                     cols[1].button(_('bt_delete_process'),
-                                   on_click=delete_input,
+                                   on_click=delete_result,
                                    args=[uuid[0], path_temp],
                                    disabled=not uuid[4], key=uuid[0])
 

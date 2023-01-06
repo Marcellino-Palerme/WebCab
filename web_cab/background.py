@@ -12,6 +12,7 @@ import time
 import os
 import sys
 import psutil
+import shutil
 
 import threading as th
 
@@ -86,6 +87,25 @@ def unzip(uuid, path_temp):
         zip_f.extractall(path=dir_extract)
 
 
+def delete_input(uuid, path_temp):
+    """
+    delete the input
+
+    Parameters
+    ----------
+    uuid : str
+        Id of process.
+
+    path_temp : str
+        Where save inputs
+
+    Returns
+    -------
+    None.
+
+    """
+    shutil.rmtree(os.path.join(path_temp, uuid))
+    shutil.rmtree(os.path.join(path_temp, uuid + '_temp'))
 
 def background(uuid, path_temp):
     """
@@ -103,13 +123,11 @@ def background(uuid, path_temp):
     None.
 
     """
-    print('one')
     global g_ram_used
     global g_cpu_used
 
     # Verify stay CPU and RAM to process
     if (available_ressources() is False):
-        print('e')
         exit(1)
 
     # Acquire ressources
@@ -117,8 +135,6 @@ def background(uuid, path_temp):
     g_ram_used += RAM
     g_cpu_used += CPU
     sem.release()
-
-    print('run')
 
     # unzip
     unzip(uuid, path_temp)
@@ -178,6 +194,9 @@ def background(uuid, path_temp):
     send_email(dst=cursor.fetchone()[0],sub=_('msg_email_sub_end_cab'),
                msg=_('msg_email_header_end_cab') + '\r\n\r\n' + uuid +
                    '\r\n\r\n' + _('msg_email_end'))
+
+    # Delete Inputs
+    delete_input(uuid, path_temp)
 
     # Release ressources
     sem.acquire()
