@@ -1010,6 +1010,14 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "pebble"
+version = "5.0.3"
+description = "Threading and multiprocessing eye-candy."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "pexpect"
 version = "4.8.0"
 description = "Pexpect allows easy control of interactive console applications."
@@ -2250,7 +2258,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "2cc1052ce8c2f1dedaba3f6367b3a943ea9734f5c603808bde88336dfb91e148"
+content-hash = "e301043eea9cac89fa9978ef88ab2909f110c69f95a1167af5ed5115b39ac36c"
 
 [metadata.files]
 alabaster = [
@@ -2840,6 +2848,10 @@ parso = [
 pathspec = [
     {file = "pathspec-0.10.3-py3-none-any.whl", hash = "sha256:3c95343af8b756205e2aba76e843ba9520a24dd84f68c22b9f93251507509dd6"},
     {file = "pathspec-0.10.3.tar.gz", hash = "sha256:56200de4077d9d0791465aa9095a01d421861e405b5096955051deefd697d6f6"},
+]
+pebble = [
+    {file = "Pebble-5.0.3-py3-none-any.whl", hash = "sha256:8274aa0959f387b368ede47666129cbe5d123f276a1bd9cafe77e020194b2141"},
+    {file = "Pebble-5.0.3.tar.gz", hash = "sha256:bdcfd9ea7e0aedb895b204177c19e6d6543d9962f4e3402ebab2175004863da8"},
 ]
 pexpect = [
     {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},

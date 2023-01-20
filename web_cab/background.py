@@ -14,6 +14,8 @@ import os
 import sys
 import psutil
 import shutil
+from pebble import concurrent
+from concurrent.futures import TimeoutError
 
 import threading as th
 
@@ -52,7 +54,7 @@ def available_ressources():
 
     return b_return
 
-
+@concurrent.process(timeout=2)
 def unzip(uuid, path_temp):
     """
     unzip
@@ -88,16 +90,18 @@ def unzip(uuid, path_temp):
         zip_f = zf(os.path.join(dir_zip, zip_name),'r')
 
     except zipfile.BadZipfile:
-        print('erreur zip')
+        zip_f.close()
         return False
 
     # Check image not upper 20Mb
     for zp_info in zip_f.filelist:
         if zp_info.file_size > 20 * 1024 *1024:
+            zip_f.close()
             return False
 
     # Extract zip
     zip_f.extractall(path=dir_extract)
+    zip_f.close()
 
     return True
 
@@ -222,7 +226,14 @@ def background(uuid, path_temp):
     path_out = os.path.join(path_temp, uuid + '_temp')
 
     # unzip
-    if not unzip(uuid, path_temp):
+    res_unzip = unzip(uuid, path_temp)
+    try:
+        res_unzip = res_unzip.result()
+    except TimeoutError :
+        res_unzip = False
+    except Exception :
+        res_unzip = False
+    if not res_unzip:
         with open(os.path.join(path_out, 'error.txt'), 'w') as err_f:
             print(_('msg_error_zip'),file=err_f)
         end_process(uuid, path_temp)
@@ -369,7 +380,6 @@ def scheduler(path_temp):
 
 
 if __name__ == "__main__":
-    print(sys.argv)
     path_temp = os.path.join(os.path.dirname(__file__), 'temp')
     # my_thread = th.Thread(target=launcher, args=(path_temp,))
     # my_thread.start()
