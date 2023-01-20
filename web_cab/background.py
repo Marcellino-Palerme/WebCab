@@ -267,6 +267,20 @@ def background(uuid, path_temp):
     # launch cab
     os.system(cab_bin + options)
 
+    # Check if cab generate results
+    b_empty = False
+    l_file = os.listdir(path_out)
+    if len(l_file) == 0:
+        b_empty = True
+    elif len(l_file)==1 and l_file[0].split('.')[-1]=='csv':
+        with open(os.path.join(path_out, l_file[0]), 'r') as f_csv:
+            if len(f_csv.readlines()) == 1:
+                b_empty = True
+
+    if b_empty is True:
+        with open(os.path.join(path_out, 'error.txt'), 'w') as f_err:
+            print(_("msg_empty_cab"), file=f_err)
+
     end_process(uuid, path_temp)
 
     return 0
