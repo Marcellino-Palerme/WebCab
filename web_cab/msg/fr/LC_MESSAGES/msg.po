@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-01-02 11:16+CET\n"
+"POT-Creation-Date: 2023-01-20 07:47+CET\n"
 "PO-Revision-Date: 2022-12-19 13:14+0100\n"
 "Last-Translator: Marcellino Palerme <marcellino.palerme@inrae.fr>\n"
 "Language-Team: French\n"
@@ -165,11 +165,11 @@ msgstr "Valider"
 msgid "msg_up_help_bt_submit"
 msgstr "Demander le lancement du traitement des images"
 
-#: 1_📥_upload.py:199
+#: 1_📥_upload.py:195
 msgid "Id of your process: "
 msgstr "Le numero de votre traitement est "
 
-#: 1_📥_upload.py:200
+#: 1_📥_upload.py:196
 msgid "msg_success_upload"
 msgstr ""
 "Votre demande a ete prise en compte.\r\n"
@@ -202,26 +202,19 @@ msgid "Txt_help_quickstart_ht"
 msgstr ""
 "<blockquote><h5>Important</h5>Pour utiliser <strong>Web Cab</strong>, il "
 "vous faut un compte <br/>Pour l'obtenir merci de contacter l'équipe </"
-"blockquote>"
-"Une fois votre compte créé vous recevrez un email. Celui-ci vous indique "
-"votre login.<br/>"
-"<img src='mail_inscript.png' alt='Exemple de mail de confirmation d "
-"inscription' style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'>"
-"<br/><br/>"
-"Sur le site <ol>"
-"<li>Cliquez sur 'mot de passe oublié'</li>"
-"<li>Remplir votre login </li>"
-"<li>Cliquez sur valider</li>"
-"</ol>"
-"<img src='mdp_oublie.png' alt='Formulaire mot de passe oublie' "
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/>"
-"Vous recevrez un email avec un mot de passe temporaire<br/>"
-"<img src='temp_mdp.png' alt='Formulaire mot de passe oublie' "
-"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/>"
-"Avec ce mot de passe, vous pouvez vous identifier. Une fois identifié il vous"
-" sera demandé de modifier votre mot de passe. Maintenant votre compte est "
-"complétement configuré.<br/><br/>"
-"Pour cette prise en main rapide "
+"blockquote>Une fois votre compte créé vous recevrez un email. Celui-ci vous "
+"indique votre login.<br/><img src='mail_inscript.png' alt='Exemple de mail "
+"de confirmation d inscription' style='border: 7px solid #525;border-radius: "
+"7% 0% 15% 0%;'><br/><br/>Sur le site <ol><li>Cliquez sur 'mot de passe "
+"oublié'</li><li>Remplir votre login </li><li>Cliquez sur valider</li></"
+"ol><img src='mdp_oublie.png' alt='Formulaire mot de passe oublie' "
+"style='border: 7px solid #525;border-radius: 7% 0% 15% 0%;'><br/>Vous "
+"recevrez un email avec un mot de passe temporaire<br/><img src='temp_mdp."
+"png' alt='Formulaire mot de passe oublie' style='border: 7px solid #525;"
+"border-radius: 7% 0% 15% 0%;'><br/>Avec ce mot de passe, vous pouvez vous "
+"identifier. Une fois identifié il vous sera demandé de modifier votre mot de "
+"passe. Maintenant votre compte est complétement configuré.<br/><br/>Pour "
+"cette prise en main rapide "
 
 #: pages/3_🆘_help.py:120
 msgid "Title_help_upload"
@@ -457,7 +450,7 @@ msgstr ""
 "Vous trouverez ci-dessous votre mot de passe temporaire pour Web Cab:"
 
 #: authentification.py:379 authentification.py:447 authentification.py:667
-#: background.py:144 background.py:280
+#: background.py:184
 msgid "msg_email_end"
 msgstr ""
 "Ce message est généré automatique merci de ne pas y repondre.\r\n"
@@ -670,64 +663,71 @@ msgstr "Un des champs est vide"
 msgid "msg_login_fail"
 msgstr "Les informations fournies sont incorrectes."
 
-#: background.py:142 background.py:278
+#: background.py:182
 msgid "msg_email_sub_end_cab"
 msgstr "Analyse des images complet"
 
-#: background.py:143 background.py:279
+#: background.py:183
 msgid "msg_email_header_end_cab"
 msgstr ""
 "Bonjour,\r\n"
 "Le traitement numéro ci-dessous est terminé. Vous pouvez récuperer le "
 "résultat sur Web Cab a la page télécharger."
 
-#: pages/2_📤_download.py:25
+#: background.py:238
+msgid "msg_error_zip"
+msgstr ""
+"Une erreur s'est produite avec votre archive. Il est possible que 1) celle-ci"
+" soit corrompue 2) Au moins une des images ou fichiers qu'elle contient "
+"dépasse les 20Mo une fois décompressé."
+
+#: pages/2_📤_download.py:24
 msgid "Title_down"
 msgstr "Télécharger"
 
-#: pages/2_📤_download.py:114
+#: pages/2_📤_download.py:111
 msgid "msg_explain_ddl_page"
 msgstr ""
 "Pour avoir plus de détails sur un traitement, et s'il est terminé téléchager "
 "le résultat, cliquez sur le traitement désiré."
 
-#: pages/2_📤_download.py:119
+#: pages/2_📤_download.py:116
 msgid "title_legend"
 msgstr "Légende"
 
-#: pages/2_📤_download.py:122
+#: pages/2_📤_download.py:119
 msgid "legend_wait"
 msgstr "Le traitement n'est pas encore lancé."
 
-#: pages/2_📤_download.py:123
+#: pages/2_📤_download.py:120
 msgid "legend_in_progress"
 msgstr "Le traitement est en cours."
 
-#: pages/2_📤_download.py:124
+#: pages/2_📤_download.py:121
 msgid "legend_finish"
 msgstr "Le traitement est terminé."
 
-#: pages/2_📤_download.py:131
+#: pages/2_📤_download.py:128
 msgid "no_process"
 msgstr "Aucun traitement n'est enregistré pour votre compte"
 
-#: pages/2_📤_download.py:136 pages/2_📤_download.py:141
-#: pages/2_📤_download.py:147
+#: pages/2_📤_download.py:133 pages/2_📤_download.py:138
+#: pages/2_📤_download.py:144
 msgid " upload: "
 msgstr " téléverser: "
 
-#: pages/2_📤_download.py:144
+#: pages/2_📤_download.py:141
 msgid "Waiting"
 msgstr "En attente"
 
-#: pages/2_📤_download.py:150
+#: pages/2_📤_download.py:147
 msgid "Expiring: "
 msgstr "Expire: "
 
-#: pages/2_📤_download.py:156
+#: pages/2_📤_download.py:153
 msgid "download"
 msgstr "télécharger"
 
-#: pages/2_📤_download.py:162
+#: pages/2_📤_download.py:159
 msgid "bt_delete_process"
 msgstr "Supprimer"

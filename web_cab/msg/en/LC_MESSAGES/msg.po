@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-01-02 11:16+CET\n"
+"POT-Creation-Date: 2023-01-20 07:47+CET\n"
 "PO-Revision-Date: 2022-12-16 15:15+0100\n"
 "Last-Translator: Marcellino Palerme <marcellino.palerme@inrae.fr>\n"
 "Language-Team: English\n"
@@ -136,11 +136,11 @@ msgstr "bt_upload_submit"
 msgid "msg_up_help_bt_submit"
 msgstr "msg_up_help_bt_submit"
 
-#: 1_📥_upload.py:199
+#: 1_📥_upload.py:195
 msgid "Id of your process: "
 msgstr "Id of your process: "
 
-#: 1_📥_upload.py:200
+#: 1_📥_upload.py:196
 msgid "msg_success_upload"
 msgstr "msg_success_upload"
 
@@ -364,7 +364,7 @@ msgid "msg_email_header_pwd"
 msgstr "msg_email_header_pwd"
 
 #: authentification.py:379 authentification.py:447 authentification.py:667
-#: background.py:144 background.py:280
+#: background.py:184
 msgid "msg_email_end"
 msgstr "msg_email_end"
 
@@ -569,65 +569,70 @@ msgstr "msg_login_miss"
 msgid "msg_login_fail"
 msgstr "msg_login_fail"
 
-#: background.py:142 background.py:278
+#: background.py:182
 #, fuzzy
 msgid "msg_email_sub_end_cab"
 msgstr "msg_email_sub_pwd"
 
-#: background.py:143 background.py:279
+#: background.py:183
 #, fuzzy
 msgid "msg_email_header_end_cab"
 msgstr "msg_email_header_pwd"
 
-#: pages/2_📤_download.py:25
+#: background.py:238
+#, fuzzy
+msgid "msg_error_zip"
+msgstr "msg_up_help_zip"
+
+#: pages/2_📤_download.py:24
 #, fuzzy
 msgid "Title_down"
 msgstr "Title_up"
 
-#: pages/2_📤_download.py:114
+#: pages/2_📤_download.py:111
 #, fuzzy
 msgid "msg_explain_ddl_page"
 msgstr "msg_email_end"
 
-#: pages/2_📤_download.py:119
+#: pages/2_📤_download.py:116
 #, fuzzy
 msgid "title_legend"
 msgstr "Login"
 
-#: pages/2_📤_download.py:122
+#: pages/2_📤_download.py:119
 msgid "legend_wait"
 msgstr ""
 
-#: pages/2_📤_download.py:123
+#: pages/2_📤_download.py:120
 msgid "legend_in_progress"
 msgstr ""
 
-#: pages/2_📤_download.py:124
+#: pages/2_📤_download.py:121
 msgid "legend_finish"
 msgstr ""
 
-#: pages/2_📤_download.py:131
+#: pages/2_📤_download.py:128
 msgid "no_process"
 msgstr ""
 
-#: pages/2_📤_download.py:136 pages/2_📤_download.py:141
-#: pages/2_📤_download.py:147
+#: pages/2_📤_download.py:133 pages/2_📤_download.py:138
+#: pages/2_📤_download.py:144
 msgid " upload: "
 msgstr ""
 
-#: pages/2_📤_download.py:144
+#: pages/2_📤_download.py:141
 msgid "Waiting"
 msgstr ""
 
-#: pages/2_📤_download.py:150
+#: pages/2_📤_download.py:147
 msgid "Expiring: "
 msgstr ""
 
-#: pages/2_📤_download.py:156
+#: pages/2_📤_download.py:153
 msgid "download"
 msgstr ""
 
-#: pages/2_📤_download.py:162
+#: pages/2_📤_download.py:159
 msgid "bt_delete_process"
 msgstr ""
 
