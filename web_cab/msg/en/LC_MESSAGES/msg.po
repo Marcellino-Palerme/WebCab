@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-01-20 08:48+CET\n"
+"POT-Creation-Date: 2023-01-20 10:40+CET\n"
 "PO-Revision-Date: 2022-12-16 15:15+0100\n"
 "Last-Translator: Marcellino Palerme <marcellino.palerme@inrae.fr>\n"
 "Language-Team: English\n"
@@ -259,6 +259,26 @@ msgstr "Title_up"
 #: pages/3_🆘_help.py:142
 msgid "Txt_help_FAQ_ht"
 msgstr ""
+
+#: pages/3_🆘_help.py:143
+#, fuzzy
+msgid "Title_help_info_image"
+msgstr "msg_up_help_valid_file"
+
+#: pages/3_🆘_help.py:144
+#, fuzzy
+msgid "Txt_help_info_image"
+msgstr "msg_up_help_valid_file"
+
+#: pages/3_🆘_help.py:145
+#, fuzzy
+msgid "Title_help_info_cb"
+msgstr "Title_up"
+
+#: pages/3_🆘_help.py:146
+#, fuzzy
+msgid "Txt_help_info_cb"
+msgstr "msg_up_help_valid_file"
 
 #: pages/4_🛂_profile.py:24
 #, fuzzy

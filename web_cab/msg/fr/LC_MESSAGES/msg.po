@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-01-20 08:48+CET\n"
+"POT-Creation-Date: 2023-01-20 10:40+CET\n"
 "PO-Revision-Date: 2022-12-19 13:14+0100\n"
 "Last-Translator: Marcellino Palerme <marcellino.palerme@inrae.fr>\n"
 "Language-Team: French\n"
@@ -247,7 +247,16 @@ msgid "Txt_help_archive_ht"
 msgstr ""
 "Explication de la création du fichier d'archive .zip<br/><img src='archive."
 "png' alt='imprime écran pour ajout d archive'style='border: 7px solid #525;"
-"border-radius: 7% 0% 15% 0%;'>"
+"border-radius: 7% 0% 15% 0%;'><br/>La création d'une archive se fait en "
+"trois étape:</br><ol><li>Sélectionner l'ensemble des images (les images pas "
+"le dossier qui les contient</li><li>Faire une clic-droit sur une des images "
+"sélectionnées</li><li>Cliquer sur compresser ou archiver</"
+"li><li>Sélectionner le format zip</li><li>Nommer l'archive</li><li>Valider</"
+"li></ol><br/><strong>La taille de l'archive ne doit pas excéder les 200Mo</"
+"strong><br/>Si c'est le cas, répartissez les images dans deux archives ou "
+"plus.<blockquote><h5>Important</h5> En ce qui conserne les caractéristiques "
+"des images et des codes à barre qu'elles contiennent. Merci de ce référer à "
+"la FAQ. Les questions 1 et 2.</blockquote>"
 
 #: pages/3_🆘_help.py:126
 msgid "Title_help_nb_barcode"
@@ -350,6 +359,42 @@ msgstr "FAQ"
 #: pages/3_🆘_help.py:142
 msgid "Txt_help_FAQ_ht"
 msgstr "Ensemble de questions ou de précision de parties"
+
+#: pages/3_🆘_help.py:143
+msgid "Title_help_info_image"
+msgstr "Quelles conditions les images doivent respectées?"
+
+#: pages/3_🆘_help.py:144
+msgid "Txt_help_info_image"
+msgstr ""
+"Une images doit respectées les conditions suivantes:<br/>"
+"<ol><li> Un poids maximum de 20Mo</li>"
+"<li>Une des extensions suivantes : .apng, .jpg, .jpeg, .jfif, .png, .webp "
+".bmp, .tif, .tiff </li>"
+
+#: pages/3_🆘_help.py:145
+msgid "Title_help_info_cb"
+msgstr "Quelles conditions les codes à barre doivent respectés?"
+
+#: pages/3_🆘_help.py:146
+msgid "Txt_help_info_cb"
+msgstr ""
+"Les codes à barre dans les images doivent être mis soit verticalement ou "
+"horizontalement. Ils doivent être du type et d'un taille minimale indiqués "
+"dans le tableau ci-dessous<br/>"
+"<table>"
+"<tr><th>Format</th><th>largeur minimal</th><th>longueur minimal</th></tr>"
+"<tr><td>Interleaved 2 of 5</td><td>52</td><td>248</td></tr> "
+"<tr><td>Code 39</td><td>53</td><td>151</td></tr> "
+"<tr><td>QR (16 caractères)</td><td>44</td><td>44</td></tr> "
+"<tr><td>QR mobile (16 caractères)</td><td>44</td><td>44</td></tr> "
+"<tr><td>Code 128</td><td>91</td><td>284</td></tr> "
+"<tr><td>GS1-128 (UCC/EAN-128)</td><td>91</td><td>345</td></tr> "
+"<tr><td>UPC A</td><td>91</td><td>206</td></tr> "
+"<tr><td>UPC E</td><td>85</td><td>113</td></tr> "
+"<tr><td>EAN 13</td><td>85</td><td>191</td></tr> "
+"<tr><td>EAN 8</td><td>78</td><td>127</td></tr> "
+"</table>"
 
 #: pages/4_🛂_profile.py:24
 msgid "Title_profile"
@@ -687,8 +732,8 @@ msgstr ""
 msgid "msg_empty_cab"
 msgstr ""
 "Web Cab n'a pas trouvé d'éléments à analyser.\r\n"
-"Merci de vous reporter à la documentation pour vérifier entre autre "
-"La bonne construction de l'archive"
+"Merci de vous reporter à la documentation pour vérifier entre autre La bonne "
+"construction de l'archive"
 
 #: pages/2_📤_download.py:24
 msgid "Title_down"

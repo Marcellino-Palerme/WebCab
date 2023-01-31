@@ -139,7 +139,11 @@ def page():
         _('Title_help_profile') : {
             '<txt>' : _('Txt_help_profile_ht')},
         _('Title_help_FAQ') : {
-            '<txt>' : _('Txt_help_FAQ_ht')}
+            '<txt>' : _('Txt_help_FAQ_ht'),
+            _('Title_help_info_image'):{
+                '<txt>':_('Txt_help_info_image')},
+            _('Title_help_info_cb') : {
+                '<txt>':_('Txt_help_info_cb')}}
         }
 
     create_contents(dict_contents)
