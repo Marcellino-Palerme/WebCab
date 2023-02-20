@@ -138,7 +138,9 @@ def init_base(cursor):
 
     """
 
-    # Create all tables
+    ### Create all tables
+
+    # Table to manage browser version support
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS browser(
          name VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
@@ -146,6 +148,7 @@ def init_base(cursor):
     )
     """)
 
+    # Define status user type
     cursor.execute("""
                    DO $$
                    BEGIN
@@ -156,6 +159,7 @@ def init_base(cursor):
                      END IF;
                   END$$;""")
 
+    # Table to manage user
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS my_user(
          login VARCHAR(20) PRIMARY KEY UNIQUE NOT NULL,
@@ -165,6 +169,7 @@ def init_base(cursor):
     )
     """)
 
+    # Table to manage asked process
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS inputs(
          uuid VARCHAR(40) PRIMARY KEY UNIQUE,
@@ -176,6 +181,14 @@ def init_base(cursor):
          options VARCHAR(100),
          download BOOL,
          FOREIGN KEY(login) REFERENCES my_user(login)
+    )
+    """)
+
+    # Table to manage update (the field date_grade: 0 mean update, 1 upgrade)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS wc_up(
+        when TIMESTAMP NOT NULL,
+        date_grade BOOL
     )
     """)
 
