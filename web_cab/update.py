@@ -11,8 +11,6 @@ import time
 import os
 import sys
 import subprocess
-import psutil
-import shutil
 import json
 
 sys.path.append(os.path.dirname(__file__))
@@ -144,6 +142,57 @@ def update():
                    msg=_('msg_email_header_update') + '\r\n\r\n' + part +
                          '\r\n\r\n' + _('msg_email_end'))
 
+def dump_table(tab_name):
+    """
+    Get all rows of table
+
+    Parameters
+    ----------
+    tab_name : str
+        name of table.
+
+    Returns
+    -------
+    list of dictionary.
+        one line by record and record is a dictionary with name of field and it
+        value
+    """
+    # Connect to database
+    cursor = connect_dbb()
+
+    # Get all record in table
+    cursor.execute('SELECT * FROM %(tab_name)s;', {'tab_name': tab_name})
+
+    a_record = []
+    for record in cursor.fetchall():
+        dic_temp = {}
+        for index, column in enumerate(cursor.description):
+            dic_temp[column[0]] = record[index]
+
+        a_record.append(dic_temp)
+
+    return a_record
+
+def dump_tables(tabs_name):
+    """
+    Get all row of several tables
+
+    Parameters
+    ----------
+    tabs_name : list of str
+        list of name of table.
+
+    Returns
+    -------
+    dictionary of list of dictionary.
+
+    """
+    dic_tabs = {}
+    for tab_name in tabs_name:
+        dic_tabs[tab_name] = dump_table(tab_name)
+
+    return dic_tabs
+
 def upgrade():
     """
     Stop Web Cab
@@ -155,11 +204,37 @@ def upgrade():
     None.
 
     """
+    # Connect to database
+    cursor = connect_dbb()
     # Stop Web Cab
-    if stop() == 'back':
+    part = stop()
+    if  part == 'back':
         # Only back can save database
-        # Connect to database
-        cursor = connect_dbb()
+        dic_db = dump_tables(['my_user', 'inputs'])
+        # Save in file
+        with open(os.path.join(os.path.dirname(__file__), 'conf', 'save.json'),
+                  'r', encoding='utf-8') as jsave:
+            json.dumps(dic_db, jsave)
+
+    ### Notify
+    ## Get email of admins
+
+    # Define query to get email of admins
+    mail_admin_sql = """ SELECT email FROM my_user
+                         WHERE state = 'super' OR state = 'temp_super';
+                     """
+
+    # Connect to database
+    cursor = connect_dbb()
+
+    # Query database
+    cursor.execute(mail_admin_sql)
+
+    for mail in cursor.fetchall():
+        send_email(mail, sub=_('msg_email_sub_upgrade'),
+                   msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
+                         '\r\n\r\n' + _('msg_email_end'))
+
 
 def scheduler():
     """

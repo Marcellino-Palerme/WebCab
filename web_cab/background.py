@@ -16,6 +16,7 @@ import psutil
 import shutil
 from pebble import concurrent
 from concurrent.futures import TimeoutError
+import json
 
 import threading as th
 
@@ -394,7 +395,12 @@ def scheduler(path_temp):
 
 
 if __name__ == "__main__":
+
+    # Save PID of process
+    with open(os.path.join(os.path.dirname(__file__), 'conf',
+                                                      'back.json')) as jback:
+        json.dump({'PID':os.getpid()}, jback)
     path_temp = os.path.join(os.path.dirname(__file__), 'temp')
-    # my_thread = th.Thread(target=launcher, args=(path_temp,))
-    # my_thread.start()
+
+
     scheduler(path_temp)
