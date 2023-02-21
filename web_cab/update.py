@@ -26,7 +26,7 @@ def check_up():
 
     ### Check if update or upgrade
     # Define query to know if up* will program
-    nb_up_sql = """ SELECT COUNT(when) FROM wc_up; """
+    nb_up_sql = """ SELECT COUNT(soon) FROM wc_up; """
 
     # Connect to database
     cursor = connect_dbb()
@@ -42,7 +42,7 @@ def check_up():
         if len(the_up)>2:
             # Define query to indicate new update
             add_up = """UPDATE wc_up
-                        SET when=CURRENT_TIMESTAMP + interval ' 1 days',
+                        SET soon=CURRENT_TIMESTAMP + interval ' 1 days',
                             date_grade=0;
                      """
 
@@ -252,8 +252,8 @@ def scheduler():
         if check_up():
             # Define query to know date of futur up*
             date_up_sql = """SELECT date_grade FROM wc_up
-                             WHERE when < CURRENT_TIMESTAMP
-                             ORDER BY when;
+                             WHERE soon < CURRENT_TIMESTAMP
+                             ORDER BY soon;
                           """
             # Connect to database
             cursor = connect_dbb()

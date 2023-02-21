@@ -187,7 +187,7 @@ def init_base(cursor):
     # Table to manage update (the field date_grade: 0 mean update, 1 upgrade)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS wc_up(
-        when TIMESTAMP NOT NULL,
+        soon TIMESTAMP NOT NULL,
         date_grade BOOL
     )
     """)
