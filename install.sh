@@ -15,6 +15,7 @@ else
 fi
 
 read -p "Enter token gitlab : " token
+read -p "Enter where save configuration: " path_conf
 read -p "Enter where save inputs: " path_inputs
 read -p "Enter administrator login : " name
 read -p "Enter administrator email : " email
@@ -79,13 +80,16 @@ RUN cd web-cab && poetry export -f requirements.txt --without-hashes --output re
 
 RUN pip install -r web-cab/requirements.txt
 
+RUN mkdir /temp_conf
+RUN echo '${conf}' >> /temp_conf/conf.json
+
 RUN mkdir web-cab/web_cab/conf
 RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
 
 WORKDIR web-cab
 
 # Command to run web-cab
-CMD streamlit run --browser.gatherUsageStats false web_cab/1_📥_upload.py & python web_cab/update.py &
+CMD cp -n /temp_conf/conf.json web_cab/conf/ & streamlit run --browser.gatherUsageStats false web_cab/1_📥_upload.py & python web_cab/update.py &
 
 EOF
 
@@ -137,17 +141,17 @@ RUN pip install -r back/requirements.txt
 # Install cab
 RUN cd cab && python setup.py install
 
-RUN mkdir back/web_cab/conf
-RUN echo '${conf}' >> back/web_cab/conf/conf.json
+RUN mkdir /temp_conf
+RUN echo '${conf}' >> /temp_conf/conf.json
 
 WORKDIR back
 
 # Command to run web-cab
-CMD python web_cab/background.py & python web_cab/update.py &
+CMD cp -n /temp_conf/conf.json web_cab/conf/ & python web_cab/background.py & python web_cab/update.py &
 
 EOF
 
 # Create container of web_cab front-end
-sudo podman run -d --name ct_web_cab_f --pod=pod_wc -v ${path_inputs}:/web-cab/web_cab/temp web_cab_front
+sudo podman run -d --name ct_web_cab_f --pod=pod_wc -v ${path_inputs}:/web-cab/web_cab/temp -v ${path_conf}:/web-cab/web_cab/conf web_cab_front
 # Create container of web_cab back-end
-sudo podman run -d --name ct_web_cab_b --pod=pod_wc -v ${path_inputs}:/back/web_cab/temp web_cab_back
+sudo podman run -d --name ct_web_cab_b --pod=pod_wc -v ${path_inputs}:/back/web_cab/temp  -v ${path_conf}:/back/web_cab/conf  web_cab_back
