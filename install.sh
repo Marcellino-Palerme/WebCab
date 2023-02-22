@@ -89,7 +89,7 @@ RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
 WORKDIR web-cab
 
 # Command to run web-cab
-CMD cp -n /temp_conf/conf.json web_cab/conf/ & streamlit run --browser.gatherUsageStats false web_cab/1_📥_upload.py & python web_cab/update.py &
+CMD cp -n /temp_conf/conf.json web_cab/conf/ & python web_cab/update.py & streamlit run --browser.gatherUsageStats false web_cab/1_📥_upload.py
 
 EOF
 
@@ -147,7 +147,7 @@ RUN echo '${conf}' >> /temp_conf/conf.json
 WORKDIR back
 
 # Command to run web-cab
-CMD cp -n /temp_conf/conf.json web_cab/conf/ & python web_cab/background.py & python web_cab/update.py &
+CMD cp -n /temp_conf/conf.json web_cab/conf/ & python web_cab/update.py & python web_cab/background.py
 
 EOF
 
