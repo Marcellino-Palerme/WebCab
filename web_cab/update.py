@@ -249,12 +249,14 @@ def scheduler():
     ### Wait wc_up table created
     # Connect to database
     cursor = connect_dbb()
-    while not cursor.execute("""
-                                SELECT EXISTS(SELECT *
-                                              FROM information_schema.tables
-                                              WHERE table_name='wc_up')
-                             """).fetchone()[0] :
 
+    exist_wc_up = False
+    while not exist_wc_up:
+        cursor.execute("""SELECT EXISTS(SELECT *
+                                        FROM information_schema.tables
+                                        WHERE table_name='wc_up')
+                       """)
+        exist_wc_up = cursor.fetchone()[0]
 
         time.sleep(1)
 
