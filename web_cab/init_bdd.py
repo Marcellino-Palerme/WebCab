@@ -36,7 +36,7 @@ def update_browser_version(cursor):
     ADDR_FIREFOX = "https://www.mozilla.org/en-US/firefox/releases/"
     ADDR_CHROME = "https://chromereleases.googleblog.com/search/label/Desktop%20Update"
     ADDR_EDGE = "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-release-schedule"
-    ADDR_SAFARI = 'https://en.wikipedia.org/wiki/Safari_(web_browser)'
+    ADDR_SAFARI = 'https://developer.apple.com/documentation/safari-release-notes'
 
     ### Firefox
     add_browser_sql = """ INSERT INTO browser (name, version)
@@ -105,6 +105,10 @@ def update_browser_version(cursor):
     cursor.execute(add_browser_sql, {'name':"Edge", 'version':version})
 
     ### Safari
+    # This part fails because this web page is completly in javascript
+    # When you update streamlit check an change if necessary value of version
+    # of Safari
+    """
     req = requests.get(ADDR_SAFARI)
 
     # Parsing the HTML
@@ -119,6 +123,9 @@ def update_browser_version(cursor):
             version = int(release.text.split('Safari')[1])
 
     version = int(version) - 1
+    """
+
+    version = 16 - 1
 
     cursor.execute(add_browser_sql, {'name':"Safari", 'version':version})
 
