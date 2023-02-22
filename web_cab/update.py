@@ -252,7 +252,7 @@ def scheduler():
     while not cursor.execute("""
                                 SELECT EXISTS(SELECT *
                                               FROM information_schema.tables
-                                              WHERE table_name=wc_up)
+                                              WHERE table_name='wc_up')
                              """).fetchone()[0] :
 
 
