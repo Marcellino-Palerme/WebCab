@@ -246,6 +246,18 @@ def scheduler():
 
     """
 
+    ### Wait wc_up table created
+    # Connect to database
+    cursor = connect_dbb()
+    while not cursor.execute("""
+                                SELECT EXISTS(SELECT *
+                                              FROM information_schema.tables
+                                              WHERE table_name=wc_up)
+                             """).fetchone()[0] :
+
+
+        time.sleep(1)
+
 
     while True:
 
@@ -260,14 +272,12 @@ def scheduler():
 
             date_up = None
 
-            try:
-                # Query database
-                cursor.execute(date_up_sql)
+            # Query database
+            cursor.execute(date_up_sql)
 
-                # Get early update
-                date_up = cursor.fetchone()
-            except:
-                pass
+            # Get early update
+            date_up = cursor.fetchone()
+
 
             # Check if we have to up*
             if not date_up is None:
