@@ -88,10 +88,10 @@ def stop():
         os.remove(path_back)
 
         return 'back'
-    else:
-        # kill streamlit
-        os.system('pgrep streamlit | xargs kill -9')
-        return 'front'
+
+    # kill streamlit
+    os.system('pgrep streamlit | xargs kill -9')
+    return 'front'
 
 
 def update():
@@ -213,8 +213,8 @@ def upgrade():
         dic_db = dump_tables(['my_user', 'inputs'])
         # Save in file
         with open(os.path.join(os.path.dirname(__file__), 'conf', 'save.json'),
-                  'r', encoding='utf-8') as jsave:
-            json.dumps(dic_db, jsave)
+                  'w', encoding='utf-8') as jsave:
+            json.dump(dic_db, jsave)
 
     ### Notify
     ## Get email of admins
@@ -247,7 +247,7 @@ def scheduler():
     """
 
 
-    while(True):
+    while True:
 
         if check_up():
             # Define query to know date of futur up*
@@ -258,11 +258,16 @@ def scheduler():
             # Connect to database
             cursor = connect_dbb()
 
-            # Query database
-            cursor.execute(date_up_sql)
+            date_up = None
 
-            # Get early update
-            date_up = cursor.fetchone()
+            try:
+                # Query database
+                cursor.execute(date_up_sql)
+
+                # Get early update
+                date_up = cursor.fetchone()
+            except:
+                pass
 
             # Check if we have to up*
             if not date_up is None:
