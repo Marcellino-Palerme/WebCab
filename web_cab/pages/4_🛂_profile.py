@@ -91,7 +91,8 @@ def add_upgrade(where_display, date_start, date_end, time_start, time_end):
         upgrade_sql = """ INSERT INTO wc_up (soon, completion, date_grade)
                           VALUES (%(start)s, %(end)s, true;"""
         # Query database
-        st.session_state.cursor.execute(upgrade_sql,{'start':start, 'end':end})
+        st.session_state.cursor.execute(upgrade_sql,{'start':start.isoformat(),
+                                                     'end':end.isoformat()})
 
 
 
