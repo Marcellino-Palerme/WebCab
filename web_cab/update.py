@@ -41,11 +41,10 @@ def check_up():
         the_up = subprocess.check_output(['git', 'pull', '--dry_run'])
         if len(the_up)>2:
             # Define query to indicate new update
-            add_up = """UPDATE wc_up
-                        SET soon=CURRENT_TIMESTAMP + interval ' 1 days',
-                        SET completion=CURRENT_TIMESTAMP +
-                                       interval ' 1 days 2 hours',
-                            date_grade=0;
+            add_up = """INSERT INTO wc_up (soon, completion, date_grade)
+                        VALUES (CURRENT_TIMESTAMP + interval ' 1 days',
+                                CURRENT_TIMESTAMP + interval ' 1 days 2 hours',
+                                0);
                      """
 
             # Query database
