@@ -70,6 +70,7 @@ RUN apt install -y git
 
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
+RUN cd web-cab && git checkout preprod
 
 ### Install all modules
 RUN pip install -U pip
@@ -127,7 +128,7 @@ RUN cd back && echo "web_cab/msg/en/LC_MESSAGES/msg.mo" >> .git/info/sparse-chec
 RUN cd back && echo "pyproject.toml" >> .git/info/sparse-checkout
 RUN cd back && echo "poetry.lock" >> .git/info/sparse-checkout
 RUN cd back && git pull origin main
-
+RUN cd back && git checkout preprod
 
 
 ### Install all modules
