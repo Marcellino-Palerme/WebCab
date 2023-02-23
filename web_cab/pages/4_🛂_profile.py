@@ -53,7 +53,7 @@ def delete_upgrade():
     """
     # Define query
     del_upgrade_sql = """ DELETE FROM wc_up
-                          WHERE date_grade=0;"""
+                          WHERE date_grade=false;"""
     # Query database
     st.session_state.cursor.execute(del_upgrade_sql)
 
@@ -89,7 +89,7 @@ def add_upgrade(where_display, date_start, date_end, time_start, time_end):
         ### Add the futur upgrade
         # Define query
         upgrade_sql = """ INSERT INTO wc_up (soon, completion, date_grade)
-                          VALUES (%(start)s, %(end)s, 1;"""
+                          VALUES (%(start)s, %(end)s, true;"""
         # Query database
         st.session_state.cursor.execute(upgrade_sql,{'start':start, 'end':end})
 
@@ -112,7 +112,7 @@ def update_tab(where_display):
     ### Get the futur update
     # Define query
     updg_sql = """ SELECT * FROM wc_up
-                 WHERE date_grade=0
+                 WHERE date_grade=false
                  ORDER BY soon DESC;"""
     # Query database
     st.session_state.cursor.execute(updg_sql)
@@ -126,7 +126,7 @@ def update_tab(where_display):
     ### Get the futur upgrade
     # Define query
     up_sql = """ SELECT * FROM wc_up
-                 WHERE date_grade=1
+                 WHERE date_grade=true
                  ORDER BY soon DESC;"""
     # Query database
     st.session_state.cursor.execute(up_sql)
