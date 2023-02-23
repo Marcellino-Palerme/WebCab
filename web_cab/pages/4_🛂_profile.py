@@ -214,6 +214,8 @@ def page():
     if st.session_state.super is True:
         st.session_state.authr.create_user(l_tabs[1])
         st.session_state.authr.delete_user(l_tabs[2])
+        update_tab(l_tabs[3])
+
 
 if callable(page) :
     page()
