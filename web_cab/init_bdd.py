@@ -195,6 +195,7 @@ def init_base(cursor):
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS wc_up(
         soon TIMESTAMP NOT NULL,
+        completion TIMESTAMP NOT NULL,
         date_grade BOOL
     )
     """)

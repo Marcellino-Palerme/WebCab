@@ -43,6 +43,8 @@ def check_up():
             # Define query to indicate new update
             add_up = """UPDATE wc_up
                         SET soon=CURRENT_TIMESTAMP + interval ' 1 days',
+                        SET completion=CURRENT_TIMESTAMP +
+                                       interval ' 1 days 2 hours',
                             date_grade=0;
                      """
 
@@ -272,14 +274,11 @@ def scheduler():
             # Connect to database
             cursor = connect_dbb()
 
-            date_up = None
-
             # Query database
             cursor.execute(date_up_sql)
 
             # Get early update
             date_up = cursor.fetchone()
-
 
             # Check if we have to up*
             if not date_up is None:
