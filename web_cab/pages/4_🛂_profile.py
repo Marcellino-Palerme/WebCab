@@ -89,7 +89,7 @@ def add_upgrade(where_display, date_start, date_end, time_start, time_end):
         ### Add the futur upgrade
         # Define query
         upgrade_sql = """ INSERT INTO wc_up (soon, completion, date_grade)
-                          VALUES (%(start)s, %(end)s, true;"""
+                          VALUES (%(start)s, %(end)s, true);"""
         # Query database
         st.session_state.cursor.execute(upgrade_sql,{'start':start.isoformat(),
                                                      'end':end.isoformat()})

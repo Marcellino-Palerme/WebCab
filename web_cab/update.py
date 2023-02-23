@@ -44,7 +44,7 @@ def check_up():
             add_up = """INSERT INTO wc_up (soon, completion, date_grade)
                         VALUES (CURRENT_TIMESTAMP + interval ' 1 days',
                                 CURRENT_TIMESTAMP + interval ' 1 days 2 hours',
-                                0);
+                                false);
                      """
 
             # Query database
