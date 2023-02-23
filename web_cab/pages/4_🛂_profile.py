@@ -16,6 +16,7 @@ from authentification import login
 from browser import browser_ok
 from init_bdd import check_init
 from custom import hide_hamburger
+import datetime
 
 
 
@@ -40,6 +41,118 @@ def cancel_label():
     if 'new_email' in  st.session_state :
         st.session_state.new_email = authr.get_email(st.session_state.login)
 
+
+def delete_upgrade():
+    """
+    Delete futur upgrade
+
+    Returns
+    -------
+    None.
+
+    """
+    # Define query
+    del_upgrade_sql = """ DELETE FROM wc_up
+                          WHERE date_grade=0;"""
+    # Query database
+    st.session_state.cursor.execute(del_upgrade_sql)
+
+def add_upgrade(where_display, date_start, date_end, time_start, time_end):
+    """
+    add futur upgrade
+
+    Parameters
+    ----------
+    where_display : streamlit container
+        Part where display tab.
+    date_start : TYPE
+        DESCRIPTION.
+    date_end : TYPE
+        DESCRIPTION.
+    time_start : TYPE
+        DESCRIPTION.
+    time_end : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
+    start = datetime.datetime.combine(date_start, time_start)
+    end = datetime.datetime.combine(date_end, time_end)
+    if datetime.datetime.today() > start:
+        where_display.error(_("msg_error_upgrade_date_no_futur"))
+    elif start > end:
+        where_display.error(_("msg_error_upgrade_start_end"))
+    else:
+        ### Add the futur upgrade
+        # Define query
+        upgrade_sql = """ INSERT INTO wc_up (soon, completion, date_grade)
+                          VALUES (%(start)s, %(end)s, 1;"""
+        # Query database
+        st.session_state.cursor.execute(upgrade_sql,{'start':start, 'end':end})
+
+
+
+def update_tab(where_display):
+    """
+    Define tab administrateur to view futur update and manage upgrade
+
+    Parameters
+    ----------
+    where_display : streamlit container
+        Part where display tab.
+
+    Returns
+    -------
+    None.
+
+    """
+    ### Get the futur update
+    # Define query
+    updg_sql = """ SELECT * FROM wc_up
+                 WHERE date_grade=0
+                 ORDER BY soon DESC;"""
+    # Query database
+    st.session_state.cursor.execute(updg_sql)
+
+    updg = st.session_state.cursor.fetchone()
+
+    # Show futur update
+    if not updg is None:
+        where_display.markdown(_('Txt_futur_update_ht') + updg[0], True)
+
+    ### Get the futur upgrade
+    # Define query
+    up_sql = """ SELECT * FROM wc_up
+                 WHERE date_grade=1
+                 ORDER BY soon DESC;"""
+    # Query database
+    st.session_state.cursor.execute(up_sql)
+
+    updg = st.session_state.cursor.fetchone()
+
+    # Show futur update
+    if not updg is None:
+        a_col = where_display.columns((5,1))
+        a_col[0].markdown(_('Txt_futur_upgrade_ht') + updg[0], True)
+        a_col[0].button('❌', help=_("bt_upgrade_delete_help"),
+                        on_click=delete_upgrade)
+    else:
+        where_display.markdown(_('Title_define_futur_upgrade_ht'), True)
+        a_col = where_display.columns((3,3,5))
+        date_start = a_col[0].date_input(_('label_upgrade_date_start'))
+        date_end = a_col[0].date_input(_('label_upgrade_date_end'))
+        time_start = a_col[0].time_input(_('label_upgrade_time_start'))
+        time_end = a_col[0].time_input(_('label_upgrade_time_end'))
+        where_display.button(_('bt_upgrade_add'),
+                             help=_('bt_upgrade_add_help'),
+                             on_click=add_upgrade, args=(where_display,
+                                                         date_start, date_end,
+                                                         time_start, time_end))
+
+
 select_language()
 
 @login(trans=_)
@@ -62,7 +175,7 @@ def page():
 
     if st.session_state.super is True:
         l_tabs = st.tabs([_('tab_user'), _('tab_admin_create'),
-                          _('tab_admin_delete')])
+                          _('tab_admin_delete'), _('tab_admin_update')])
     else:
         l_tabs[0] = st
 
