@@ -124,6 +124,7 @@ RUN cd back && echo "web_cab/connect.py" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/background.py" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/update.py" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/translate.py" >> .git/info/sparse-checkout
+RUN cd back && echo "web_cab/start_back.sh" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/msg/fr/LC_MESSAGES/msg.mo" >> .git/info/sparse-checkout
 RUN cd back && echo "web_cab/msg/en/LC_MESSAGES/msg.mo" >> .git/info/sparse-checkout
 RUN cd back && echo "pyproject.toml" >> .git/info/sparse-checkout
