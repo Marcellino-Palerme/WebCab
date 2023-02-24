@@ -32,25 +32,24 @@ def notif(*args, **kwargs):
     """
     _ = kwargs['trans']
 
-    ### Get the futur update or upgrade
-    # Define query
-    updg_sql = """ SELECT * FROM wc_up
-                   ORDER BY soon DESC;"""
-    # Connect to database
-    cursor = ct.connect_dbb()
-    # Query database
-    cursor.execute(updg_sql)
-
-    updg = cursor.fetchone()
-
-    # Show futur update
-    if not updg is None:
-        st.sidebar.markdown(_('Txt_futur_update_from_ht') + ' ' + str(updg[0])
-                            + ' ' +_('Txt_futur_update_to_ht') + ' ' +
-                            str(updg[1]), True)
-
-
     def inner(function):
+        ### Get the futur update or upgrade
+        # Define query
+        updg_sql = """ SELECT * FROM wc_up
+                       ORDER BY soon DESC;"""
+        # Connect to database
+        cursor = ct.connect_dbb()
+        # Query database
+        cursor.execute(updg_sql)
+
+        updg = cursor.fetchone()
+
+        # Show futur update
+        if not updg is None:
+            st.sidebar.markdown(_('Txt_futur_update_from_ht') + ' ' + str(updg[0])
+                                + ' ' +_('Txt_futur_update_to_ht') + ' ' +
+                                str(updg[1]), True)
+
         return function
 
     return inner
