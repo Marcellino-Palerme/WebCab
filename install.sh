@@ -67,7 +67,7 @@ FROM python:slim
 RUN apt update -y
 RUN apt upgrade -y
 RUN apt install -y git
-RUN apt install procps
+RUN apt install -y procps
 
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
@@ -107,7 +107,7 @@ RUN apt-get install -y libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
 RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
 RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
 RUN apt install -y libwebp-dev
-RUN apt install procps
+RUN apt install -y procps
 
 ### Get two projects
 # Get Cab
