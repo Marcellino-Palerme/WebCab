@@ -16,6 +16,7 @@ from authentification import login
 from browser import browser_ok
 from init_bdd import check_init
 from custom import hide_hamburger
+from notification import notif
 import datetime
 
 
@@ -122,8 +123,9 @@ def update_tab(where_display):
 
     # Show futur update
     if not updg is None:
-        where_display.markdown(_('Txt_futur_update_ht') + ' ' + str(updg[0]),
-                               True)
+        where_display.markdown(_('Txt_futur_update_from_ht') + ' ' +
+                               str(updg[0]) + ' ' + _('Txt_futur_update_to_ht')
+                               + ' ' + str(updg[1]), True)
 
     ### Get the futur upgrade
     # Define query
@@ -138,10 +140,13 @@ def update_tab(where_display):
     # Show futur update
     if not updg is None:
         a_col = where_display.columns((5,1))
-        a_col[0].markdown(_('Txt_futur_upgrade_ht') + ' ' + str(updg[0]), True)
+        a_col[0].markdown(_('Txt_futur_upgrade_from_ht') + ' ' + str(updg[0]) +
+                          ' ' + _('Txt_futur_upgrade_to_ht') + ' ' +
+                          str(updg[0]), True)
         a_col[1].button('❌', help=_("bt_upgrade_delete_help"),
                         on_click=delete_upgrade)
     else:
+        # Define futur upgrade
         where_display.markdown(_('Title_define_futur_upgrade_ht'), True)
         a_col = where_display.columns((3,3,5))
         date_start = a_col[0].date_input(_('label_upgrade_date_start'))
@@ -158,6 +163,7 @@ def update_tab(where_display):
 select_language()
 
 @login(trans=_)
+@notif(trans=_)
 @browser_ok
 @check_init
 @hide_hamburger
