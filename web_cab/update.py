@@ -19,6 +19,10 @@ from my_email import send_email
 from translate import _
 
 
+flog = open(os.path.join(os.path.dirname(__file__), 'conf', 'log' + sys.argv[1]),
+            'w', encoding='utf-8')
+
+
 def check_up():
     """
     Verify if new version of web cab is avaible
@@ -160,16 +164,16 @@ def dump_table(tab_name):
     """
     # Connect to database
     cursor = connect_dbb()
-
+    print('table: ' + tab_name , file=flog)
     # Get all record in table
     cursor.execute('SELECT * FROM %(tab_name)s;', {'tab_name': tab_name})
-
+    print('sql', file=flog)
     a_record = []
     for record in cursor.fetchall():
         dic_temp = {}
         for index, column in enumerate(cursor.description):
             dic_temp[column[0]] = record[index]
-
+        print(dic_temp, file=flog)
         a_record.append(dic_temp)
 
     return a_record
@@ -207,11 +211,16 @@ def upgrade():
     """
     # Connect to database
     cursor = connect_dbb()
+
+    print('debut upgrade', file=flog)
+
     # Stop Web Cab
     part = stop()
+    print('part:' + part, file=flog)
     if  part == 'back':
         # Only back can save database
         dic_db = dump_tables(['my_user', 'inputs'])
+        print(dic_db, file=flog)
         # Save in file
         with open(os.path.join(os.path.dirname(__file__), 'conf', 'save.json'),
                   'w', encoding='utf-8') as jsave:
