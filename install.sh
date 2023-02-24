@@ -91,7 +91,7 @@ RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
 WORKDIR web-cab
 
 # Command to run web-cab
-CMD ./start_front.sh
+CMD ./web_cab/start_front.sh
 
 EOF
 
@@ -151,7 +151,7 @@ RUN echo '${conf}' >> /temp_conf/conf.json
 WORKDIR back
 
 # Command to run web-cab
-CMD ./start_back.sh
+CMD ./web_cab/start_back.sh
 
 EOF
 
