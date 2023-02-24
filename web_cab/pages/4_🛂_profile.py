@@ -122,7 +122,7 @@ def update_tab(where_display):
 
     # Show futur update
     if not updg is None:
-        where_display.markdown(_('Txt_futur_update_ht') + updg[0], True)
+        where_display.markdown(_('Txt_futur_update_ht') + str(updg[0]), True)
 
     ### Get the futur upgrade
     # Define query
@@ -137,7 +137,7 @@ def update_tab(where_display):
     # Show futur update
     if not updg is None:
         a_col = where_display.columns((5,1))
-        a_col[0].markdown(_('Txt_futur_upgrade_ht') + updg[0], True)
+        a_col[0].markdown(_('Txt_futur_upgrade_ht') + str(updg[0]), True)
         a_col[0].button('❌', help=_("bt_upgrade_delete_help"),
                         on_click=delete_upgrade)
     else:
@@ -145,8 +145,8 @@ def update_tab(where_display):
         a_col = where_display.columns((3,3,5))
         date_start = a_col[0].date_input(_('label_upgrade_date_start'))
         date_end = a_col[0].date_input(_('label_upgrade_date_end'))
-        time_start = a_col[0].time_input(_('label_upgrade_time_start'))
-        time_end = a_col[0].time_input(_('label_upgrade_time_end'))
+        time_start = a_col[1].time_input(_('label_upgrade_time_start'))
+        time_end = a_col[1].time_input(_('label_upgrade_time_end'))
         where_display.button(_('bt_upgrade_add'),
                              help=_('bt_upgrade_add_help'),
                              on_click=add_upgrade, args=(where_display,
