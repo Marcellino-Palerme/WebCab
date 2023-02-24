@@ -75,7 +75,7 @@ def stop():
 
     """
     ### Check where it is, front or back -end
-    path_back = os.path.join(os.path.dirname(__file__), 'conf', 'back.json')
+    path_back = os.path.join(os.path.dirname(__file__),'back.json')
 
     if os.path.exists(path_back):
         # Get PID of background.py

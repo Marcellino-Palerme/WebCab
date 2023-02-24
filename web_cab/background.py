@@ -397,8 +397,7 @@ def scheduler(path_temp):
 if __name__ == "__main__":
 
     # Save PID of process
-    with open(os.path.join(os.path.dirname(__file__), 'conf',
-                                                      'back.json'),
+    with open(os.path.join(os.path.dirname(__file__), 'back.json'),
               'w') as jback:
         json.dump({'PID':os.getpid()}, jback)
     path_temp = os.path.join(os.path.dirname(__file__), 'temp')
