@@ -15,6 +15,7 @@ import streamlit as st
 from translate import _, link, select_language
 from custom import hide_hamburger
 from browser import browser_ok
+from notification import notif
 from bs4 import BeautifulSoup
 import base64
 
@@ -101,6 +102,7 @@ def create_contents(dict_section, index='', header=''):
                 create_contents(dict_section[section], temp_ind + '.',
                                 '#' + header)
 
+@notif(trans=_)
 @browser_ok
 @hide_hamburger
 def page():

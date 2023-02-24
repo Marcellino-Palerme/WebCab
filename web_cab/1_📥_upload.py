@@ -25,7 +25,7 @@ from browser import browser_ok
 #from threading import Thread
 from init_bdd import check_init
 from custom import hide_hamburger
-
+from notification import notif
 from translate import _, select_language
 
 # Define title of page and menu
@@ -39,6 +39,7 @@ st.set_page_config(
 select_language()
 
 @login(trans=_)
+@notif(trans=_)
 @browser_ok
 @check_init
 @hide_hamburger
