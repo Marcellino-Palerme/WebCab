@@ -38,7 +38,7 @@ def check_up():
     # No up* will program yet
     if nb_up == 0:
         # Check branch used update
-        the_up = subprocess.check_output(['git', 'pull', '--dry_run'])
+        the_up = subprocess.check_output(['git', 'pull', '--dry-run'])
         if len(the_up)>2:
             # Define query to indicate new update
             add_up = """INSERT INTO wc_up (soon, completion, date_grade)

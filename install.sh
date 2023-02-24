@@ -68,6 +68,7 @@ RUN apt update -y
 RUN apt upgrade -y
 RUN apt install -y git
 RUN apt install -y procps
+RUN git config --global pull.rebase false
 
 ### Get two projects
 RUN git clone https://oauth2:${token}@forgemia.inra.fr/demecologie/web-cab.git
@@ -109,6 +110,7 @@ RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
 RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
 RUN apt install -y libwebp-dev
 RUN apt install -y procps
+RUN git config --global pull.rebase false
 
 ### Get two projects
 # Get Cab
@@ -132,7 +134,6 @@ RUN cd back && echo "pyproject.toml" >> .git/info/sparse-checkout
 RUN cd back && echo "poetry.lock" >> .git/info/sparse-checkout
 RUN cd back && git pull origin main
 RUN cd back && git checkout preprod
-
 
 ### Install all modules
 RUN pip install -U pip
