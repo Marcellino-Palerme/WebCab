@@ -53,7 +53,7 @@ def delete_upgrade():
     """
     # Define query
     del_upgrade_sql = """ DELETE FROM wc_up
-                          WHERE date_grade=false;"""
+                          WHERE date_grade=true;"""
     # Query database
     st.session_state.cursor.execute(del_upgrade_sql)
 
@@ -122,7 +122,8 @@ def update_tab(where_display):
 
     # Show futur update
     if not updg is None:
-        where_display.markdown(_('Txt_futur_update_ht') + str(updg[0]), True)
+        where_display.markdown(_('Txt_futur_update_ht') + ' ' + str(updg[0]),
+                               True)
 
     ### Get the futur upgrade
     # Define query
@@ -137,8 +138,8 @@ def update_tab(where_display):
     # Show futur update
     if not updg is None:
         a_col = where_display.columns((5,1))
-        a_col[0].markdown(_('Txt_futur_upgrade_ht') + str(updg[0]), True)
-        a_col[0].button('❌', help=_("bt_upgrade_delete_help"),
+        a_col[0].markdown(_('Txt_futur_upgrade_ht') + ' ' + str(updg[0]), True)
+        a_col[1].button('❌', help=_("bt_upgrade_delete_help"),
                         on_click=delete_upgrade)
     else:
         where_display.markdown(_('Title_define_futur_upgrade_ht'), True)
