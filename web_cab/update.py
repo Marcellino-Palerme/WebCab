@@ -289,7 +289,7 @@ def scheduler():
                     # Stop process
                     break
         # Wait 1 days
-        time.sleep(60*60*24)
+        time.sleep(2)
 
 
 
