@@ -189,6 +189,8 @@ def dump_table(tab_name):
             dic_temp[column[0]] = record[index]
         log(dic_temp)
         a_record.append(dic_temp)
+        log('record')
+        log(a_record)
 
     return a_record
 
@@ -209,6 +211,8 @@ def dump_tables(tabs_name):
     dic_tabs = {}
     for tab_name in tabs_name:
         dic_tabs[tab_name] = dump_table(tab_name)
+        log('dic')
+        log(dic_tabs)
 
     return dic_tabs
 
@@ -234,10 +238,12 @@ def upgrade():
     if  part == 'back':
         # Only back can save database
         dic_db = dump_tables(['my_user', 'inputs'])
+        log('dump')
         log(dic_db)
         # Save in file
         with open(os.path.join(os.path.dirname(__file__), 'conf', 'save.json'),
                   'w', encoding='utf-8') as jsave:
+            log('json')
             json.dump(dic_db, jsave)
 
     ### Notify
@@ -251,10 +257,15 @@ def upgrade():
     # Connect to database
     cursor = connect_dbb()
 
+    log('connect')
+
     # Query database
     cursor.execute(mail_admin_sql)
 
+    log('query')
+
     for mail in cursor.fetchall():
+        log(mail)
         send_email(mail, sub=_('msg_email_sub_upgrade'),
                    msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
                          '\r\n\r\n' + _('msg_email_end'))
