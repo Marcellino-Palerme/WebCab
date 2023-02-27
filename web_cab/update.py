@@ -231,6 +231,7 @@ def upgrade():
     None.
 
     """
+    log(_('flute'))
     log('debut upgrade')
 
     # Stop Web Cab
