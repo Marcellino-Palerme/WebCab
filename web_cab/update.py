@@ -24,7 +24,7 @@ HERE = sys.argv[1]
 def log(msg):
 
     with open(os.path.join(os.path.dirname(__file__), 'conf',
-                             'log' + sys.argv[1]), 'w',
+                             'log' + sys.argv[1]), 'a',
               encoding='utf-8') as flog:
 
         print(msg, file=flog)
