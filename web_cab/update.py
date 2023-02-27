@@ -12,6 +12,7 @@ import os
 import sys
 import subprocess
 import json
+from psycopg2 import sql
 
 sys.path.append(os.path.dirname(__file__))
 from connect import connect_dbb
@@ -172,13 +173,19 @@ def dump_table(tab_name):
     # Connect to database
     cursor = connect_dbb()
     log('table: ' + tab_name)
-    # Get all record in table
-    cursor.execute('SELECT * FROM %(tab_name)s;', {'tab_name': tab_name})
+
+    ### Get all record in table
+    # Define query
+    all_sql = sql.SQL("select * from {table};").format(
+                                                table=sql.Identifier(tab_name))
+    cursor.execute(all_sql)
     log('sql')
     a_record = []
     for record in cursor.fetchall():
         dic_temp = {}
         for index, column in enumerate(cursor.description):
+            log('index: ' + str(index))
+            log('col: ' + column[0])
             dic_temp[column[0]] = record[index]
         log(dic_temp)
         a_record.append(dic_temp)
