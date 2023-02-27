@@ -19,8 +19,15 @@ from my_email import send_email
 from translate import _
 
 
-flog = open(os.path.join(os.path.dirname(__file__), 'conf', 'log' + sys.argv[1]),
-            'w', encoding='utf-8')
+HERE = sys.argv[1]
+
+def log(msg):
+
+    with open(os.path.join(os.path.dirname(__file__), 'conf',
+                             'log' + sys.argv[1]), 'w',
+              encoding='utf-8') as flog:
+
+        print(msg, file=flog)
 
 
 def check_up():
@@ -164,16 +171,16 @@ def dump_table(tab_name):
     """
     # Connect to database
     cursor = connect_dbb()
-    print('table: ' + tab_name , file=flog)
+    log('table: ' + tab_name)
     # Get all record in table
     cursor.execute('SELECT * FROM %(tab_name)s;', {'tab_name': tab_name})
-    print('sql', file=flog)
+    log('sql')
     a_record = []
     for record in cursor.fetchall():
         dic_temp = {}
         for index, column in enumerate(cursor.description):
             dic_temp[column[0]] = record[index]
-        print(dic_temp, file=flog)
+        log(dic_temp)
         a_record.append(dic_temp)
 
     return a_record
@@ -212,15 +219,15 @@ def upgrade():
     # Connect to database
     cursor = connect_dbb()
 
-    print('debut upgrade', file=flog)
+    log('debut upgrade')
 
     # Stop Web Cab
     part = stop()
-    print('part:' + part, file=flog)
+    log('part:' + part)
     if  part == 'back':
         # Only back can save database
         dic_db = dump_tables(['my_user', 'inputs'])
-        print(dic_db, file=flog)
+        log(dic_db)
         # Save in file
         with open(os.path.join(os.path.dirname(__file__), 'conf', 'save.json'),
                   'w', encoding='utf-8') as jsave:
@@ -290,16 +297,16 @@ def scheduler():
 
             # Check if we have to up*
             if not date_up is None:
-                print('type: ' + str(date_up[0]), file=flog)
+                log('type: ' + str(date_up[0]))
                 # Verify if is update
                 if date_up[0] is False:
-                    print('update', file=flog)
+                    log('update')
                     update()
-                    print('out update', file=flog)
+                    log('out update')
                 else:
-                    print('upgrade', file=flog)
+                    log('upgrade')
                     upgrade()
-                    print('out upgrade', file=flog)
+                    log('out upgrade')
                     # Stop process
                     break
         # Wait 1 days
