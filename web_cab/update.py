@@ -151,7 +151,7 @@ def update():
     cursor.execute(mail_admin_sql)
 
     for mail in cursor.fetchall():
-        send_email(mail, sub=_('msg_email_sub_update'),
+        send_email(mail[0], sub=_('msg_email_sub_update'),
                    msg=_('msg_email_header_update') + '\r\n\r\n' + part +
                          '\r\n\r\n' + _('msg_email_end'))
 
@@ -265,8 +265,8 @@ def upgrade():
     log('query')
 
     for mail in cursor.fetchall():
-        log(mail)
-        send_email(mail, sub=_('msg_email_sub_upgrade'),
+        log(mail[0])
+        send_email(mail[0], sub=_('msg_email_sub_upgrade'),
                    msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
                          '\r\n\r\n' + _('msg_email_end'))
 
