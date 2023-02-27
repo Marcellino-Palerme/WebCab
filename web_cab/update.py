@@ -290,11 +290,16 @@ def scheduler():
 
             # Check if we have to up*
             if not date_up is None:
+                print('type: ' + str(date_up[0]), file=flog)
                 # Verify if is update
                 if date_up[0] is False:
+                    print('update', file=flog)
                     update()
+                    print('out update', file=flog)
                 else:
+                    print('upgrade', file=flog)
                     upgrade()
+                    print('out upgrade', file=flog)
                     # Stop process
                     break
         # Wait 1 days
