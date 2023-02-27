@@ -7,7 +7,7 @@ cp -n /temp_conf/conf.json /back/web_cab/conf/
 python /back/web_cab/background.py &
 
 # start scheduler of update
-python /back/web_cab/update.py back &> /back/web_cab/conf/err_back.txt &
+python /back/web_cab/update.py back 2> /back/web_cab/conf/err_back.txt &
 
 # Wait for any process to exit
 wait -n

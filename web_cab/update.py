@@ -155,6 +155,8 @@ def update():
                    msg=_('msg_email_header_update') + '\r\n\r\n' + part +
                          '\r\n\r\n' + _('msg_email_end'))
 
+    cursor.close()
+
 def dump_table(tab_name):
     """
     Get all rows of table
@@ -192,6 +194,8 @@ def dump_table(tab_name):
         log('record')
         log(a_record)
 
+    cursor.close()
+
     return a_record
 
 def dump_tables(tabs_name):
@@ -227,9 +231,6 @@ def upgrade():
     None.
 
     """
-    # Connect to database
-    cursor = connect_dbb()
-
     log('debut upgrade')
 
     # Stop Web Cab
@@ -270,6 +271,7 @@ def upgrade():
                    msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
                          '\r\n\r\n' + _('msg_email_end'))
 
+    cursor.close()
 
 def scheduler():
     """
@@ -304,8 +306,6 @@ def scheduler():
                              WHERE soon < CURRENT_TIMESTAMP
                              ORDER BY soon;
                           """
-            # Connect to database
-            cursor = connect_dbb()
 
             # Query database
             cursor.execute(date_up_sql)
@@ -325,10 +325,13 @@ def scheduler():
                     log('upgrade')
                     upgrade()
                     log('out upgrade')
+
                     # Stop process
                     break
         # Wait 1 days
         time.sleep(2)
+
+    cursor.close()
 
 
 
