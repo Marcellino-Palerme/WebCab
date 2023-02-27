@@ -251,7 +251,7 @@ def upgrade():
 
     # Define query to get email of admins
     mail_admin_sql = """ SELECT email FROM my_user
-                         WHERE state = 'super' OR state = 'temp_super';
+                         WHERE status = 'super' OR status = 'temp_super';
                      """
 
     # Connect to database
