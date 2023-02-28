@@ -10,14 +10,17 @@ Created on 2023 - 02 - 07
 import time
 import os
 import sys
-import subprocess
+# import subprocess
 import json
+from psycopg2 import sql
 
 sys.path.append(os.path.dirname(__file__))
 from connect import connect_dbb
-from my_email import send_email
-from translate import _
+# from my_email import send_email
+# from translate import _
 
+
+HERE = sys.argv[1]
 
 def check_up():
     """
@@ -37,26 +40,27 @@ def check_up():
     nb_up = cursor.fetchone()[0]
     # No up* will program yet
     if nb_up == 0:
-        # Check branch used update
-        the_up = subprocess.check_output(['git', 'pull', '--dry-run'])
-        if len(the_up)>2:
-            # Define query to indicate new update
-            add_up = """INSERT INTO wc_up (soon, completion, date_grade)
-                        VALUES (CURRENT_TIMESTAMP + interval ' 1 days',
-                                CURRENT_TIMESTAMP + interval ' 1 days 2 hours',
-                                false);
-                     """
+        # TODO
+        # # Check branch used update
+        # the_up = subprocess.check_output(['git', 'pull', '--dry-run'])
+        # if len(the_up)>2:
+        #     # Define query to indicate new update
+        #     add_up = """INSERT INTO wc_up (soon, completion, date_grade)
+        #                 VALUES (CURRENT_TIMESTAMP + interval ' 1 days',
+        #                         CURRENT_TIMESTAMP + interval ' 1 days 2 hours',
+        #                         false);
+        #              """
 
-            # Query database
-            cursor.execute(add_up)
+        #     # Query database
+        #     cursor.execute(add_up)
 
-            # Close connexion
-            cursor.close()
-            # A update on branch
-            return True
+        #     # Close connexion
+        #     cursor.close()
+        #     # A update on branch
+        #     return True
 
-        # Close connexion
-        cursor.close()
+        # # Close connexion
+        # cursor.close()
         # No update on branch
         return False
 
@@ -94,54 +98,56 @@ def stop():
     os.system('pgrep streamlit | xargs kill -9')
     return 'front'
 
+# TODO
+# def update():
+#     """
+#     Stop Web Cab
+#     Update Web Cab
+#     Restart Web Cab
+#     Notify administrator update done
 
-def update():
-    """
-    Stop Web Cab
-    Update Web Cab
-    Restart Web Cab
-    Notify administrator update done
+#     Returns
+#     -------
+#     None.
 
-    Returns
-    -------
-    None.
+#     """
+#     # Stop Web Cab
+#     part = stop()
 
-    """
-    # Stop Web Cab
-    part = stop()
+#     # Update
+#     os.system('git pull')
 
-    # Update
-    os.system('git pull')
+#     # Restart Web Cab
+#     if part == 'back':
+#         path_bg = os.path.join(os.path.dirname(__file__), 'background.py')
+#         subprocess.Popen('python', path_bg)
+#     else:
+#         path_wc = os.path.join(os.path.dirname(__file__), '..')
+#         path_wc = os.path.abspath(path_wc)
+#         path_wc = os.path.join(path_wc, 'web_cab', '1_📥_upload.py')
+#         subprocess.Popen('python', 'streamlit', 'run',
+#                          '--browser.gatherUsageStats', 'false', path_wc)
 
-    # Restart Web Cab
-    if part == 'back':
-        path_bg = os.path.join(os.path.dirname(__file__), 'background.py')
-        subprocess.Popen('python', path_bg)
-    else:
-        path_wc = os.path.join(os.path.dirname(__file__), '..')
-        path_wc = os.path.abspath(path_wc)
-        path_wc = os.path.join(path_wc, 'web_cab', '1_📥_upload.py')
-        subprocess.Popen('python', 'streamlit', 'run',
-                         '--browser.gatherUsageStats', 'false', path_wc)
+#     ### Notify
+#     ## Get email of admins
 
-    ### Notify
-    ## Get email of admins
+#     # Define query to get email of admins
+#     mail_admin_sql = """ SELECT email FROM my_user
+#                          WHERE state = 'super' OR state = 'temp_super';
+#                      """
 
-    # Define query to get email of admins
-    mail_admin_sql = """ SELECT email FROM my_user
-                         WHERE state = 'super' OR state = 'temp_super';
-                     """
+#     # Connect to database
+#     cursor = connect_dbb()
 
-    # Connect to database
-    cursor = connect_dbb()
+#     # Query database
+#     cursor.execute(mail_admin_sql)
 
-    # Query database
-    cursor.execute(mail_admin_sql)
+#     for mail in cursor.fetchall():
+#         send_email(mail[0], sub=_('msg_email_sub_update'),
+#                    msg=_('msg_email_header_update') + '\r\n\r\n' + part +
+#                          '\r\n\r\n' + _('msg_email_end'))
 
-    for mail in cursor.fetchall():
-        send_email(mail, sub=_('msg_email_sub_update'),
-                   msg=_('msg_email_header_update') + '\r\n\r\n' + part +
-                         '\r\n\r\n' + _('msg_email_end'))
+#     cursor.close()
 
 def dump_table(tab_name):
     """
@@ -161,16 +167,19 @@ def dump_table(tab_name):
     # Connect to database
     cursor = connect_dbb()
 
-    # Get all record in table
-    cursor.execute('SELECT * FROM %(tab_name)s;', {'tab_name': tab_name})
+    ### Get all record in table
+    # Define query
+    all_sql = sql.SQL("select * from {table};").format(
+                                                table=sql.Identifier(tab_name))
+    cursor.execute(all_sql)
 
     a_record = []
     for record in cursor.fetchall():
         dic_temp = {}
         for index, column in enumerate(cursor.description):
             dic_temp[column[0]] = record[index]
-
         a_record.append(dic_temp)
+    cursor.close()
 
     return a_record
 
@@ -205,8 +214,7 @@ def upgrade():
     None.
 
     """
-    # Connect to database
-    cursor = connect_dbb()
+
     # Stop Web Cab
     part = stop()
     if  part == 'back':
@@ -217,25 +225,32 @@ def upgrade():
                   'w', encoding='utf-8') as jsave:
             json.dump(dic_db, jsave)
 
-    ### Notify
-    ## Get email of admins
+    # TODO
+    # ### Notify
+    # ## Get email of admins
 
-    # Define query to get email of admins
-    mail_admin_sql = """ SELECT email FROM my_user
-                         WHERE state = 'super' OR state = 'temp_super';
-                     """
+    # # Define query to get email of admins
+    # mail_admin_sql = """ SELECT email FROM my_user
+    #                      WHERE status = 'super' OR status = 'temp_super';
+    #                  """
 
-    # Connect to database
-    cursor = connect_dbb()
+    # # Connect to database
+    # cursor = connect_dbb()
 
-    # Query database
-    cursor.execute(mail_admin_sql)
+    # log('connect')
 
-    for mail in cursor.fetchall():
-        send_email(mail, sub=_('msg_email_sub_upgrade'),
-                   msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
-                         '\r\n\r\n' + _('msg_email_end'))
+    # # Query database
+    # cursor.execute(mail_admin_sql)
 
+    # log('query')
+
+    # for mail in cursor.fetchall():
+    #     log(mail[0])
+    #     send_email(mail[0], sub=_('msg_email_sub_upgrade'),
+    #                msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
+    #                      '\r\n\r\n' + _('msg_email_end'))
+
+    # cursor.close()
 
 def scheduler():
     """
@@ -270,8 +285,6 @@ def scheduler():
                              WHERE soon < CURRENT_TIMESTAMP
                              ORDER BY soon;
                           """
-            # Connect to database
-            cursor = connect_dbb()
 
             # Query database
             cursor.execute(date_up_sql)
@@ -281,15 +294,20 @@ def scheduler():
 
             # Check if we have to up*
             if not date_up is None:
+
                 # Verify if is update
                 if date_up[0] is False:
-                    update()
+                    # TODO
+                    # update()
+                    pass
                 else:
                     upgrade()
                     # Stop process
                     break
-        # Wait 1 days
-        time.sleep(60*60*24)
+        # Wait 30 minutes
+        time.sleep(60*30)
+
+    cursor.close()
 
 
 
