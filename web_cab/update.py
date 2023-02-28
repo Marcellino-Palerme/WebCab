@@ -79,19 +79,10 @@ def stop():
 
     """
     ### Check where it is, front or back -end
-    path_back = os.path.join(os.path.dirname(__file__),'back.json')
-
-    if os.path.exists(path_back):
+    if HERE == 'back':
         # Get PID of background.py
-        with open(path_back, 'r', encoding='utf-8') as jback:
-            pid = json.load(jback)['PID']
-
         # kill process
-        #os.system('kill -9 ' + str(pid))
         os.system('ps -ef | grep background.py | cut -d " " -f 2 - | xargs kill -9')
-
-        # Delete json indicating PID of background
-        os.remove(path_back)
 
         return 'back'
 
