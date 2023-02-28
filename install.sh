@@ -67,6 +67,8 @@ else
    pwd_db=$( python get_conf.py ${path_conf} 'e' )
    conf=' '
 
+fi
+
 sudo podman pod create -p 8501:8501 -n pod_wc
 
 
