@@ -247,32 +247,33 @@ def upgrade():
                   'w', encoding='utf-8') as jsave:
             log('json')
             json.dump(dic_db, jsave)
+            log('write')
 
-    ### Notify
-    ## Get email of admins
+    # ### Notify
+    # ## Get email of admins
 
-    # Define query to get email of admins
-    mail_admin_sql = """ SELECT email FROM my_user
-                         WHERE status = 'super' OR status = 'temp_super';
-                     """
+    # # Define query to get email of admins
+    # mail_admin_sql = """ SELECT email FROM my_user
+    #                      WHERE status = 'super' OR status = 'temp_super';
+    #                  """
 
-    # Connect to database
-    cursor = connect_dbb()
+    # # Connect to database
+    # cursor = connect_dbb()
 
-    log('connect')
+    # log('connect')
 
-    # Query database
-    cursor.execute(mail_admin_sql)
+    # # Query database
+    # cursor.execute(mail_admin_sql)
 
-    log('query')
+    # log('query')
 
-    for mail in cursor.fetchall():
-        log(mail[0])
-        send_email(mail[0], sub=_('msg_email_sub_upgrade'),
-                   msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
-                         '\r\n\r\n' + _('msg_email_end'))
+    # for mail in cursor.fetchall():
+    #     log(mail[0])
+    #     send_email(mail[0], sub=_('msg_email_sub_upgrade'),
+    #                msg=_('msg_email_header_upgrade') + '\r\n\r\n' + part +
+    #                      '\r\n\r\n' + _('msg_email_end'))
 
-    cursor.close()
+    # cursor.close()
 
 def scheduler():
     """
