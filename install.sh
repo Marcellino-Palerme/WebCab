@@ -17,48 +17,63 @@ fi
 read -p "Enter token gitlab : " token
 read -p "Enter where save configuration: " path_conf
 read -p "Enter where save inputs: " path_inputs
-read -p "Enter administrator login : " name
-read -p "Enter administrator email : " email
-read -p "Enter site email: " site_email
-read -p "Enter site email server: " site_email_sv
-read -sp "Enter site email password: " site_email_pwd
+
+yet_conf=$( python get_conf.py ${path_conf} 'e' )
+
+if [ ${yet_conf} = 'y' ]; then
+   read -p "A configuration exists yet. Do you want use it (y/n) " use_conf
+fi
+
+if [ ${yet_conf} = 'n' ] || [ ${use_conf} = 'n']; then
+
+   read -p "Enter administrator login : " name
+   read -p "Enter administrator email : " email
+   read -p "Enter site email: " site_email
+   read -p "Enter site email server: " site_email_sv
+   read -sp "Enter site email password: " site_email_pwd
+
+   # Thx stackoverflow
+   # https://stackoverflow.com/a/10497540
+   # Generate password of database
+   pwd_db=$( dd if=/dev/urandom bs=50 count=1|base64)
+
+   ## Define configuration file
+   # administrator configuration
+   conf='{"login":"'
+   conf=$conf${name}
+   temp='","email":"'
+   conf=$conf$temp
+   conf=$conf${email}
+
+   # Site Email configuration
+   temp='","sender_email":"'
+   conf=$conf$temp
+   conf=$conf${site_email}
+   temp='","pwd_email":"'
+   conf=$conf$temp
+   conf=$conf${site_email_pwd}
+   temp='","smtp_server":"'
+   conf=$conf$temp
+   conf=$conf${site_email_sv}
+
+   # Database configuration
+   temp='","db": {"database":"postgres", "user": "postgres", "password":"'
+   conf=$conf$temp
+   conf=$conf${pwd_db}
+   temp='", "host":"localhost", "port": "5432"}}'
+   conf=$conf$temp
+
+else
+   pwd_db=$( python get_conf.py ${path_conf} 'e' )
+   conf=' '
 
 sudo podman pod create -p 8501:8501 -n pod_wc
-
-# Thx stackoverflow
-# https://stackoverflow.com/a/10497540
-# Generate password of database
-pwd_db=$( dd if=/dev/urandom bs=50 count=1|base64)
 
 
 # Create container of database
 sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgres
 
-## Define configuration file
-# administrator configuration
-conf='{"login":"'
-conf=$conf${name}
-temp='","email":"'
-conf=$conf$temp
-conf=$conf${email}
 
-# Site Email configuration
-temp='","sender_email":"'
-conf=$conf$temp
-conf=$conf${site_email}
-temp='","pwd_email":"'
-conf=$conf$temp
-conf=$conf${site_email_pwd}
-temp='","smtp_server":"'
-conf=$conf$temp
-conf=$conf${site_email_sv}
-
-# Database configuration
-temp='","db": {"database":"postgres", "user": "postgres", "password":"'
-conf=$conf$temp
-conf=$conf${pwd_db}
-temp='", "host":"localhost", "port": "5432"}}'
-conf=$conf$temp
 
 # Create image for web_cab front-end
 sudo podman build -t web_cab_front --label TOKEN=$token -<<EOF
@@ -86,8 +101,8 @@ RUN pip install -r web-cab/requirements.txt
 RUN mkdir /temp_conf
 RUN echo '${conf}' >> /temp_conf/conf.json
 
-RUN mkdir web-cab/web_cab/conf
-RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
+# RUN mkdir web-cab/web_cab/conf
+# RUN echo '${conf}' >> web-cab/web_cab/conf/conf.json
 
 WORKDIR web-cab
 
