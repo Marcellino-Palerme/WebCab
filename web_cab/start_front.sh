@@ -4,10 +4,10 @@
 cp -n /temp_conf/conf.json /web-cab/web_cab/conf/
 
 # Run front of Web Cab
-streamlit run --browser.gatherUsageStats false /web-cab/web_cab/1_📥_upload.py &
+nohup streamlit run --browser.gatherUsageStats false /web-cab/web_cab/1_📥_upload.py &
 
 # start scheduler of update
-python /web-cab/web_cab/update.py front &
+nohup python /web-cab/web_cab/update.py front &
 
 # Wait for any process to exit
 wait -n
