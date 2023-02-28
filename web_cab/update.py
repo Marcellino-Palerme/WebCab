@@ -87,7 +87,8 @@ def stop():
             pid = json.load(jback)['PID']
 
         # kill process
-        os.system('kill -9 ' + str(pid))
+        #os.system('kill -9 ' + str(pid))
+        os.system('ps -ef | grep background.py | cut -d " " -f 2 - | xargs kill -9')
 
         # Delete json indicating PID of background
         os.remove(path_back)
