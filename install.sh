@@ -24,7 +24,12 @@ if [ ${yet_conf} = 'y' ]; then
    read -p "A configuration exists yet. Do you want use it (y/n) " use_conf
 fi
 
-if [ ${yet_conf} = 'n' ] || [ ${use_conf} = 'n']; then
+if [[ ${yet_conf} = 'n' || ${use_conf} = 'n' ]]; then
+
+   # rename old conf
+   temp='/conf.json'
+   rname='/conf.old'
+   mv ${path_conf}$temp ${path_conf}$rname
 
    read -p "Enter administrator login : " name
    read -p "Enter administrator email : " email
