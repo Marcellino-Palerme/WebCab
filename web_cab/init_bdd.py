@@ -201,23 +201,48 @@ def init_base(cursor):
     )
     """)
 
-    #### Add admin user
-    # Get configuration
-    # Get configurations
-    with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
-              'r', encoding='utf-8') as f_conf:
-        d_conf = json.load(f_conf)
+    ### Restore old base
+    if os.path.exists(os.path.join(os.path.dirname(__file__),'conf',
+                                   'save.json')):
+        with open(os.path.join(os.path.dirname(__file__),'conf','save.json'),
+              'r', encoding='utf-8') as jsave:
+            d_base = json.load(jsave)
 
-    # Query to add admin user
-    admin_sql = """INSERT INTO my_user(login, email, status)
-                   VALUES(%(login)s, %(email)s, %(status)s)"""
+        for record in d_base['my_user']:
+            user_sql ="""INSERT INTO my_user(login, email, pwd, status)
+                       VALUES(%(login)s, %(pwd), %(email)s, %(status)s)"""
+            # Query database
+            cursor.execute(user_sql, record)
 
-    # Query database
-    cursor.execute(admin_sql, {'login':d_conf['login'],
-                               'email':d_conf['email'],
-                               'status':'super'})
+        for record in d_base['inputs']:
+            user_sql ="""INSERT INTO inputs(uuid, login, size, state, upload,
+                                            update, options, download)
+                       VALUES(%(uuid), %(login), %(size), %(state), %(upload),
+                              %(update), %(options), %(download))"""
+            # Query database
+            cursor.execute(user_sql, record)
 
-    ###### Get last version of browsers
+    else:
+        #### Add admin user
+        # Get configuration
+        # Get configurations
+        with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
+                  'r', encoding='utf-8') as f_conf:
+            d_conf = json.load(f_conf)
+
+        # Query to add admin user
+        admin_sql = """INSERT INTO my_user(login, email, status)
+                       VALUES(%(login)s, %(email)s, %(status)s)"""
+
+        # Query database
+        cursor.execute(admin_sql, {'login':d_conf['login'],
+                                   'email':d_conf['email'],
+                                   'status':'super'})
+
+    cursor.close()
+
+
+
 
 
 def check_init(function):
