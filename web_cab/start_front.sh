@@ -7,7 +7,7 @@ cp -n /temp_conf/conf.json /web-cab/web_cab/conf/
 streamlit run --browser.gatherUsageStats false /web-cab/web_cab/1_📥_upload.py &
 
 # start scheduler of update
-python /web-cab/web_cab/update.py front 1> /web-cab/web_cab/conf/out_front.txt 2> /web-cab/web_cab/conf/err_front.txt &
+python /web-cab/web_cab/update.py front &
 
 # Wait for any process to exit
 wait -n
