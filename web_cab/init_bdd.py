@@ -210,7 +210,8 @@ def init_base(cursor):
 
         for record in d_base['my_user']:
             user_sql ="""INSERT INTO my_user(login, email, pwd, status)
-                       VALUES(%(login)s, %(email)s, %(pwd)s, %(status)s)"""
+                       VALUES(%(login)s, %(email)s, %(pwd)s, %(status)s)
+                       ON CONFLICT DO NOTHING;"""
             # Query database
             cursor.execute(user_sql, record)
 
@@ -219,7 +220,8 @@ def init_base(cursor):
                                             update, options, download)
                        VALUES(%(uuid)s, %(login)s, %(size)s, %(state)s,
                               %(upload)s, %(update)s, %(options)s,
-                              %(download)s)"""
+                              %(download)s)
+                       ON CONFLICT DO NOTHING;"""
             # Query database
             cursor.execute(user_sql, record)
 
