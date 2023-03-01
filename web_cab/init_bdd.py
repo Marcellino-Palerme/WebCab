@@ -210,15 +210,16 @@ def init_base(cursor):
 
         for record in d_base['my_user']:
             user_sql ="""INSERT INTO my_user(login, email, pwd, status)
-                       VALUES(%(login)s, %(pwd), %(email)s, %(status)s)"""
+                       VALUES(%(login)s, %(email)s, %(pwd)s, %(status)s)"""
             # Query database
             cursor.execute(user_sql, record)
 
         for record in d_base['inputs']:
             user_sql ="""INSERT INTO inputs(uuid, login, size, state, upload,
                                             update, options, download)
-                       VALUES(%(uuid), %(login), %(size), %(state), %(upload),
-                              %(update), %(options), %(download))"""
+                       VALUES(%(uuid)s, %(login)s, %(size)s, %(state)s,
+                              %(upload)s, %(update)s, %(options)s,
+                              %(download)s)"""
             # Query database
             cursor.execute(user_sql, record)
 
