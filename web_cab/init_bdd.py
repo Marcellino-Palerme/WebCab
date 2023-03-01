@@ -240,12 +240,6 @@ def init_base(cursor):
                                    'email':d_conf['email'],
                                    'status':'super'})
 
-    cursor.close()
-
-
-
-
-
 def check_init(function):
     """
     Decorator check if database initiate else it initiate it
@@ -284,5 +278,7 @@ def check_init(function):
     if bool_base is False :
         init_base(cursor)
         update_browser_version(cursor)
+
+    cursor.close()
 
     return function
