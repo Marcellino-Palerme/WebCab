@@ -361,6 +361,68 @@ def delete(path_temp):
         # On disk
         os.remove(os.path.join(path_temp, uuid[0] + '.zip'))
 
+
+def check_up():
+    """
+    Verify if ask stop web Cab
+
+    Returns
+    -------
+    Bool
+    """
+
+    ### Check if update or upgrade
+    # Define query to know if up* will program
+    nb_up_sql = """ SELECT COUNT(soon) FROM wc_up
+                    WHERE soon < CURRENT_TIMESTAMP; """
+
+    # Connect to database
+    cursor = connect_dbb()
+
+    # Query database
+    cursor.execute(nb_up_sql)
+
+    nb_up = cursor.fetchone()[0]
+
+    cursor.close()
+
+    return bool(nb_up)
+
+
+def stop():
+    """
+    Stop all thread
+
+    Returns
+    -------
+    None.
+
+    """
+    for my_thread in th.enumerate():
+        my_thread._Thread__stop()
+
+def save_db():
+    """
+    Save database
+
+    Returns
+    -------
+    None.
+
+    """
+    # Get configuration of database
+    with open(os.path.join(os.path.dirname(__file__),'conf','conf.json'),
+              'r', encoding='utf-8') as f_conf:
+        d_db = json.load(f_conf)['db']
+
+    # Define path to save database
+    path_save = os.path.join(os.path.dirname(__file__),'conf','save.sql')
+    # Dump database
+    os.system('pg_dump -h %s -p %s -U %s %s > %s'%(d_db['host'], d_db['port'],
+                                                    d_db['user'],
+                                                    d_db['database'],
+                                                    path_save))
+
 def scheduler(path_temp):
     """
 
@@ -382,6 +444,13 @@ def scheduler(path_temp):
 
         # Every one minute we check if we need launch processes
         th.Thread(target=launcher, args=(path_temp,)).start()
+
+        # Every quarter we check asked stop web_cab
+        if watch % 15 == 0 and check_up():
+            # stop all threads
+            stop()
+            # save database
+            save_db()
 
         # Every 2 hours we check if we can delete Done process
         if watch > 120:

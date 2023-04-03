@@ -4,10 +4,11 @@
 cp -n /temp_conf/conf.json /back/web_cab/conf/
 
 # Run front of Web Cab
-nohup python /back/web_cab/background.py &
+python /back/web_cab/background.py &
 
 # start scheduler of update
-nohup python /back/web_cab/update.py back &
+# python /back/web_cab/update.py back &
+
 
 # Wait for any process to exit
 wait -n
