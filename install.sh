@@ -78,13 +78,13 @@ sudo podman pod create -p 8501:8501 -n pod_wc
 
 
 # Create container of database
-sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgres
+sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgres:13-alpine
 
 
 
 # Create image for web_cab front-end
 sudo podman build -t web_cab_front --label TOKEN=$token -<<EOF
-FROM python:slim
+FROM python:3.11.2.slim
 # install system librairies
 RUN apt update -y
 RUN apt upgrade -y
@@ -119,7 +119,7 @@ EOF
 
 # Create image for web_cab back-end
 sudo podman build -t web_cab_back --label TOKEN=$token -<<EOF
-FROM python:slim
+FROM python:3.11.2.slim
 # install system librairies
 RUN apt update -y
 RUN apt upgrade -y
@@ -131,6 +131,8 @@ RUN apt-get install -y libgtk2.0-dev libgtk-3-dev tk
 RUN apt-get install -y libpng-dev libjpeg-dev libopenexr-dev libtiff-dev
 RUN apt install -y libwebp-dev
 RUN apt install -y procps
+# To use pg_dump thx https://stackoverflow.com/a/63948100
+RUN apt install -y postgresql-client
 RUN git config --global pull.rebase false
 
 ### Get two projects
