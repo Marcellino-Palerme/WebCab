@@ -4,7 +4,7 @@
 cp -n /temp_conf/conf.json /back/web_cab/conf/
 
 # Run front of Web Cab
-python /back/web_cab/background.py &
+nohup python /back/web_cab/background.py &
 
 # start scheduler of update
 # python /back/web_cab/update.py back &

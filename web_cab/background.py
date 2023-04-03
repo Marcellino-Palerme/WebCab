@@ -446,7 +446,7 @@ def scheduler(path_temp):
         th.Thread(target=launcher, args=(path_temp,)).start()
 
         # Every quarter we check asked stop web_cab
-        if watch % 15 == 0 and check_up():
+        if watch % 2 == 0 and check_up():
             # stop all threads
             stop()
             # save database
