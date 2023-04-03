@@ -84,7 +84,7 @@ sudo podman run -d --name pg_wc --pod=pod_wc -e POSTGRES_PASSWORD=$pwd_db postgr
 
 # Create image for web_cab front-end
 sudo podman build -t web_cab_front --label TOKEN=$token -<<EOF
-FROM python:3.11.2.slim
+FROM python:3.11.2-slim
 # install system librairies
 RUN apt update -y
 RUN apt upgrade -y
@@ -120,7 +120,7 @@ EOF
 
 # Create image for web_cab back-end
 sudo podman build -t web_cab_back --label TOKEN=$token -<<EOF
-FROM python:3.11.2.slim
+FROM python:3.11.2-slim
 # install system librairies
 RUN apt update -y
 RUN apt upgrade -y
